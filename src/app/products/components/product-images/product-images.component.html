@@ -1,0 +1,6 @@
+<div *ngFor="let image of images">
+  <ion-img [src]="image.url" class="card-image"></ion-img>
+  <ion-button (click)="removeImage(image)" color="danger">
+    <ion-icon slot="icon-only" name="remove"></ion-icon>
+  </ion-button>
+</div>

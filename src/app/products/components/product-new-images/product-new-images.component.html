@@ -1,0 +1,19 @@
+<div>
+  <ion-button (click)="takePicture()">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    <ion-label>Camara</ion-label>
+  </ion-button>
+  <ion-button (click)="chooseFromGallery()">
+    <ion-icon slot="start" name="image"></ion-icon>
+    <ion-label>Galeria</ion-label>
+  </ion-button>
+</div>
+
+<div *ngFor="let item of imageList">
+  <div>
+    <ion-img [src]="item.image.webPath" class="card-image"></ion-img>
+    <ion-button (click)="removeImage(item.id)" color="danger">
+      <ion-icon slot="icon-only" name="remove"></ion-icon>
+    </ion-button>
+  </div>
+</div>

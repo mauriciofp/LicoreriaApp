@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item
+      routerLink="../edit/{{ product.id }}"
+      *ngFor="let product of products"
+      detail
+    >
+      <ion-avatar slot="start" *ngIf="product.images.length > 0">
+        <img [src]="product.images[0].url" />
+      </ion-avatar>
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>{{ product.name }}</h3>
+        </ion-text>
+        <p>{{ product.description }}</p>
+        <ion-text color="secondary">
+          <p>{{ product.price }}</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="../product/new">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
