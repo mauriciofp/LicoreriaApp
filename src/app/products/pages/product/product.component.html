@@ -4,14 +4,15 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="products"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end" *ngIf="product">
+      <ion-button routerLink="../edit/{{ product.id }}">
+        <ion-icon slot="end" name="add"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="product">
-  <app-product-images
-    [images]="product.images"
-    [productId]="product.id"
-  ></app-product-images>
-  <app-product-new-images></app-product-new-images>
-  <app-product-form [product]="product"></app-product-form>
+  <h1>Mostrar producto con el id {{ product.id }}</h1>
 </ion-content>

@@ -5,6 +5,7 @@ import { ProductsPage } from './products.page';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ProductNewComponent } from './pages/product-new/product-new.component';
 import { ProductComponent } from './pages/product/product.component';
+import { ProductEditComponent } from './pages/product-edit/product-edit.component';
 
 const routes: Routes = [
   {
@@ -12,8 +13,9 @@ const routes: Routes = [
     component: ProductsPage,
     children: [
       { path: 'list', component: ProductListComponent },
-      { path: 'edit/:id', component: ProductComponent },
-      { path: 'product/new', component: ProductNewComponent },
+      { path: 'edit/:id', component: ProductEditComponent },
+      { path: 'new', component: ProductNewComponent },
+      { path: ':id', component: ProductComponent },
       { path: '**', redirectTo: 'list' },
     ],
   },
