@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Lista de productos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="../new">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -25,10 +30,4 @@
       </ion-label>
     </ion-item>
   </ion-list>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="../product/new">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
