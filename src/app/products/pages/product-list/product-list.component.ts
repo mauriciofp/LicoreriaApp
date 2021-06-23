@@ -18,4 +18,8 @@ export class ProductListComponent implements OnInit {
       this.products = products;
     });
   }
+
+  remove(product: Product) {
+    console.log(product.id);
+  }
 }
