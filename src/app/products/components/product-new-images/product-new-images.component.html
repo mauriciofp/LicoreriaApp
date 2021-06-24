@@ -9,11 +9,14 @@
   </ion-button>
 </div>
 
-<div *ngFor="let item of imageList">
-  <div>
-    <ion-img [src]="item.image.webPath" class="card-image"></ion-img>
+<ion-slides mode="md" pager="md" scrollbar="md" [options]="slidesOpt">
+  <ion-slide
+    *ngFor="let item of imageList"
+    class="image-slide"
+    [style]="item.image.webPath | domSanitizer"
+  >
     <ion-button (click)="removeImage(item.id)" color="danger">
       <ion-icon slot="icon-only" name="remove"></ion-icon>
     </ion-button>
-  </div>
-</div>
+  </ion-slide>
+</ion-slides>

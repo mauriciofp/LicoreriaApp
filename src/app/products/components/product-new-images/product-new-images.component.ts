@@ -14,6 +14,10 @@ export class ProductNewImagesComponent implements OnInit, OnDestroy {
   imageList: ImageItem[] = [];
   imageListSubs: Subscription;
 
+  slidesOpt = {
+    initialSlide: this.imageList ? 0 : this.imageList.length - 1,
+  };
+
   constructor(private cameraService: CameraService) {}
 
   ngOnInit() {
