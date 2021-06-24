@@ -126,6 +126,10 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         this.product ? Number(this.product.price) : 1.0,
         [Validators.required, Validators.min(1), Validators.max(9999)],
       ],
+      offerPrice: [
+        this.product ? Number(this.product.price) : 1.0,
+        [Validators.required, Validators.min(1), Validators.max(9999)],
+      ],
       stock: [
         this.product ? Number(this.product.stock) : 10,
         [Validators.required, Validators.min(1), Validators.max(9999)],
@@ -183,6 +187,18 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       return 'Precio debe ser minimo de 1';
     } else if (errors?.max) {
       return 'Precio debe ser maximo de 9999';
+    }
+    return '';
+  }
+
+  get invalidOfferPriceMsg(): string {
+    const errors = this.productForm.get('offerPrice').errors;
+    if (errors?.required) {
+      return 'Precio de oferta es obligatorio';
+    } else if (errors?.min) {
+      return 'Precio de oferta debe ser minimo de 1';
+    } else if (errors?.max) {
+      return 'Precio de oferta debe ser maximo de 9999';
     }
     return '';
   }
