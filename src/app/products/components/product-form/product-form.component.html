@@ -92,27 +92,38 @@
       </ion-select>
     </ion-item>
 
-    <ion-button
-      *ngIf="!isLoading"
-      type="submit"
-      expand="block"
-      fill="solid"
-      shape="round"
-      [disabled]="productForm.pending"
-    >
-      Guardar
-    </ion-button>
+    <div class="buttons_form_container">
+      <ion-button
+        *ngIf="!isLoading"
+        type="submit"
+        expand="block"
+        fill="solid"
+        shape="round"
+        [disabled]="productForm.pending"
+      >
+        Guardar
+      </ion-button>
 
-    <ion-button
-      *ngIf="isLoading"
-      type="button"
-      expand="block"
-      fill="solid"
-      shape="round"
-      disabled
-    >
-      <ion-spinner name="bubbles"></ion-spinner>
-      Guardando ...
-    </ion-button>
+      <ion-button
+        *ngIf="isLoading"
+        type="button"
+        fill="solid"
+        shape="round"
+        disabled
+      >
+        <ion-spinner name="bubbles"></ion-spinner>
+        Guardando ...
+      </ion-button>
+
+      <ion-button
+        (click)="cancel()"
+        type="button"
+        fill="solid"
+        color="secondary"
+        shape="round"
+      >
+        Cancelar
+      </ion-button>
+    </div>
   </form>
 </div>

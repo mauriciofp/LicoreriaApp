@@ -111,6 +111,12 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  cancel() {
+    this.productForm.reset();
+    this.cameraService.cleanAllImagesFromList();
+    this.router.navigate(['products']);
+  }
+
   private createForm() {
     this.productForm = this.fb.group({
       name: [
