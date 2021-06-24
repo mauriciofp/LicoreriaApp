@@ -12,6 +12,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ProductNewImagesComponent } from './components/product-new-images/product-new-images.component';
 import { ProductEditComponent } from './pages/product-edit/product-edit.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ProductEditComponent } from './pages/product-edit/product-edit.componen
     ProductsRoutingModule,
     IonicModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
 })
 export class ProductsModule {}

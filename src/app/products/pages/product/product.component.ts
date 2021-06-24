@@ -14,6 +14,12 @@ export class ProductComponent implements OnInit {
   product: Product;
   productId: string;
 
+  messageMapping: { [k: string]: string } = {
+    '=0': 'Agotado.',
+    '=1': 'Una unidad disponible',
+    other: '# unidades disponibles',
+  };
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService
