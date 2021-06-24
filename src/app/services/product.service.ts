@@ -136,6 +136,7 @@ export class ProductService {
 
   update(id: string, product: Product, images: Blob[]) {
     product.updatedAt = new Date().getDate().toPrecision();
+
     return this.db
       .list('products')
       .update(id, product)

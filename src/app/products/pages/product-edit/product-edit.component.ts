@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductEditComponent implements OnInit {
   product: Product;
+  productId: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -19,7 +20,15 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params
-      .pipe(switchMap(({ id }) => this.productService.getOne(id)))
-      .subscribe((product) => (this.product = product));
+      .pipe(
+        switchMap(({ id }) => {
+          this.productId = id;
+          return this.productService.getOne(id);
+        })
+      )
+      .subscribe((product) => {
+        this.product = product;
+        this.product.id = this.productId;
+      });
   }
 }

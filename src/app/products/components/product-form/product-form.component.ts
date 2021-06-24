@@ -78,11 +78,10 @@ export class ProductFormComponent implements OnInit, OnDestroy {
           );
           this.store.dispatch(stopLoading());
           this.cameraService.cleanAllImagesFromList();
-          this.router
-            .navigate(['/tabs/settings/products'])
-            .then(() => toast.present());
+          this.router.navigate(['products']).then(() => toast.present());
         })
         .catch(async (err) => {
+          this.store.dispatch(stopLoading());
           const alert = await this.utilsService.createAlert(err.message);
           alert.present();
         });
@@ -103,9 +102,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
           );
           this.store.dispatch(stopLoading());
           this.cameraService.cleanAllImagesFromList();
-          this.router
-            .navigate(['/tabs/settings/products'])
-            .then(() => toast.present());
+          this.router.navigate(['products']).then(() => toast.present());
         })
         .catch(async (err) => {
           const alert = await this.utilsService.createAlert(err.message);
