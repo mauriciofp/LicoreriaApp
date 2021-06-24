@@ -8,6 +8,7 @@ export interface Product {
   unit: string;
   promotion: boolean;
   available: boolean;
+  offer: boolean;
   images: Image[];
   createdAt: string;
   updatedAt: string;

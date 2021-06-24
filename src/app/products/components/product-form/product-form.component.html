@@ -79,6 +79,11 @@
     </ion-item>
 
     <ion-item>
+      <ion-label>En Oferta</ion-label>
+      <ion-toggle formControlName="offer"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Unidad</ion-label>
       <ion-select formControlName="unit">
         <ion-select-option [value]="unit" *ngFor="let unit of units">{{

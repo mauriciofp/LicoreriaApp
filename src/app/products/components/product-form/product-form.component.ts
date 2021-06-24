@@ -127,7 +127,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.min(1), Validators.max(9999)],
       ],
       offerPrice: [
-        this.product ? Number(this.product.price) : 1.0,
+        this.product ? Number(this.product.offerPrice) : 1.0,
         [Validators.required, Validators.min(1), Validators.max(9999)],
       ],
       stock: [
@@ -142,6 +142,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         this.product ? this.product.available : true,
         Validators.required,
       ],
+      offer: [this.product ? this.product.offer : false, Validators.required],
       unit: [
         this.product
           ? this.units.find((u) => u === this.product.unit)
