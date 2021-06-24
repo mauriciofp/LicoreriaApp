@@ -164,6 +164,13 @@ export class ProductService {
       });
   }
 
+  delete(id: string, images: Image[]) {
+    images.forEach((image) => {
+      this.storage.refFromURL(image.url).delete();
+    });
+    return this.db.object(`products/${id}`).remove();
+  }
+
   resetProduct() {
     this._product = null;
   }
