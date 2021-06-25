@@ -28,7 +28,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   productForm: FormGroup;
 
-  units: string[] = ['UNIDAD', 'KILOGRAMO', 'LIBRA'];
+  units: string[] = ['UNIDAD', 'CAJA', 'LIBRA'];
+  categories: string[] = ['VINOS', 'CERVEZAS', 'RON', 'GASEOSAS', 'OTRO'];
   imageList: ImageItem[] = [];
 
   productsSubs: Subscription;
@@ -158,6 +159,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         this.product
           ? this.units.find((u) => u === this.product.unit)
           : this.units[0],
+        [Validators.required],
+      ],
+
+      category: [
+        this.product
+          ? this.categories.find((u) => u === this.product.category)
+          : this.categories[0],
         [Validators.required],
       ],
     });

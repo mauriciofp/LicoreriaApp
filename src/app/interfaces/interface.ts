@@ -6,6 +6,7 @@ export interface Product {
   offerPrice: number;
   stock: number;
   unit: string;
+  category: string;
   promotion: boolean;
   available: boolean;
   offer: boolean;

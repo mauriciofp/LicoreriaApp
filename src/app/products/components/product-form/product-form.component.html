@@ -85,10 +85,21 @@
 
     <ion-item>
       <ion-label>Unidad</ion-label>
-      <ion-select formControlName="unit">
+      <ion-select formControlName="unit" interface="popover">
         <ion-select-option [value]="unit" *ngFor="let unit of units">{{
           unit
         }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categoria</ion-label>
+      <ion-select formControlName="category" interface="popover">
+        <ion-select-option
+          [value]="category"
+          *ngFor="let category of categories"
+          >{{ category }}</ion-select-option
+        >
       </ion-select>
     </ion-item>
 
