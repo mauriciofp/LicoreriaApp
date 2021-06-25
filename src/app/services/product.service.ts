@@ -67,12 +67,6 @@ export class ProductService {
       );
   }
 
-  getProductWithPromotion() {
-    return this.getProductForHome().pipe(
-      map((res) => res.filter((p) => p.promotion === true))
-    );
-  }
-
   createImagesArr(imagesObj: object) {
     const images: Image[] = [];
     if (!imagesObj) {

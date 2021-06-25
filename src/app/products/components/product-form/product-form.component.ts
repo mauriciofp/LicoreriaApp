@@ -146,10 +146,6 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         this.product ? Number(this.product.stock) : 10,
         [Validators.required, Validators.min(1), Validators.max(9999)],
       ],
-      promotion: [
-        this.product ? this.product.promotion : false,
-        Validators.required,
-      ],
       available: [
         this.product ? this.product.available : true,
         Validators.required,
