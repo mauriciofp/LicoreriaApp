@@ -71,7 +71,12 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     const images = await this.createBlobImages();
     if (this.product) {
       this.productService
-        .update(this.product.id, this.productForm.value, images)
+        .update(
+          this.product.id,
+          this.productForm.value,
+          images,
+          this.product.images
+        )
         .then(async (resp) => {
           const toast = await this.utilsService.createToast(
             'Producto actualizado'

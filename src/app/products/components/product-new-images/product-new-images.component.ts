@@ -28,6 +28,7 @@ export class ProductNewImagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.cameraService.cleanAllImagesFromList();
     this.imageListSubs?.unsubscribe();
   }
 

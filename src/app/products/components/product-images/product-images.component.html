@@ -1,4 +1,4 @@
-<ion-slides mode="md" pager="md" scrollbar="md">
+<ion-slides mode="md" pager="md" scrollbar="md" *ngIf="!isNew">
   <ion-slide
     *ngFor="let img of images"
     class="image-slide"

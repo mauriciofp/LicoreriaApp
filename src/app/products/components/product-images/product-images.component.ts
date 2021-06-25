@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { UtilsService } from 'src/app/utils/utils.service';
 import { ProductService } from '../../../services/product.service';
 
 import { Image } from 'src/app/interfaces/interface';
+import { CameraService } from 'src/app/services/camera.service';
 
 @Component({
   selector: 'app-product-images',
@@ -17,12 +18,17 @@ export class ProductImagesComponent implements OnInit {
   @Input()
   productId: string;
 
+  isNew = false;
+
   constructor(
     private productService: ProductService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private cameraService: CameraService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cameraService.isNew$.subscribe((res) => (this.isNew = res));
+  }
 
   async removeImage(image: Image) {
     if (this.images.length === 1) {

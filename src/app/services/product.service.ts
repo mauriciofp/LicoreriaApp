@@ -134,9 +134,8 @@ export class ProductService {
       );
   }
 
-  update(id: string, product: Product, images: Blob[]) {
+  update(id: string, product: Product, images: Blob[], oldImages?: Image[]) {
     product.updatedAt = new Date().getDate().toPrecision();
-
     return this.db
       .list('products')
       .update(id, product)
@@ -144,6 +143,12 @@ export class ProductService {
         const imagesRef = this.db.list(
           `${this.MEDIA_STORAGE_PATH}/${id}/images`
         );
+        if (images.length > 0) {
+          oldImages.forEach((img) => {
+            this.storage.refFromURL(img.url).delete();
+          });
+          imagesRef.remove();
+        }
         for (const item of images) {
           const filePath = this.generateFileName(
             `${Date.now().toPrecision()}-no-name`

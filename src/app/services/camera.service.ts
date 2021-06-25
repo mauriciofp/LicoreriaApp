@@ -18,6 +18,8 @@ export class CameraService {
     return [...this._imagesList];
   }
 
+  isNew$: EventEmitter<boolean> = new EventEmitter();
+
   constructor() {}
 
   async takePicture() {
@@ -25,6 +27,7 @@ export class CameraService {
     const id = Date.now().toPrecision();
     this._imagesList.push(new ImageItem(id, image));
     this.emitChanges();
+    this.isNew$.emit(true);
   }
 
   async chooseGallery() {
@@ -32,6 +35,7 @@ export class CameraService {
     const id = Date.now().toPrecision();
     this._imagesList.push(new ImageItem(id, image));
     this.emitChanges();
+    this.isNew$.emit(true);
   }
 
   removeImageFromList(id: string) {
