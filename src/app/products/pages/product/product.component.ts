@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { Product } from 'src/app/interfaces/interface';
 import { ProductService } from 'src/app/services/product.service';
+import { UtilsService } from 'src/app/utils/utils.service';
 
 @Component({
   selector: 'app-product',
@@ -22,7 +24,11 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private actionSheetController: ActionSheetController,
+    private alertController: AlertController,
+    private utilService: UtilsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -35,5 +41,59 @@ export class ProductComponent implements OnInit {
         this.product = product;
         this.product.id = this.productId;
       });
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Este producto',
+      buttons: [
+        {
+          text: 'Eliminar',
+          role: 'destructive',
+          icon: 'trash-outline',
+          handler: async () => {
+            const alert = await this.alertController.create({
+              header: 'Cuidado!',
+              message: '¿Seguro quieres eliminar este producto?',
+              buttons: [
+                {
+                  text: 'Cancelar',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                },
+                {
+                  text: 'Si, Estoy seguro',
+                  handler: () => {
+                    this.productService
+                      .delete(this.product.id, this.product.images)
+                      .then(() => {
+                        this.router.navigate(['products']).then(async () => {
+                          const toast = await this.utilService.createToast(
+                            'Se elimino el producto!'
+                          );
+                          toast.present();
+                        });
+                      });
+                  },
+                },
+              ],
+            });
+            alert.present();
+          },
+        },
+        {
+          text: 'Editar',
+          icon: 'create-outline',
+          handler: () =>
+            this.router.navigate(['products/edit', this.productId]),
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+        },
+      ],
+    });
+    await actionSheet.present();
   }
 }
