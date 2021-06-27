@@ -15,6 +15,8 @@ export class ProductService {
 
   _product: Product;
 
+  imagesDeleted: Image[] = [];
+
   get product() {
     return { ...this._product };
   }
@@ -143,6 +145,15 @@ export class ProductService {
           });
           imagesRef.remove();
         }
+        console.log(this.imagesDeleted);
+        if (this.imagesDeleted.length > 0) {
+          this.imagesDeleted.forEach((img) => {
+            this.storage.refFromURL(img.url).delete();
+            this.db
+              .object(`${this.MEDIA_STORAGE_PATH}/${id}/images/${img.id}`)
+              .remove();
+          });
+        }
         for (const item of images) {
           const filePath = this.generateFileName(
             `${Date.now().toPrecision()}-no-name`
@@ -202,5 +213,13 @@ export class ProductService {
       .then((res) => {
         return this.storage.refFromURL(image.url).delete().toPromise();
       });
+  }
+
+  setImageDeleted(image: Image) {
+    this.imagesDeleted.push(image);
+  }
+
+  cleanImagesDeleted() {
+    this.imagesDeleted = [];
   }
 }

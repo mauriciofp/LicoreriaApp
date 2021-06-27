@@ -11,12 +11,14 @@ import { CameraService } from 'src/app/services/camera.service';
   templateUrl: './product-images.component.html',
   styleUrls: ['./product-images.component.scss'],
 })
-export class ProductImagesComponent implements OnInit {
+export class ProductImagesComponent implements OnInit, OnDestroy {
   @Input()
   images: Image[];
 
   @Input()
   productId: string;
+
+  imagesDeleted: Image[] = [];
 
   isNew = false;
 
@@ -30,6 +32,10 @@ export class ProductImagesComponent implements OnInit {
     this.cameraService.isNew$.subscribe((res) => (this.isNew = res));
   }
 
+  ngOnDestroy() {
+    this.productService.cleanImagesDeleted();
+  }
+
   async removeImage(image: Image) {
     if (this.images.length === 1) {
       const alert = await this.utilsService.createAlert(
@@ -38,8 +44,10 @@ export class ProductImagesComponent implements OnInit {
       alert.present();
       return;
     }
-    this.productService.removeImageById(this.productId, image).then(() => {
-      this.images = this.images.filter((i) => i.id !== image.id);
-    });
+
+    this.productService.setImageDeleted(
+      this.images.find((i) => i.id === image.id)
+    );
+    this.images = this.images.filter((i) => i.id !== image.id);
   }
 }
