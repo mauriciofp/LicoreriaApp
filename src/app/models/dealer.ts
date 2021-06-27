@@ -1,3 +1,5 @@
+import { SafeResourceUrl } from '@angular/platform-browser';
+
 export class Dealer {
   name: string;
   company: string;
@@ -8,6 +10,10 @@ export class Dealer {
   constructor(name: string, company: string) {
     this.name = name;
     this.company = company;
+    this.celNumbers = [];
+    this.phoneNumbers = [];
+    this.urlImage = '';
+
   }
 
   addPhoneNumber(n: number) {

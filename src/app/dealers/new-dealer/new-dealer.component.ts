@@ -1,10 +1,13 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Sanitizer } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { DealerService } from 'src/app/services/dealer.service';
 import { Validators } from '@angular/forms';
 import { ValidationsDealer } from '../utils/validations-dealer';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraResultType, Photo } from '@capacitor/camera';
+import { CameraService } from '../../services/camera.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Dealer } from '../../models/dealer';
 
 
 @Component({
@@ -21,18 +24,21 @@ export class NewDealerComponent implements OnInit {
     phoneNumber: new FormControl('', [Validators.required, Validators.min(7)])
   });
 
-  constructor(private ds: DealerService) { }
+  dealerUrlImage: SafeResourceUrl;
+  dealerPhoto: Photo;
+
+  constructor(
+    private ds: DealerService,
+    private cs: CameraService,
+    private sanitizer: DomSanitizer
+    ) { }
 
   ngOnInit() {
     // this.ds.getAll();
     // const arr = this.ds.existDealer('pepito el grillo');
     // arr.subscribe(res => console.log('res', res));
     console.log(this.form.value);
-  }
-
-  onSubmitDealer() {
-    console.log(this.form.value);
-    this.ds.createDealer(this.form.value);
+    this.dealerUrlImage = '';
   }
 
   invalidField(field: string) {
@@ -44,26 +50,28 @@ export class NewDealerComponent implements OnInit {
 
   takePicture() {
     console.log('taking the picture');
-    const takePicture = async () => {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
-      });
-
-      // image.webPath will contain a path that can be set as an image src.
-      // You can access the original file using image.path, which can be
-      // passed to the Filesystem API to read the raw data of the image,
-      // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-      const imageUrl = image.webPath;
-
-      // Can be set to the src of an image now
-      //imageElement.src = imageUrl;
-    };
+    const photo = this.cs.takeSinglePhoto().then(ph => {
+      console.log('photoUrl',ph.webPath);
+      this.dealerPhoto = ph;
+      this.dealerUrlImage = this.sanitizer.bypassSecurityTrustUrl(ph && (ph.webPath));
+    });
   }
 
   getFromGallery() {
 
+  }
+
+  submitForm() {
+    const dealer = new Dealer(this.form.value.name, this.form.value.company);
+    dealer.addCelNumber(this.form.value.celNumber);
+    dealer.addPhoneNumber(this.form.value.phoneNumber);
+    if(this.form.valid) {
+      this.ds.createDealer(dealer, this.dealerPhoto);
+    }
+  }
+
+  savePhoto() {
+    this.ds.saveImageToStorage(this.dealerPhoto);
   }
 
   get name() {

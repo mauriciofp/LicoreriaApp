@@ -2,10 +2,11 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Photo } from '@capacitor/camera';
 
-import { promise } from 'protractor';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { Dealer } from '../models/dealer';
 
@@ -17,12 +18,39 @@ export class DealerService {
 
   dealers$: Observable<any>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private storage: AngularFireStorage
+    ) {
     this.dealers$ = this.db.list<Dealer>('dealers').snapshotChanges();
   }
 
-  createDealer(dealer: any) {
-    return this.db.list('dealers/').push(dealer);
+  createDealer(dealer: Dealer, dealerPhoto: Photo) {
+
+    const photoName = '';
+
+    return new Promise((resolve, reject) => {
+      this.db.list('dealers/').push(dealer)
+        .then(ref => {
+          (async () =>{
+
+            const blob = await fetch(dealerPhoto.webPath).then(r => r.blob());
+            console.log('photo', dealerPhoto);
+          const fileRef = this.storage.ref(`dealers/${ref.key}`);
+          const task = this.storage.upload(`dealers/${ref.key}`, blob);
+          task
+            .snapshotChanges()
+            .pipe(
+              finalize(() => {
+                fileRef.getDownloadURL().subscribe(res => {
+                  this.db.list(`dealers/${ref.key}/urlImage`).push(res);
+                  resolve(ref);
+                });
+              })
+            ).subscribe();
+          })();
+        });
+    });
   }
 
   getAll() {
@@ -86,5 +114,14 @@ export class DealerService {
     obs.subscribe(data => console.log('data', data));
 
     console.log('just after subscribe');
+  }
+
+  async saveImageToStorage(dealerPhoto: Photo) {
+
+    const blob = await fetch(dealerPhoto.webPath).then(r => r.blob());
+    console.log('photo', dealerPhoto);
+    this.storage.ref('dealers/nombre');
+    this.storage.upload('dealers/nombre', blob).then(resp => console.log('response', resp));
+
   }
 }

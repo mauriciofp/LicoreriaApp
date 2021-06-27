@@ -11,9 +11,11 @@
   <p>{{form.value | json }}
     {{name.hasError('notUnique')}}{{name.hasError('required')}}
   </p>
+  <img [src]="dealerUrlImage">
   <form [formGroup]="form">
     <input type="button" value="Tomar Foto" (click)="takePicture()">
     <input type="button" value="Elegir de la galeria" (click)="getFromGallery()">
+    <input type="button" value="Guardar imagen" (click)="savePhoto()">
     <ion-item>
       <ion-label color="primary" position="floating">Nombre</ion-label>
       <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
@@ -43,6 +45,6 @@
     <div class="err-msg" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
       <p *ngIf="phoneNumber.hasError('required')">El campo es requerido</p>
     </div>
-    <input type="button" value="Crear" (click)="onSubmitDealer()">
+    <input type="button" value="Crear" (click)="submitForm()">
   </form>
 </ion-content>
