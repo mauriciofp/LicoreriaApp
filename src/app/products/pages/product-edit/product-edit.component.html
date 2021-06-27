@@ -8,10 +8,16 @@
 </ion-header>
 
 <ion-content *ngIf="product">
-  <app-product-images
-    [images]="product.images"
-    [productId]="product.id"
-  ></app-product-images>
-  <app-product-new-images></app-product-new-images>
-  <app-product-form [product]="product"></app-product-form>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-xl="4" size-lg="4" size-md="6">
+        <app-product-images
+          [images]="product.images"
+          [productId]="product.id"
+        ></app-product-images>
+        <app-product-new-images></app-product-new-images>
+        <app-product-form [product]="product"></app-product-form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
