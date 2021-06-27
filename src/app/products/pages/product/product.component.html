@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>Detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="products"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentActionSheet()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="product">
+  <ion-slides mode="md" pager="md" scrollbar="md">
+    <ion-slide
+      *ngFor="let img of product.images"
+      class="image-slide"
+      [style]="img.url | domSanitizer"
+    >
+    </ion-slide>
+  </ion-slides>
+
+  <div class="product_detail">
+    <p>{{ product.name }}</p>
+    <p>{{ product.price | currency: "Bs. " }}</p>
+    <p>{{ product.stock | i18nPlural: messageMapping }}</p>
+  </div>
+
+  <div class="product_description">
+    <p>Descripcion</p>
+    <p>{{ product.description }}</p>
+  </div>
+</ion-content>
