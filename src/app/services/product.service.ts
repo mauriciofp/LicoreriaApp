@@ -145,7 +145,6 @@ export class ProductService {
           });
           imagesRef.remove();
         }
-        console.log(this.imagesDeleted);
         if (this.imagesDeleted.length > 0) {
           this.imagesDeleted.forEach((img) => {
             this.storage.refFromURL(img.url).delete();
