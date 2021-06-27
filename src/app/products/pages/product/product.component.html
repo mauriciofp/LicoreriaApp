@@ -13,23 +13,29 @@
 </ion-header>
 
 <ion-content *ngIf="product">
-  <ion-slides mode="md" pager="md" scrollbar="md">
-    <ion-slide
-      *ngFor="let img of product.images"
-      class="image-slide"
-      [style]="img.url | domSanitizer"
-    >
-    </ion-slide>
-  </ion-slides>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-xl="4" size-lg="4" size-md="6">
+        <ion-slides mode="md" pager="md" scrollbar="md">
+          <ion-slide
+            *ngFor="let img of product.images"
+            class="image-slide"
+            [style]="img.url | domSanitizer"
+          >
+          </ion-slide>
+        </ion-slides>
 
-  <div class="product_detail">
-    <p>{{ product.name }}</p>
-    <p>{{ product.price | currency: "Bs. " }}</p>
-    <p>{{ product.stock | i18nPlural: messageMapping }}</p>
-  </div>
+        <div class="product_detail">
+          <p>{{ product.name }}</p>
+          <p>{{ product.price | currency: "Bs. " }}</p>
+          <p>{{ product.stock | i18nPlural: messageMapping }}</p>
+        </div>
 
-  <div class="product_description">
-    <p>Descripcion</p>
-    <p>{{ product.description }}</p>
-  </div>
+        <div class="product_description">
+          <p>Descripcion</p>
+          <p>{{ product.description }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
