@@ -20,6 +20,7 @@ export class NewDealerComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl('', Validators.required, ValidationsDealer.isUniqueName(this.ds)),
     company: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
     celNumber: new FormControl('', [Validators.required, Validators.min(7)]),
     phoneNumber: new FormControl('', [Validators.required, Validators.min(7)])
   });
@@ -62,7 +63,8 @@ export class NewDealerComponent implements OnInit {
   }
 
   submitForm() {
-    const dealer = new Dealer(this.form.value.name, this.form.value.company);
+    const dealer = new Dealer(
+      this.form.value.name, this.form.value.company, this.form.value.email);
     dealer.addCelNumber(this.form.value.celNumber);
     dealer.addPhoneNumber(this.form.value.phoneNumber);
     if(this.form.valid) {
@@ -80,6 +82,10 @@ export class NewDealerComponent implements OnInit {
 
   get company() {
     return this.form.get('company');
+  }
+
+  get email() {
+    return this.form.get('email');
   }
 
   get celNumber() {

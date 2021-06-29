@@ -1,7 +1,6 @@
 import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Photo } from '@capacitor/camera';
 
@@ -17,6 +16,9 @@ import { Dealer } from '../models/dealer';
 export class DealerService {
 
   dealers$: Observable<any>;
+
+  itemsRef: AngularFireList<any>;
+  dealers: Observable<any[]>;
 
   constructor(
     private db: AngularFireDatabase,
@@ -43,7 +45,8 @@ export class DealerService {
             .pipe(
               finalize(() => {
                 fileRef.getDownloadURL().subscribe(res => {
-                  this.db.list(`dealers/${ref.key}/urlImage`).push(res);
+                  // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
+                  this.db.list(`dealers/`).update(ref.key, {urlImage: res});
                   resolve(ref);
                 });
               })
@@ -54,31 +57,14 @@ export class DealerService {
   }
 
   getAll() {
-    // return this.db
-    //   .list<Product>('products')
-    //   .snapshotChanges()
-    //   .pipe(
-    //     map((res: any[]) =>
-    //       res.map((r) => ({ id: r.key, ...r.payload.val() }))
-    //     ),
-    //     map((res: any[]) =>
-    //       res.map((r) => {
-    //         const imgArr = this.createImagesArr(r.images);
-    //         const newp = { ...r };
-    //         newp.images = imgArr;
-    //         return newp as Product;
-    //       })
-    //     ),
-    //     tap((products) => (this._products = products))
-    //   );
-    // this.db.list<Dealer>('dealers').snapshotChanges()
-    //   .pipe(
-    //     map((res: any[]) => {
-    //       res.map((r) => {
-    //         id: r.key, ...r.payload.val()
-    //       })
-    //     })
-    //   );
+    this.itemsRef = this.db.list('dealers');
+    this.dealers = this.itemsRef.snapshotChanges()
+      .pipe(
+          map(changes =>
+            changes.map(c => ({key: c.payload.key, ...c.payload.val()})))
+      );
+
+    return this.dealers;
   }
 
   existDealer(name: string) {

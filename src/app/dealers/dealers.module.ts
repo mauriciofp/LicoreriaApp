@@ -6,10 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DealersRoutingModule } from './dealers-routing.module';
 import { NewDealerComponent } from './new-dealer/new-dealer.component';
+import { DealersListComponent } from '../dealers-list/dealers-list.component';
 
 
 @NgModule({
-  declarations: [NewDealerComponent],
+  declarations: [NewDealerComponent, DealersListComponent],
   imports: [
     CommonModule,
     IonicModule,
