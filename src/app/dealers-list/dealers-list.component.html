@@ -5,11 +5,6 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let dealer of dealers | async">
-      <h3>{{dealer.name}}</h3>
-    </ion-item>
-  </ion-list>
-  <ion-list>
     <ion-item-sliding *ngFor="let dealer of dealers | async">
       <ion-item>
         <ion-avatar slot="start">
