@@ -11,11 +11,16 @@ import { DealerService } from '../services/dealer.service';
 export class DealersListComponent implements OnInit {
 
   dealers: Observable<Dealer[]>;
+  dealersData: Dealer[];
 
   constructor(private ds: DealerService) { }
 
   ngOnInit() {
     this.dealers = this.ds.getAll();
+    this.dealers.subscribe(data => {
+      console.log('dealers', data);
+      this.dealersData = data;
+    });
   }
 
 }

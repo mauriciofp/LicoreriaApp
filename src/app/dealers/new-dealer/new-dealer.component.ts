@@ -21,25 +21,35 @@ export class NewDealerComponent implements OnInit {
     name: new FormControl('', Validators.required, ValidationsDealer.isUniqueName(this.ds)),
     company: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
-    celNumber: new FormControl('', [Validators.required, Validators.min(7)]),
-    phoneNumber: new FormControl('', [Validators.required, Validators.min(7)])
+    celNumber: new FormControl('', Validators.minLength(7)),
+    phoneNumber: new FormControl('', Validators.minLength(8))
   });
 
   dealerUrlImage: SafeResourceUrl;
   dealerPhoto: Photo;
 
+  celNumbers: Array<string>;
+  phoneNumbers: Array<string>;
+  phoneEnabled = false;
+  celEnabled = false;
+
   constructor(
     private ds: DealerService,
     private cs: CameraService,
     private sanitizer: DomSanitizer
-    ) { }
+    ) {
+      this.celNumbers = [];
+      this.phoneNumbers = [];
+      //this.phoneEnabled = ((String) this.phoneNumber.value).;
+    }
 
   ngOnInit() {
-    // this.ds.getAll();
-    // const arr = this.ds.existDealer('pepito el grillo');
-    // arr.subscribe(res => console.log('res', res));
-    console.log(this.form.value);
     this.dealerUrlImage = '';
+    console.log('invalid', this.celNumber.invalid);
+    this.celNumber.valueChanges.subscribe(data => {
+      console.log(this.celNumber.invalid);
+      console.log('errors', this.celNumber.errors);
+    });
   }
 
   invalidField(field: string) {
@@ -74,6 +84,14 @@ export class NewDealerComponent implements OnInit {
 
   savePhoto() {
     this.ds.saveImageToStorage(this.dealerPhoto);
+  }
+
+  addPhoneNumber(n) {
+    this.phoneNumbers = n;
+  }
+
+  addCelNumber(n) {
+    this.celNumbers = n;
   }
 
   get name() {

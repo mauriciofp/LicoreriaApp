@@ -61,7 +61,7 @@ export class DealerService {
     this.dealers = this.itemsRef.snapshotChanges()
       .pipe(
           map(changes =>
-            changes.map(c => ({key: c.payload.key, ...c.payload.val()})))
+            changes.map(c => ({id: c.payload.key, ...c.payload.val()})))
       );
 
     return this.dealers;
