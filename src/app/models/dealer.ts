@@ -1,7 +1,6 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
 
 export class Dealer {
-  id: string;
   name: string;
   company: string;
   email: string;
@@ -10,7 +9,6 @@ export class Dealer {
   urlImage: string;
 
   constructor(name: string, company: string, email: string) {
-    this.id = '';
     this.name = name;
     this.company = company;
     this.email = email;

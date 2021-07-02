@@ -11,3 +11,16 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <img [src]="dealer.urlImage | async">
+  <h2>{{dealer.name}}</h2>
+  <h3>{{dealer.company}}</h3>
+  <!-- <h3>{{dealer.email}}</h3>
+  
+  <ion-list-header>Numeros de telefono</ion-list-header>
+      <p *ngFor="let phone of dealer.phoneNumbers">
+        <ion-chip>
+          <ion-label>{{phone}}</ion-label>
+        </ion-chip>
+      </p> -->
+</ion-content>

@@ -5,7 +5,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Photo } from '@capacitor/camera';
 
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize, map, take, tap } from 'rxjs/operators';
 
 import { Dealer } from '../models/dealer';
 
@@ -76,6 +76,17 @@ export class DealerService {
         o.complete();
       });
     });
+  }
+
+  getDealer(id: string) {
+    return this.db.object<Dealer>(`dealers/${id}`)
+      .valueChanges()
+      .pipe(
+        take(1),
+        map(data => {
+          return data as Dealer
+        })
+      );
   }
 
   perfObservable() {
