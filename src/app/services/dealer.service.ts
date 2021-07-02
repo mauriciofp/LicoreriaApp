@@ -80,13 +80,7 @@ export class DealerService {
 
   getDealer(id: string) {
     return this.db.object<Dealer>(`dealers/${id}`)
-      .valueChanges()
-      .pipe(
-        take(1),
-        map(data => {
-          return data as Dealer
-        })
-      );
+      .valueChanges();
   }
 
   perfObservable() {

@@ -12,15 +12,21 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <img [src]="dealer.urlImage | async">
-  <h2>{{dealer.name}}</h2>
-  <h3>{{dealer.company}}</h3>
-  <!-- <h3>{{dealer.email}}</h3>
-  
+  <img [src]="(dealer | async)?.urlImage">
+  <h2>{{(dealer | async)?.name}}</h2>
+  <h3>{{(dealer | async)?.company}}</h3>
+  <h3>{{(dealer | async)?.email}}</h3>
+
   <ion-list-header>Numeros de telefono</ion-list-header>
-      <p *ngFor="let phone of dealer.phoneNumbers">
-        <ion-chip>
-          <ion-label>{{phone}}</ion-label>
-        </ion-chip>
-      </p> -->
+  <p *ngFor="let phone of (dealer | async)?.phoneNumbers">
+    <ion-chip>
+      <ion-label>{{phone}}</ion-label>
+    </ion-chip>
+  </p>
+  <ion-list-header>Numeros de Celular</ion-list-header>
+  <p *ngFor="let cel of (dealer | async)?.celNumbers">
+    <ion-chip>
+      <ion-label>{{cel}}</ion-label>
+    </ion-chip>
+  </p>
 </ion-content>

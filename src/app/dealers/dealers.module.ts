@@ -8,10 +8,11 @@ import { DealersRoutingModule } from './dealers-routing.module';
 import { NewDealerComponent } from './new-dealer/new-dealer.component';
 import { DealersListComponent } from '../dealers-list/dealers-list.component';
 import { DealerDetailComponent } from './dealer-detail/dealer-detail.component';
+import { DealerEditComponent } from './dealer-edit/dealer-edit.component';
 
 
 @NgModule({
-  declarations: [NewDealerComponent, DealersListComponent, DealerDetailComponent],
+  declarations: [NewDealerComponent, DealersListComponent, DealerDetailComponent, DealerEditComponent],
   imports: [
     CommonModule,
     IonicModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { Dealer } from 'src/app/models/dealer';
 import { DealerService } from 'src/app/services/dealer.service';
@@ -12,7 +13,8 @@ import { DealerService } from 'src/app/services/dealer.service';
 })
 export class DealerDetailComponent implements OnInit {
 
-  dealer: any;
+  dealer: Observable<Dealer>;
+  dealerId: string;
 
   constructor(
     private ds: DealerService,
@@ -23,16 +25,9 @@ export class DealerDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(data => console.log('params', data.id));
-    this.ds.getDealer('-Md_DI7fFstRwb6ecMyq')
-      .subscribe(data => {
-        this.dealer = data
-        console.log('dealer', this.dealer);
-      });
-
-    // (async () => {
-    //   this.dealer = await this.ds.getDealer('-Md_DI7fFstRwb6ecMyq');
-    // })();
+    this.activatedRoute.params.
+      subscribe(data => this.dealerId = data.id);
+    this.dealer = this.ds.getDealer('-Md_DI7fFstRwb6ecMyq');
   }
 
   async presentActionSheet() {
@@ -67,7 +62,7 @@ export class DealerDetailComponent implements OnInit {
           text: 'Editar',
           icon: 'create-outline',
           handler: () => {
-            this.router.navigate(['dealers/edit', 1])
+            this.router.navigate(['dealers/edit', this.dealerId]);
           }
         }
       ]
