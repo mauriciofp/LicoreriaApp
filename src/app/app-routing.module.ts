@@ -14,7 +14,12 @@ const routes: Routes = [
   },
   {
     path: 'dealers',
-    loadChildren: () => import('./dealers/dealers.module').then( m => m.DealersModule)
+    loadChildren: () =>
+      import('./dealers/dealers.module').then((m) => m.DealersModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
