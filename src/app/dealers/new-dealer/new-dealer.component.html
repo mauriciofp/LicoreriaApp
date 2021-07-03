@@ -8,18 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <p>
-    {{ form.value | json }} {{ name.hasError("notUnique")
-    }}{{ name.hasError("required") }}
-  </p>
   <img [src]="dealerUrlImage" />
-  <form [formGroup]="form">
-    <input type="button" value="Tomar Foto" (click)="takePicture()" />
+  <input type="button" value="Tomar Foto" (click)="takePicture()" />
     <input
       type="button"
       value="Elegir de la galeria"
       (click)="getFromGallery()"
     />
+  <form [formGroup]="form">
+
 
     <ion-item>
       <ion-label color="primary" position="floating">Nombre</ion-label>
@@ -81,14 +78,6 @@
     >
       <p *ngIf="celNumber.hasError('required')">El campo es requerido</p>
     </div>
-    <div>
-      <ion-chip outline color="dark" *ngFor="let cel of celNumbers">
-        <ion-label>{{ cel }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-    </div>
-
-
     <ion-item>
       <ion-label position="floating">Telefono</ion-label>
       <ion-input

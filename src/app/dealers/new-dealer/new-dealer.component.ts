@@ -29,8 +29,6 @@ export class NewDealerComponent implements OnInit {
   dealerUrlImage: SafeResourceUrl;
   dealerPhoto: Photo;
 
-  celNumbers: Array<string>;
-  phoneNumbers: Array<string>;
   phoneEnabled = false;
   celEnabled = false;
 
@@ -40,19 +38,16 @@ export class NewDealerComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private fb: FormBuilder
     ) {
-      this.celNumbers = [];
-      this.phoneNumbers = [];
-      //this.phoneEnabled = ((String) this.phoneNumber.value).;
     }
 
   ngOnInit() {
     this.dealerUrlImage = '';
 
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required], [ValidationsDealer.isUniqueName(this.ds)]],
       company: [''],
       email: ['', [Validators.required, Validators.email]],
-      celNumber: ['',[Validators.minLength[8]]],
+      celNumber: ['',[Validators.minLength(8)]],
       phoneNumber: ['', [Validators.required, Validators.minLength(7)]]
     });
     console.log('form', this.form);
@@ -83,14 +78,6 @@ export class NewDealerComponent implements OnInit {
 
   savePhoto() {
     this.ds.saveImageToStorage(this.dealerPhoto);
-  }
-
-  addPhoneNumber(n) {
-    this.phoneNumbers = n;
-  }
-
-  addCelNumber(n) {
-    this.celNumbers = n;
   }
 
   get name() {
