@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Sanitizer } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DealerService } from 'src/app/services/dealer.service';
 import { ValidationsDealer } from '../utils/validations-dealer';
 import { Camera, CameraResultType, Photo } from '@capacitor/camera';
@@ -15,14 +15,6 @@ import { Dealer } from '../../models/dealer';
   styleUrls: ['./new-dealer.component.scss'],
 })
 export class NewDealerComponent implements OnInit {
-
-  // form = new FormGroup({
-  //   name: new FormControl('', Validators.required, ValidationsDealer.isUniqueName(this.ds)),
-  //   company: new FormControl(''),
-  //   email: new FormControl('', [Validators.required, Validators.email]),
-  //   celNumber: new FormControl('', Validators.minLength(7)),
-  //   phoneNumber: new FormControl('', Validators.minLength(8))
-  // });
 
   form: FormGroup;
 
@@ -47,8 +39,7 @@ export class NewDealerComponent implements OnInit {
       name: ['', [Validators.required], [ValidationsDealer.isUniqueName(this.ds)]],
       company: [''],
       email: ['', [Validators.required, Validators.email]],
-      celNumber: ['',[Validators.minLength(8)]],
-      phoneNumber: ['', [Validators.required, Validators.minLength(7)]]
+      phones: this.fb.array([])
     });
     console.log('form', this.form);
   }
@@ -80,6 +71,11 @@ export class NewDealerComponent implements OnInit {
     this.ds.saveImageToStorage(this.dealerPhoto);
   }
 
+  addPhone() {
+    const control = this.fb.control('', Validators.required);
+    this.phones.push(control);
+  }
+
   get name() {
     return this.form.get('name');
   }
@@ -92,11 +88,8 @@ export class NewDealerComponent implements OnInit {
     return this.form.get('email');
   }
 
-  get celNumber() {
-    return this.form.get('celNumber');
+  get phones() {
+    return this.form.get('phones') as FormArray;
   }
 
-  get phoneNumber() {
-    return this.form.get('phoneNumber');
-  }
 }

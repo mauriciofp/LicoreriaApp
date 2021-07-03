@@ -63,37 +63,6 @@
       <p *ngIf="email.hasError('email')">Ingrese un email valido</p>
     </div>
 
-    <ion-item>
-      <ion-label position="floating">Celular</ion-label>
-      <ion-input
-        type="number"
-        placeholder="Celular"
-        formControlName="celNumber"
-      ></ion-input>
-    </ion-item>
-
-    <div
-      class="err-msg"
-      *ngIf="celNumber.invalid && (celNumber.dirty || celNumber.touched)"
-    >
-      <p *ngIf="celNumber.hasError('required')">El campo es requerido</p>
-    </div>
-    <ion-item>
-      <ion-label position="floating">Telefono</ion-label>
-      <ion-input
-        type="number"
-        placeholder="Nombre"
-        formControlName="phoneNumber"
-      ></ion-input>
-    </ion-item>
-
-    <div
-      class="err-msg"
-      *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
-    >
-      <p *ngIf="phoneNumber.hasError('required')">El campo es requerido</p>
-    </div>
-
     <input
       type="button"
       value="Crear"
