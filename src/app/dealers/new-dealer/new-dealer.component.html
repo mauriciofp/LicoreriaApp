@@ -74,7 +74,7 @@
         formControlName="celNumber"
       ></ion-input>
     </ion-item>
-    <!-- <input type="button" value="Agregar numero" [disabled]="celNumber.invalid.valueOf" (click)="addCelNumber"> -->
+
     <div
       class="err-msg"
       *ngIf="celNumber.invalid && (celNumber.dirty || celNumber.touched)"
@@ -87,14 +87,7 @@
         <ion-icon name="close-circle"></ion-icon>
       </ion-chip>
     </div>
-    <div>
-      <h3>Numeros moviles</h3>
 
-      <ion-chip outline color="dark" *ngFor="let telf of phoneNumbers">
-        <ion-label>{{ telf }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-    </div>
 
     <ion-item>
       <ion-label position="floating">Telefono</ion-label>
@@ -104,20 +97,14 @@
         formControlName="phoneNumber"
       ></ion-input>
     </ion-item>
-    <!-- <input type="button" value="Agregar numero" [disabled]="!phoneEnabled" (click)="addPhoneNumber"> -->
+
     <div
       class="err-msg"
       *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
     >
       <p *ngIf="phoneNumber.hasError('required')">El campo es requerido</p>
     </div>
-    <div>
-      <h3>Numeros de telefono</h3>
-      <ion-chip outline color="dark" *ngFor="let telf of phoneNumbers">
-        <ion-label>{{ telf }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-    </div>
+
     <input
       type="button"
       value="Crear"
