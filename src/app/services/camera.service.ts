@@ -4,7 +4,9 @@ import {
   CameraOptions,
   CameraResultType,
   CameraSource,
+  Photo,
 } from '@capacitor/camera';
+import { Observable } from 'rxjs';
 import { ImageItem } from '../models/imageItem';
 
 @Injectable({
@@ -48,6 +50,20 @@ export class CameraService {
     this.emitChanges();
   }
 
+  takeSinglePhoto(): Promise<Photo>{
+    const source =CameraSource.Camera;
+    const opts: CameraOptions = {
+      source,
+      resultType: CameraResultType.Uri,
+      allowEditing: false,
+      quality: 50,
+      correctOrientation: true,
+      height: 800,
+      width: 800,
+    };
+    return Camera.getPhoto(opts);
+  }
+
   private emitChanges() {
     this.imageList$.emit(this._imagesList);
   }
@@ -64,4 +80,6 @@ export class CameraService {
     };
     return await Camera.getPhoto(opts);
   }
+
+
 }
