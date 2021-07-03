@@ -4,13 +4,36 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="dealers"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="presentActionSheet()">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-input placeholder="Enter Input"></ion-input>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label color="primary" position="floating">Nombre</ion-label>
+      <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+    </ion-item>
+    <div class="err-msg" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <p *ngIf="name.hasError('required')">El campo es requerido</p>
+      <!-- <p *ngIf="name.hasError('notUnique')">Ya existe un Distribuidor con el mismo Nombre</p> -->
+    </div>
+    <ion-item>
+      <ion-label color="primary" position="floating">Empresa</ion-label>
+      <ion-input type="text" placeholder="Empresa" formControlName="company"></ion-input>
+    </ion-item>
+    <div class="err-msg" *ngIf="company.invalid && (company.dirty || company.touched)">
+      <p *ngIf="company.hasError('required')">El campo es requerido</p>
+    </div>
+
+    <ion-item>
+      <ion-label color="primary" position="floating">Email</ion-label>
+      <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+    </ion-item>
+    <div class="err-msg" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <p *ngIf="email.hasError('required')">El campo es requerido</p>
+      <p *ngIf="email.hasError('email')">Ingrese un email valido</p>
+    </div>
+
+    <input type="button" value="Guardar" (click)="save()">
+  </form>
+  
 </ion-content>

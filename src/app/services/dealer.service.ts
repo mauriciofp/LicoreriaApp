@@ -78,11 +78,16 @@ export class DealerService {
     });
   }
 
-  getDealer(id: string) {
+  getDealer(id: string): Observable<Dealer>{
     return this.db.object<Dealer>(`dealers/${id}`)
       .valueChanges();
   }
 
+  updateDealer(id: string, dealer: Dealer) {
+    this.db.object(`dealers/${id}`).update({name: dealer.name});
+    this.db.object(`dealers/${id}`).update({company:dealer.company});
+    this.db.object(`dealers/${id}`).update({email: dealer.email});
+  }
   perfObservable() {
     const obs = new Observable(observer => {
       observer.next(1);
