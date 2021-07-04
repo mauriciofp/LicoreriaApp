@@ -41,3 +41,10 @@
 .pointer {
   cursor: pointer;
 }
+
+.justify-content-center {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -9,6 +9,8 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { AuthButtonsComponent } from './components/auth-buttons/auth-buttons.component';
+import { AuthLogoComponent } from './components/auth-logo/auth-logo.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    AuthButtonsComponent,
+    AuthLogoComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, IonicModule, ReactiveFormsModule],
 })

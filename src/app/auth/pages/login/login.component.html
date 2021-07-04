@@ -1,17 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="../register" color="primary" fill="solid">
-        Registro
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-grid fixed class="w-100">
-    <ion-row class="ion-justify-content-center row-vertical-center">
+  <ion-grid fixed class="justify-content-center">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-xl="4" size-lg="6" size-md="9" size-sm="12">
+        <app-auth-buttons></app-auth-buttons>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-xl="4" size-lg="6" size-md="9" size-sm="12">
+        <app-auth-logo></app-auth-logo>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
       <ion-col
         size="12"
         size-xl="4"
