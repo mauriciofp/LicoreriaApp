@@ -6,7 +6,7 @@
     <p>{{ product.name }}</p>
   </div>
   <div class="product_container_footer">
-    <button class="btn">Comprar</button>
+    <button class="btn" (click)="addProductToCart()">Comprar</button>
     <p>{{ product.price | currency: " Bs." }}</p>
   </div>
 </div>

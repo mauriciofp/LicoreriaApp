@@ -24,8 +24,14 @@ const _cartReducer = createReducer(
   initialCartState,
 
   on(addProduct, (state, { product }) => ({
-    products: [...state.products, product],
-    total: state.total + product.subtotal,
+    products: state.products.find((p) => p.id === product.id)
+      ? state.products.map((p) =>
+          p.id === product.id
+            ? { ...p, subtotal: p.subtotal + p.price, cant: p.cant + 1 }
+            : p
+        )
+      : [...state.products, product],
+    total: state.total + product.price,
     cant: state.cant + 1,
   })),
 
@@ -36,25 +42,21 @@ const _cartReducer = createReducer(
   })),
 
   on(incrementProduct, (state, { product }) => ({
-    products: state.products.map((p) => {
-      if (p.id !== product.id) {
-        return p;
-      }
-      p.subtotal = p.subtotal + p.price;
-      return p;
-    }),
+    products: state.products.map((p) =>
+      p.id === product.id
+        ? { ...p, cant: p.cant + 1, subtotal: p.subtotal + p.price }
+        : p
+    ),
     total: state.total + product.price,
     cant: state.cant + 1,
   })),
 
   on(decrementProduct, (state, { product }) => ({
-    products: state.products.map((p) => {
-      if (p.id !== product.id) {
-        return p;
-      }
-      p.subtotal = p.subtotal - p.price;
-      return p;
-    }),
+    products: state.products.map((p) =>
+      p.id === product.id
+        ? { ...p, cant: p.cant - 1, subtotal: p.subtotal - p.price }
+        : p
+    ),
     total: state.total - product.price,
     cant: state.cant - 1,
   })),

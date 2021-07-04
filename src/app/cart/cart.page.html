@@ -6,4 +6,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <h1 *ngIf="total">{{total}}</h1>
+  <ion-list>
+    <ion-item *ngFor="let product of products">
+      <ion-label
+        ><h2>{{product.name}}</h2>
+        <h3>{{product.subtotal}}</h3></ion-label
+      >
+      <ion-buttons slot="start">
+        <ion-button (click)="incrementCant(product)">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-label>{{product.cant}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="decrementCant(product)">
+          <ion-icon slot="icon-only" name="remove"></ion-icon>
+        </ion-button>
+        <ion-button (click)="removeProductFromCart(product)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

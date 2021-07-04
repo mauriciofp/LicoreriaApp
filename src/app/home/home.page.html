@@ -10,8 +10,13 @@
       <ion-button>
         <ion-icon slot="icon-only" name="options-outline"></ion-icon>
       </ion-button>
-      <ion-button routerLink="/cart">
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      <ion-button routerLink="/cart" *ngIf="!cantInCart">
+        <ion-icon slot="icon-only" name="cart-outline"> </ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/cart" *ngIf="cantInCart">
+        <ion-icon slot="icon-only" name="cart-outline"> </ion-icon>
+        <ion-badge color="primary" mode="md">{{cantInCart}}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
