@@ -1,3 +1,61 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item detail routerLink="home">
+            <ion-icon
+              slot="start"
+              name="home-outline"
+              color="primary"
+            ></ion-icon>
+            Inicio</ion-item
+          >
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item detail routerLink="products">
+            <ion-icon
+              slot="start"
+              name="list-outline"
+              color="primary"
+            ></ion-icon>
+            Productos</ion-item
+          >
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item detail routerLink="dealers">
+            <ion-icon
+              slot="start"
+              name="accessibility-outline"
+              color="primary"
+            ></ion-icon>
+            Deliveries</ion-item
+          >
+        </ion-menu-toggle>
+
+        <ion-menu-toggle class="pointer">
+          <ion-item detail (click)="logout()">
+            <ion-icon
+              slot="start"
+              name="log-out-outline"
+              color="primary"
+            ></ion-icon>
+            Cerrar sesion</ion-item
+          >
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
