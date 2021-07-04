@@ -1,0 +1,12 @@
+<div
+  class="product_container pointer"
+  [style]="product.images[0].url | domSanitizer"
+>
+  <div class="product_container_header">
+    <p>{{ product.name }}</p>
+  </div>
+  <div class="product_container_footer">
+    <button class="btn">Comprar</button>
+    <p>{{ product.price | currency: " Bs." }}</p>
+  </div>
+</div>

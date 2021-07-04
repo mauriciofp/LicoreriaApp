@@ -1,0 +1,38 @@
+.product_container {
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f2f3f4;
+
+  background-position: 50% 30%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: percentage($number: 0.6);
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  p {
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+.product_container_header {
+}
+
+.product_container_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  button {
+    color: white;
+    display: block;
+    background-color: #1c2833;
+    border-radius: 1rem;
+    padding: 0.2rem 0.5rem;
+  }
+  button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+}
