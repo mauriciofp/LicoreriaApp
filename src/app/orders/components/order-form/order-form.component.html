@@ -32,6 +32,20 @@
     </ion-item>
 
     <ion-item>
+      <ion-label color="primary" position="floating">
+        Telefono de contacto
+      </ion-label>
+      <ion-input
+        type="tef"
+        formControlName="phone"
+        placeholder="60000000"
+      ></ion-input>
+      <span class="error_message" *ngIf="invalidField('phone')">
+        {{ phoneMessageError }}
+      </span>
+    </ion-item>
+
+    <ion-item>
       <ion-label color="primary" position="floating"> Descripcion </ion-label>
       <ion-textarea
         type="text"

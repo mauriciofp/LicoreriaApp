@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/utils/utils.service';
 import { cleanCart } from 'src/app/state/actions/cart.action';
 import { unsetLocation } from 'src/app/state/actions/location.action';
+import { ValidatorService } from 'src/app/utils/validator.service';
 
 @Component({
   selector: 'app-order-form',
@@ -44,7 +45,8 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private orderService: OrderService,
     private router: Router,
-    private utilService: UtilsService
+    private utilService: UtilsService,
+    private validatorService: ValidatorService
   ) {}
 
   ngOnInit() {
@@ -107,6 +109,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
         this.router.navigate(['/home']).then(async () => {
           this.store.dispatch(cleanCart());
           this.store.dispatch(unsetLocation());
+          this.detailForm.reset();
           this.store.dispatch(stopLoading());
           const toast = await this.utilService.createToast('Pedido enviado!');
           toast.present();
@@ -114,6 +117,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
       })
       .catch(async (err) => {
         this.store.dispatch(stopLoading());
+        this.store.dispatch(unsetLocation());
         const alert = await this.utilService.createAlert(err.message);
         alert.present();
       });
@@ -124,6 +128,13 @@ export class OrderFormComponent implements OnInit, OnDestroy {
       street1: [''],
       street2: [''],
       street3: [''],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.phonePattern),
+        ],
+      ],
       description: ['', Validators.required],
     });
   }
@@ -139,6 +150,17 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     let message = '';
     if (errors?.required) {
       message = 'La descripcion del lugar de entrega es necesario';
+    }
+    return message;
+  }
+
+  get phoneMessageError(): string {
+    const errors = this.detailForm.get('phone').errors;
+    let message = '';
+    if (errors?.required) {
+      message = 'Un telefono de contacto es necesario';
+    } else if (errors?.pattern) {
+      message = 'Tiene que ser un telefono valido';
     }
     return message;
   }
