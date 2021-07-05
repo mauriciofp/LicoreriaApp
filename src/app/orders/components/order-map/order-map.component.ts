@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import * as Mapboxgl from 'mapbox-gl';
+import { setLocation } from 'src/app/state/actions/location.action';
+import { AppState } from 'src/app/state/app.reducer';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,7 +14,7 @@ import { environment } from 'src/environments/environment';
 export class OrderMapComponent implements OnInit {
   orderMap: Mapboxgl.Map;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createMap();
@@ -33,9 +36,12 @@ export class OrderMapComponent implements OnInit {
       .setLngLat([lng, lat])
       .addTo(this.orderMap);
     marker.on('dragend', () => {
-      const location = `${marker.getLngLat().lng},${marker.getLngLat().lat}`;
-      console.log(location);
-      // llamar al store para guardar
+      this.store.dispatch(
+        setLocation({
+          lng: marker.getLngLat().lng,
+          lat: marker.getLngLat().lat,
+        })
+      );
     });
   }
 }

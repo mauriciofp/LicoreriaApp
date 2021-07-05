@@ -62,6 +62,7 @@ export class CartPage implements OnInit, OnDestroy {
         'No hay nada en su carrito!'
       );
       toast.present();
+      return;
     }
 
     this.router.navigate(['/orders/new']);

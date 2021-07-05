@@ -10,6 +10,11 @@ import { OrderService } from 'src/app/services/order.service';
 
 import { User } from 'src/app/models/user.model';
 import { ProductCart } from 'src/app/models/product-cart';
+import { initLoading, stopLoading } from 'src/app/state/actions/ui.actions';
+import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/utils/utils.service';
+import { cleanCart } from 'src/app/state/actions/cart.action';
+import { unsetLocation } from 'src/app/state/actions/location.action';
 
 @Component({
   selector: 'app-order-form',
@@ -31,13 +36,15 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   user: User;
   userSubs: Subscription;
 
-  location: string;
+  location: { lng: number; lat: number } = { lng: null, lat: null };
   locationSubs: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router: Router,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit() {
@@ -57,6 +64,13 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     this.userSubs = this.store
       .select('auth')
       .subscribe(({ user }) => (this.user = user));
+
+    this.locationSubs = this.store
+      .select('location')
+      .subscribe(({ lng, lat }) => {
+        this.location.lat = lat;
+        this.location.lng = lng;
+      });
   }
 
   ngOnDestroy() {
@@ -66,20 +80,43 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     this.locationSubs?.unsubscribe();
   }
 
-  sendOrder() {
+  async sendOrder() {
+    if (!this.location.lat) {
+      const alert = await this.utilService.createAlert(
+        'Mueve el marcador en el mapa donde quiere que te llevemos tu pedido'
+      );
+      alert.present();
+      return;
+    }
     if (this.detailForm.invalid) {
       this.detailForm.markAllAsTouched();
       return;
     }
 
-    this.orderService.createOrder(
-      this.detailForm.value,
-      this.location,
-      this.products,
-      this.total,
-      this.cant,
-      this.user
-    );
+    this.store.dispatch(initLoading());
+    this.orderService
+      .createOrder(
+        this.detailForm.value,
+        this.location,
+        this.products,
+        this.total,
+        this.cant,
+        this.user
+      )
+      .then((ref) => {
+        this.router.navigate(['/home']).then(async () => {
+          this.store.dispatch(cleanCart());
+          this.store.dispatch(unsetLocation());
+          this.store.dispatch(stopLoading());
+          const toast = await this.utilService.createToast('Pedido enviado!');
+          toast.present();
+        });
+      })
+      .catch(async (err) => {
+        this.store.dispatch(stopLoading());
+        const alert = await this.utilService.createAlert(err.message);
+        alert.present();
+      });
   }
 
   private createForm() {
