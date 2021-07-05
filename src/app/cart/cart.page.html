@@ -7,28 +7,25 @@
 </ion-header>
 
 <ion-content>
-  <h1 *ngIf="total">{{total}}</h1>
-  <ion-list>
-    <ion-item *ngFor="let product of products">
-      <ion-label
-        ><h2>{{product.name}}</h2>
-        <h3>{{product.subtotal}}</h3></ion-label
+  <h2>Carrito</h2>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col
+        size-sm="12"
+        size-md="6"
+        size-lg="4"
+        size-xl="3"
+        *ngFor="let product of products"
       >
-      <ion-buttons slot="start">
-        <ion-button (click)="incrementCant(product)">
-          <ion-icon slot="icon-only" name="add"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-      <ion-label>{{product.cant}}</ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="decrementCant(product)">
-          <ion-icon slot="icon-only" name="remove"></ion-icon>
-        </ion-button>
-        <ion-button (click)="removeProductFromCart(product)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
+        <app-cart-product [product]="product"></app-cart-product>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="total_container">
+    <p>Total</p>
+    <p>{{total | currency: 'Bs. '}}</p>
+  </div>
+  <div class="button_container">
+    <ion-button shape="round"> Confirmar pedido</ion-button>
+  </div>
 </ion-content>

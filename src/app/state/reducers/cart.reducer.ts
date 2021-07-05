@@ -15,9 +15,23 @@ export interface CartState {
 }
 
 export const initialCartState: CartState = {
-  products: [],
-  total: 0,
-  cant: 0,
+  products: [
+    {
+      id: '-MdDaAioRIOl2oVqdR6K',
+      name: 'cerveza',
+      price: 8,
+      cant: 1,
+      subtotal: 8,
+      images: [
+        {
+          id: '-MdDaBKfGySMXhUR3jjj',
+          url: 'https://firebasestorage.googleapis.com/v0/b/storeapp-9941c.appspot.com/o/products%2F1624816276393_1624816276393-no-name?alt=media&token=73723ff4-c2e7-4467-9fef-0f7e55601b8d',
+        },
+      ],
+    },
+  ],
+  total: 8,
+  cant: 1,
 };
 
 const _cartReducer = createReducer(
