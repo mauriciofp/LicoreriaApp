@@ -10,8 +10,6 @@ import {
 } from '../state/actions/cart.action';
 
 import { ProductCart } from '../models/product-cart';
-import { UtilsService } from '../utils/utils.service';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
@@ -23,11 +21,7 @@ export class CartPage implements OnInit, OnDestroy {
 
   cartSubs: Subscription;
 
-  constructor(
-    private store: Store<AppState>,
-    private utilService: UtilsService,
-    private router: Router
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.cartSubs = this.store
@@ -54,17 +48,5 @@ export class CartPage implements OnInit, OnDestroy {
 
   removeProductFromCart(product: ProductCart) {
     this.store.dispatch(removeProduct({ product }));
-  }
-
-  async toOrderDetail() {
-    if (this.products.length < 1) {
-      const toast = await this.utilService.createToast(
-        'No hay nada en su carrito!'
-      );
-      toast.present();
-      return;
-    }
-
-    this.router.navigate(['/orders/new']);
   }
 }
