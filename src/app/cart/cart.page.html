@@ -26,6 +26,8 @@
     <p>{{total | currency: 'Bs. '}}</p>
   </div>
   <div class="button_container">
-    <ion-button shape="round"> Confirmar pedido</ion-button>
+    <ion-button shape="round" (click)="toOrderDetail()">
+      Confirmar pedido
+    </ion-button>
   </div>
 </ion-content>
