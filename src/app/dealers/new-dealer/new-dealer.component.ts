@@ -21,9 +21,6 @@ export class NewDealerComponent implements OnInit {
   dealerUrlImage: SafeResourceUrl;
   dealerPhoto: Photo;
 
-  phoneEnabled = false;
-  celEnabled = false;
-
   constructor(
     private ds: DealerService,
     private cs: CameraService,
@@ -41,6 +38,11 @@ export class NewDealerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phones: this.fb.array([])
     });
+    // this.phones.push(new FormControl('', Validators.required));
+    this.phones.push(this.fb.group({
+      id: '',
+      phone: ''
+    }));
     console.log('form', this.form);
   }
 
@@ -58,12 +60,12 @@ export class NewDealerComponent implements OnInit {
   }
 
   submitForm() {
-    const dealer = new Dealer(
-      this.form.value.name, this.form.value.company, this.form.value.email);
-    dealer.addCelNumber(this.form.value.celNumber);
-    dealer.addPhoneNumber(this.form.value.phoneNumber);
+    // const dealer = new Dealer(
+    //   this.form.value.name, this.form.value.company, this.form.value.email);
+    // dealer.addCelNumber(this.form.value.celNumber);
+    // dealer.addPhoneNumber(this.form.value.phoneNumber);
     if(this.form.valid) {
-      this.ds.createDealer(dealer, this.dealerPhoto);
+      this.ds.createDealer(this.form.value, this.dealerPhoto);
     }
   }
 
@@ -74,6 +76,10 @@ export class NewDealerComponent implements OnInit {
   addPhone() {
     const control = this.fb.control('', Validators.required);
     this.phones.push(control);
+  }
+
+  removePhone(index) {
+    this.phones.controls.splice(index, 1);
   }
 
   get name() {

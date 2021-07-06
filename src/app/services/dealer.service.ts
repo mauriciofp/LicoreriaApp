@@ -88,6 +88,7 @@ export class DealerService {
     this.db.object(`dealers/${id}`).update({company:dealer.company});
     this.db.object(`dealers/${id}`).update({email: dealer.email});
   }
+
   perfObservable() {
     const obs = new Observable(observer => {
       observer.next(1);

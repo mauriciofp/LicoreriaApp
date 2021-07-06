@@ -10,7 +10,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
+  <ion-avatar>
+    <img *ngIf="!takedPhoto"
+    [src]="(dealer | async)?.urlImage">
+    <img *ngIf="takedPhoto"
+    [src]="newUrlPhoto">
+  </ion-avatar>
+  <ion-button (click)="loadImage()">Cambiar</ion-button>
   <form [formGroup]="form">
     <ion-input placeholder="" formControlName="name"></ion-input>
     <br/>
@@ -19,6 +25,15 @@
     <ion-input placeholder="" formControlName="email"></ion-input>
     <br/>
 
+    <div formArrayName="phones" *ngFor="let phone of phones.controls; let i = index">
+      <ion-item>
+        <ion-label>Numero</ion-label>
+        <ion-input placeholder="numero" type="number" [formControlName]="i"></ion-input>
+      </ion-item>
+      <ion-button (click)="removePhone(i)" *ngIf="i !== 0">Quitar</ion-button>
+    </div>
+    <ion-button color="primary" (click)="addPhone()">Agregar Numero</ion-button>
+    <ion-button color="primary" (click)="submitForm()" routerLink="../list" [disabled]="form.invalid">Guardar</ion-button>
   </form>
-
+  <p>{{form.value | json}}</p>
 </ion-content>
