@@ -32,7 +32,7 @@
           >
         </ion-menu-toggle>
 
-        <ion-menu-toggle *ngIf="authService.isAdmin()">
+        <ion-menu-toggle *ngIf="authService.isAdmin">
           <ion-item detail routerLink="products">
             <ion-icon
               slot="start"
@@ -43,7 +43,7 @@
           >
         </ion-menu-toggle>
 
-        <ion-menu-toggle *ngIf="authService.isAdmin()">
+        <ion-menu-toggle *ngIf="authService.isAdmin">
           <ion-item detail routerLink="dealers">
             <ion-icon
               slot="start"

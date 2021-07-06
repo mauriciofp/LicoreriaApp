@@ -21,6 +21,14 @@ export class AuthService {
 
   private _user: User;
 
+  get isAdmin() {
+    return this._user?.role === UserRole.admin;
+  }
+
+  get isDealer() {
+    return this._user?.role === UserRole.dealer;
+  }
+
   constructor(
     private auth: AngularFireAuth,
     private db: AngularFireDatabase,
@@ -73,13 +81,5 @@ export class AuthService {
 
   canWrite() {
     return this._user ? this._user.role === UserRole.admin : false;
-  }
-
-  isAdmin() {
-    return this._user.role === UserRole.admin;
-  }
-
-  isDealer() {
-    return this._user.role === UserRole.dealer;
   }
 }
