@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as Mapboxgl from 'mapbox-gl';
-import { setLocation } from 'src/app/state/actions/location.action';
+import { Location } from 'src/app/interfaces/order';
+import {
+  setLocation,
+  unsetLocation,
+} from 'src/app/state/actions/location.action';
 import { AppState } from 'src/app/state/app.reducer';
 import { environment } from 'src/environments/environment';
 
@@ -11,8 +15,15 @@ import { environment } from 'src/environments/environment';
   templateUrl: './order-map.component.html',
   styleUrls: ['./order-map.component.scss'],
 })
-export class OrderMapComponent implements OnInit {
+export class OrderMapComponent implements OnInit, OnDestroy {
   orderMap: Mapboxgl.Map;
+
+  @Input() location: Location = { lng: null, lat: null };
+
+  private defaultLocation: Location = {
+    lng: -66.15689346418048,
+    lat: -17.393779843949304,
+  };
 
   constructor(private store: Store<AppState>) {}
 
@@ -20,20 +31,30 @@ export class OrderMapComponent implements OnInit {
     this.createMap();
   }
 
+  ngOnDestroy() {
+    this.store.dispatch(unsetLocation());
+  }
+
   createMap() {
     (Mapboxgl.accessToken as any) = environment.mapBoxKey;
     this.orderMap = new Mapboxgl.Map({
       container: 'orderMap',
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
-      center: [-66.16090109719788, -17.442175031276946],
-      zoom: 14.5,
+      center: this.location.lat
+        ? [this.location.lng, this.location.lat]
+        : [this.defaultLocation.lng, this.defaultLocation.lat],
+      zoom: 16,
     });
-    this.createdMarker(-66.16090109719788, -17.442175031276946);
+    if (this.location.lat) {
+      this.createdMark();
+    } else {
+      this.createdMarkerWithDrag();
+    }
   }
 
-  createdMarker(lng: number, lat: number) {
+  createdMarkerWithDrag() {
     const marker = new Mapboxgl.Marker({ draggable: true })
-      .setLngLat([lng, lat])
+      .setLngLat([this.defaultLocation.lng, this.defaultLocation.lat])
       .addTo(this.orderMap);
     marker.on('dragend', () => {
       this.store.dispatch(
@@ -43,5 +64,11 @@ export class OrderMapComponent implements OnInit {
         })
       );
     });
+  }
+
+  createdMark() {
+    new Mapboxgl.Marker()
+      .setLngLat([this.location.lng, this.location.lat])
+      .addTo(this.orderMap);
   }
 }

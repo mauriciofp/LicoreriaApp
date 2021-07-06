@@ -8,6 +8,7 @@
 
 <ion-content>
   <div *ngIf="order">
+    <app-order-map [location]="order.location"></app-order-map>
     <pre>
       {{ order | json }}
     </pre>
