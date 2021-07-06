@@ -74,4 +74,12 @@ export class AuthService {
   canWrite() {
     return this._user ? this._user.role === UserRole.admin : false;
   }
+
+  isAdmin() {
+    return this._user.role === UserRole.admin;
+  }
+
+  isDealer() {
+    return this._user.role === UserRole.dealer;
+  }
 }
