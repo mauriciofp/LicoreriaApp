@@ -10,6 +10,7 @@ import { OrderlistComponent } from './pages/orderlist/orderlist.component';
 import { OrderMapComponent } from './components/order-map/order-map.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { OrderItemListComponent } from './components/order-item-list/order-item-list.component';
+import { OrderComponent } from './pages/order/order.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { OrderItemListComponent } from './components/order-item-list/order-item-
     OrderMapComponent,
     OrderFormComponent,
     OrderItemListComponent,
+    OrderComponent,
   ],
   imports: [
     CommonModule,

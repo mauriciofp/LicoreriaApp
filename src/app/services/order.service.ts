@@ -24,6 +24,10 @@ export class OrderService {
       );
   }
 
+  getOne(id: string) {
+    return this.db.object<Order>(`${this.ordersRoot}/${id}`).valueChanges();
+  }
+
   createOrder(
     { street1, street2, street3, description },
     { lng, lat },
