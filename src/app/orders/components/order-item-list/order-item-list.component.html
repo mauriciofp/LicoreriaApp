@@ -1,0 +1,27 @@
+<ion-list>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col
+        *ngFor="let order of orders"
+        size="12"
+        size-xl="3"
+        size-lg="4"
+        size-md="6"
+      >
+        <ion-item detail>
+          <ion-label class="ion-text-wrap">
+            <ion-text color="primary">
+              <h3>{{ order.user.name }}</h3>
+            </ion-text>
+            <ion-text color="secondary">
+              <p>{{ order.total | currency: "Bs. " }}</p>
+            </ion-text>
+            <ion-text color="tertiary">
+              <p>{{ order.createdAt | date: "medium" }}</p>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-list>
