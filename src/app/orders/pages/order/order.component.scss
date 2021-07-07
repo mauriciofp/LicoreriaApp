@@ -1,0 +1,12 @@
+.description {
+  color: grey;
+}
+
+.total {
+  display: flex;
+  justify-content: space-around;
+  p {
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+}

@@ -11,7 +11,15 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="9" size-lg="6" size-xl="6">
         <app-order-map [location]="order.location"></app-order-map>
+        <div class="description">
+          <p>Descripcion: {{ order.description }}</p>
+        </div>
         <app-order-details [products]="order.products"></app-order-details>
+
+        <div class="total">
+          <p>Total</p>
+          <p>{{ order.total | currency: "Bs. " }}</p>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
