@@ -1,0 +1,22 @@
+.details_container {
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+.detail_container,
+.header_details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  p {
+    margin: 0.5rem;
+    padding: 0px;
+  }
+}
+
+.header_details > p {
+  font-size: 1.3rem;
+  font-weight: 700;
+}

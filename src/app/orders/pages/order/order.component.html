@@ -7,10 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="order">
-    <app-order-map [location]="order.location"></app-order-map>
-    <pre>
-      {{ order | json }}
-    </pre>
-  </div>
+  <ion-grid fixed *ngIf="order">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="9" size-lg="6" size-xl="6">
+        <app-order-map [location]="order.location"></app-order-map>
+        <app-order-details [products]="order.products"></app-order-details>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
