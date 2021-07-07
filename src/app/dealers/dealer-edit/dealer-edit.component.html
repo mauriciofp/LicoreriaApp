@@ -33,7 +33,7 @@
       <ion-button (click)="removePhone(i)" *ngIf="i !== 0">Quitar</ion-button>
     </div>
     <ion-button color="primary" (click)="addPhone()">Agregar Numero</ion-button>
-    <ion-button color="primary" (click)="submitForm()" routerLink="../list" [disabled]="form.invalid">Guardar</ion-button>
+    <ion-button color="primary" (click)="save()" routerLink="../../list" [disabled]="form.invalid">Guardar</ion-button>
   </form>
   <p>{{form.value | json}}</p>
 </ion-content>

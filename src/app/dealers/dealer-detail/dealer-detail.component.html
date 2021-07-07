@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title text-center>Detalle</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="Proveedores"></ion-back-button>
+      <ion-back-button defaultHref="dealers"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="presentActionSheet()">
@@ -18,15 +18,9 @@
   <h3>{{(dealer | async)?.email}}</h3>
 
   <ion-list-header>Numeros de telefono</ion-list-header>
-  <p *ngFor="let phone of (dealer | async)?.phoneNumbers">
+  <p *ngFor="let phone of (dealer | async)?.phones">
     <ion-chip>
       <ion-label>{{phone}}</ion-label>
-    </ion-chip>
-  </p>
-  <ion-list-header>Numeros de Celular</ion-list-header>
-  <p *ngFor="let cel of (dealer | async)?.celNumbers">
-    <ion-chip>
-      <ion-label>{{cel}}</ion-label>
     </ion-chip>
   </p>
 </ion-content>

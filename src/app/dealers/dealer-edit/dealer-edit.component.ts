@@ -36,7 +36,7 @@ export class DealerEditComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required], [ValidationsDealer.isUniqueName(this.ds)]],
       company: [''],
       email: ['', [Validators.required, Validators.email]],
       phones: this.fb.array([])
@@ -52,7 +52,7 @@ export class DealerEditComponent implements OnInit {
         this.email.setValue(data.email);
 
         data.phones.forEach(element => {
-          this.phones.push(new FormControl('', Validators.required));
+          this.phones.push(new FormControl(element, Validators.required));
         });
 
       });
@@ -69,11 +69,23 @@ export class DealerEditComponent implements OnInit {
   }
 
   save() {
-    console.log(this.form.valid);
     if(!this.form.invalid) {
-      console.log('saving data');
-      this.ds.updateDealer(this.dealerId, this.form.value);
+      if(this.takedPhoto) {
+        this.ds.updateDealer(this.dealerId, this.form.value, this.newPhoto);
+      }
+      else {
+        this.ds.updateDealer(this.dealerId, this.form.value);
+      }
     }
+  }
+
+  addPhone() {
+    const control = this.fb.control('', Validators.required);
+    this.phones.push(control);
+  }
+
+  removePhone(index) {
+    this.phones.controls.splice(index, 1);
   }
 
   get name() {

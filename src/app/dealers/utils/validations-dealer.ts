@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 export class ValidationsDealer {
 
-  static isUniqueName(ds: DealerService) {
+  static isUniqueName(ds: DealerService, discard?: string) {
     return (control: AbstractControl) => {
       const value = control.value;
       return ds.existDealer(value)

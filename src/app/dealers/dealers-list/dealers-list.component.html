@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let dealer of dealers | async">
+    <ion-item-sliding *ngFor="let dealer of dealers">
       <ion-item routerLink="../{{ dealer.id }}">
         <ion-avatar slot="start">
           <img [src]="dealer.urlImage" />

@@ -38,11 +38,7 @@ export class NewDealerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phones: this.fb.array([])
     });
-    // this.phones.push(new FormControl('', Validators.required));
-    this.phones.push(this.fb.group({
-      id: '',
-      phone: ''
-    }));
+    this.phones.push(new FormControl('', Validators.required));
     console.log('form', this.form);
   }
 
@@ -67,10 +63,6 @@ export class NewDealerComponent implements OnInit {
     if(this.form.valid) {
       this.ds.createDealer(this.form.value, this.dealerPhoto);
     }
-  }
-
-  savePhoto() {
-    this.ds.saveImageToStorage(this.dealerPhoto);
   }
 
   addPhone() {

@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
@@ -26,8 +27,11 @@ export class DealerDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.
-      subscribe(data => this.dealerId = data.id);
-    this.dealer = this.ds.getDealer('-Md_DI7fFstRwb6ecMyq');
+      subscribe(data => {
+        this.dealerId = data.id;
+        console.log('id', this.dealerId);
+        this.dealer = this.ds.getDealer(this.dealerId);
+      });
   }
 
   async presentActionSheet() {
@@ -51,11 +55,14 @@ export class DealerDetailComponent implements OnInit {
                 {
                   text: 'Si Eliminar',
                   handler: () => {
-
+                    this.ds.deleteDealer(this.dealerId)
+                      .then(data => {console.log('deleted', data);});
+                      this.router.navigate(['dealers/list']);
                   }
                 }
               ]
-            })
+            });
+            await alert.present();
           }
         },
         {
