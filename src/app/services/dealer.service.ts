@@ -24,6 +24,7 @@ export class DealerService {
     private storage: AngularFireStorage
   ) {
     this.dealers$ = this.db.list<Dealer>('dealers').snapshotChanges();
+    this.itemsRef = this.db.list('dealers/');
   }
 
   createDealer(dealer: Dealer, dealerPhoto: Photo) {
@@ -165,7 +166,8 @@ export class DealerService {
     });
   }
 
-  deleteDealer(id: string) {
+  deleteDealer(id: string, urlImage) {
+    this.storage.refFromURL(urlImage).delete();
     return this.db.list('dealers/').remove(id);
   }
 }
