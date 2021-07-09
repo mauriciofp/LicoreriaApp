@@ -11,66 +11,9 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-sm="12" size-md="9" size-lg="6" size-xl="6">
         <div class="options_container">
-          <div class="notification_container">
-            <ion-item>
-              <ion-label position="floating">Notificaciones</ion-label>
-              <ion-textarea></ion-textarea>
-            </ion-item>
-            <ion-button>
-              <ion-icon slot="start" name="send-outline"></ion-icon>
-              Enviar
-            </ion-button>
-          </div>
-          <div class="dealer_container">
-            <ion-item>
-              <ion-label>Dealer Asignado</ion-label>
-              <ion-select value="0" placeholder="Sin assignar">
-                <ion-select-option value="1">
-                  Juan - pedidos ya
-                </ion-select-option>
-                <ion-select-option value="2">
-                  Eduardo - Chasky
-                </ion-select-option>
-                <ion-select-option value="3">
-                  Maria - Loricito
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-button>
-              <ion-icon slot="start" name="person-outline"></ion-icon>
-              Asignar
-            </ion-button>
-          </div>
-          <div class="messages_container">
-            <p class="other">
-              Su pedido esta siendo procesado, le avisaremos por este medio!
-            </p>
-            <p class="own">Genial, espero</p>
-
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-            <div class="input_message fixed">
-              <ion-input
-                type="text"
-                placeholder="Escribe tu mensaje"
-              ></ion-input>
-              <ion-button shape="round">
-                <ion-icon slot="icon-only" name="send-outline"></ion-icon>
-              </ion-button>
-            </div>
-          </div>
+          <app-order-notification></app-order-notification>
+          <app-order-dealer></app-order-dealer>
+          <app-order-chat></app-order-chat>
         </div>
       </ion-col>
     </ion-row>
