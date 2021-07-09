@@ -4,3 +4,27 @@
   width: 100%;
   justify-content: space-evenly;
 }
+
+.content {
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+ion-header {
+  margin-bottom: 20px;
+}
+
+.img-dealer {
+  width: 400px;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.num-container {
+  display: flex;
+  justify-content: space-between;
+}

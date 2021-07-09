@@ -7,6 +7,8 @@ import { Camera, CameraResultType, Photo } from '@capacitor/camera';
 import { CameraService } from '../../services/camera.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Dealer } from '../../models/dealer';
+import { Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 
 @Component({
@@ -21,16 +23,22 @@ export class NewDealerComponent implements OnInit {
   dealerUrlImage: SafeResourceUrl;
   dealerPhoto: Photo;
 
+  profileURL: Observable<string | null>;
+
   constructor(
     private ds: DealerService,
     private cs: CameraService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private storage: AngularFireStorage
     ) {
+
+      const ref = this.storage.ref('noimage.jpg');
+      this.profileURL = ref.getDownloadURL();
     }
 
   ngOnInit() {
-    this.dealerUrlImage = '';
+    //this.dealerUrlImage = '';
 
     this.form = this.fb.group({
       name: ['', [Validators.required], [ValidationsDealer.isUniqueName(this.ds)]],
