@@ -79,7 +79,7 @@
             
           </ng-container>
   
-          <ion-button (click)="addPhone()">
+          <ion-button (click)="addPhone()" [disabled]="phones.invalid">
             Agregar Numero
           </ion-button>
           

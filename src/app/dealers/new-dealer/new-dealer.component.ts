@@ -80,6 +80,7 @@ export class NewDealerComponent implements OnInit {
 
   removePhone(index) {
     this.phones.controls.splice(index, 1);
+    this.phones.removeAt(index);
   }
 
   get name() {

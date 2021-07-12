@@ -12,15 +12,25 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <img [src]="(dealer | async)?.urlImage">
-  <h2>{{(dealer | async)?.name}}</h2>
-  <h3>{{(dealer | async)?.company}}</h3>
-  <h3>{{(dealer | async)?.email}}</h3>
-
-  <ion-list-header>Numeros de telefono</ion-list-header>
-  <p *ngFor="let phone of (dealer | async)?.phones">
-    <ion-chip>
-      <ion-label>{{phone}}</ion-label>
-    </ion-chip>
-  </p>
+  <div class="content">
+    <div class="all-row">
+      <img class="img-dealer" [src]="(dealer | async)?.urlImage">
+      <div class="details-information">
+        <h4 class="inf">Dealer:</h4>
+        <h4 class="inf-values">{{(dealer | async)?.name}}</h4>
+        <h4 class="inf">Empresa:</h4>
+        <h4 class="inf-values">{{(dealer | async)?.company}}</h4>
+        <h4 class="inf">Email:</h4>
+        <h4 class="inf-values">{{(dealer | async)?.email}}</h4>
+        <h4 class="inf">
+          Telefonos:
+        </h4>
+        <span class="inf-values" *ngFor="let phone of (dealer | async)?.phones">
+          <ion-chip>
+            <ion-label>{{ phone }}</ion-label>
+          </ion-chip>
+        </span>
+      </div>
+    </div>
+  </div>
 </ion-content>
