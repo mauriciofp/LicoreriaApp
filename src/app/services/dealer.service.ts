@@ -9,7 +9,6 @@ import { finalize, map, take, tap } from 'rxjs/operators';
 
 import { Dealer } from '../models/dealer';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -114,6 +113,28 @@ export class DealerService {
         .valueChanges()
         .subscribe((data) => {
           if (discard) {
+            if (data.length === 1 && data[0].name === discard) {
+              o.next(false);
+            } else {
+              o.next(data.length === 0 ? false : true);
+            }
+          } else {
+            o.next(data.length === 0 ? false : true);
+          }
+          o.complete();
+        });
+    });
+  }
+
+  existEmail(email: string, discard?: string) {
+    return new Observable((o) => {
+      this.db
+        .list<Dealer>('dealers', (ref) =>
+          ref.orderByChild('email').equalTo(email)
+        )
+        .valueChanges()
+        .subscribe((data) => {
+          if (discard) {
             o.next(data.length === 0 ? true : false);
             o.complete();
           } else {
@@ -123,6 +144,25 @@ export class DealerService {
         });
     });
   }
+
+  // existUser(email: string): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     this.db
+  //       .list<Dealer>('users', (ref) =>
+  //         ref.orderByChild('email').equalTo(email)
+  //       )
+  //       .valueChanges()
+  //       .subscribe((data) => {
+  //         if (discard) {
+  //           o.next(data.length === 0 ? true : false);
+  //           o.complete();
+  //         } else {
+  //           o.next(data.length === 0 ? false : true);
+  //           o.complete();
+  //         }
+  //       });
+  //   });
+  // }
 
   getDealer(id: string): Observable<Dealer> {
     return this.db.object<Dealer>(`dealers/${id}`).valueChanges();

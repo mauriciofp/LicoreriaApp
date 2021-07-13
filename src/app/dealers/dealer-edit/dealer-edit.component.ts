@@ -36,7 +36,7 @@ export class DealerEditComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      name: ['', [Validators.required], [ValidationsDealer.isUniqueName(this.ds)]],
+      name: ['', [Validators.required]],
       company: [''],
       email: ['', [Validators.required, Validators.email]],
       phones: this.fb.array([])
@@ -50,6 +50,8 @@ export class DealerEditComponent implements OnInit {
         this.name.setValue(data.name);
         this.company.setValue(data.company);
         this.email.setValue(data.email);
+
+        this.name.setAsyncValidators([ValidationsDealer.isUniqueName(this.ds, data.name)]);
 
         data.phones.forEach(element => {
           this.phones.push(new FormControl(element, Validators.required));
