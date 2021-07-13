@@ -17,4 +17,19 @@ export class ValidationsDealer {
       }
     };
   }
+
+  static isUniqueEmail(ds: DealerService, discard?: string) {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (discard) {
+        return ds
+          .existEmail(value, discard)
+          .pipe(map((resp) => (resp === false ? null : { notUnique: true })));
+      } else {
+        return ds
+          .existEmail(value)
+          .pipe(map((resp) => (resp === false ? null : { notUnique: true })));
+      }
+    };
+  }
 }
