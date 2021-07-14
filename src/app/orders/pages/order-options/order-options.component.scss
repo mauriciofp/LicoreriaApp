@@ -1,7 +1,12 @@
 .options_container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px solid indianred;
   height: 100%;
+
+  .options_container_messages {
+    flex-grow: 1;
+  }
 }

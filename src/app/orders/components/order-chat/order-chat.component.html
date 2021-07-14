@@ -1,24 +1,49 @@
 <div class="messages_container">
-  <div class="body_messages">
-    <p class="other">
-      Su pedido esta siendo procesado, le avisaremos por este medio!
-    </p>
-    <p class="own">Genial, espero</p>
+  <div
+    class="body_messages"
+    #messagesBox
+    [scrollTop]="messagesBox.scrollHeight"
+  >
+    <div class="single_message other">
+      <p>Admin dice:</p>
+      <p>Su pedido esta siendo procesado, le avisaremos por este medio!</p>
+      <p>11:55 am</p>
+    </div>
+    <div class="single_message own">
+      <p>Yo digo:</p>
+      <p>genial, espero</p>
+      <p>11:57 am</p>
+    </div>
 
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="own">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="own">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="own">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="own">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="other">Su pedido estara en su domicilio en 20 min!</p>
-    <p class="own">Su pedido estara en su domicilio en 20 min!</p>
+    <div class="single_message own">
+      <p>Yo digo:</p>
+      <p>A que hora me llegara el pedido?</p>
+      <p>11:57 am</p>
+    </div>
+
+    <div class="single_message other">
+      <p>Admin dice:</p>
+      <p>Su pedido ya se envio, en unos 20 min por favor!</p>
+      <p>12:05 am</p>
+    </div>
+
+    <div class="single_message own">
+      <p>Yo digo:</p>
+      <p>Bueno esperare!</p>
+      <p>12:10 am</p>
+    </div>
+
+    <div class="single_message other">
+      <p>Dealer dice:</p>
+      <p>Estoy cerca de su casa, puede salir afuera de su casa?</p>
+      <p>12:21 am</p>
+    </div>
+
+    <div class="single_message other">
+      <p>Admin dice:</p>
+      <p>Pedido finalizado, gracias por confiar en nosotros</p>
+      <p>12:22 am</p>
+    </div>
   </div>
   <div class="input_message">
     <ion-input type="text" placeholder="Escribe tu mensaje"></ion-input>

@@ -7,15 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid fixed>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="12" size-md="9" size-lg="6" size-xl="6">
-        <div class="options_container">
-          <app-order-notification></app-order-notification>
-          <app-order-dealer></app-order-dealer>
-          <app-order-chat></app-order-chat>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="options_container">
+    <app-order-dealer></app-order-dealer>
+    <app-order-notification></app-order-notification>
+    <app-order-chat class="options_container_messages"></app-order-chat>
+  </div>
 </ion-content>

@@ -1,40 +1,57 @@
 .messages_container {
-  border: 1px solid gray;
-  border-radius: 1.5rem;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
-  max-height: 30rem;
-  overflow-x: scroll;
-
+  height: 100%;
+  justify-content: space-between;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
   .body_messages {
-    background-color: khaki;
-  }
-
-  .input_message {
+    flex-grow: 1;
+    height: 10px; // para que funcione el overflow tiene que tener un tamano fijo
+    overflow-x: scroll;
+    border: 1px solid #aed6f1;
+    border-radius: 1rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    ion-input {
-      border: 1px solid green;
+    flex-direction: column;
+    .single_message {
+      margin: 0.5rem;
       border-radius: 1rem;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .own {
+      align-self: flex-end;
+      border: 1px solid green;
+    }
+
+    .other {
+      align-self: flex-start;
+      border: 1px solid red;
     }
   }
 
-  .own {
-    border-radius: 1rem;
-    padding: 0.5rem;
-    margin-bottom: 0px;
-    border: 1px solid gray;
-    align-self: flex-end;
-  }
-
-  .other {
-    margin-bottom: 0px;
-    padding: 0.5rem;
-    border-radius: 1rem;
-    border: 1px solid green;
-    align-self: flex-start;
+  .input_message {
+    margin-top: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 2.4rem;
+    align-items: center;
+    ion-input {
+      border: 1px solid black;
+      border-radius: 1rem;
+      flex-grow: 1;
+      color: gray;
+    }
   }
 }
