@@ -1,12 +1,13 @@
 export class Message {
-  static fromFirebase({ message, user, role, date }) {
-    return new Message(message, user, role, date);
+  static fromFirebase({ body, user, role, userId, date }) {
+    return new Message(body, user, role, userId, date);
   }
 
   constructor(
-    public message: string,
+    public body: string,
     public user: string,
     public role: string,
+    public userId: string,
     public date: string
   ) {}
 }

@@ -6,7 +6,7 @@
   >
     <div class="single_message" *ngFor="let message of messages">
       <p>{{ message.role }} dice:</p>
-      <p>{{ message.message }}</p>
+      <p>{{ message.body }}</p>
       <p>{{ message.date | date: "mediumTime" }}</p>
     </div>
   </div>

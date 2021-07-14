@@ -12,11 +12,11 @@ export class MessageService {
 
   constructor(private db: AngularFireDatabase) {}
 
-  create(message: string, orderId: string, role: UserRole, name: string) {
+  create(body: string, orderId: string, user: User) {
     const date = new Date().toUTCString();
     return this.db
       .list(`${this.root}/${orderId}`)
-      .push({ message, role, name, date });
+      .push({ body, role: user.role, name: user.name, userId: user.uid, date });
   }
 
   getMessages(orderId: string) {

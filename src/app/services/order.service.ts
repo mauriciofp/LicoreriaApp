@@ -60,12 +60,14 @@ export class OrderService {
       .then((ref) => {
         const message =
           'Estamos preparando tu pedido, nos comunicaremos por este medio!';
-        return this.messageService.create(
-          message,
-          ref.key,
-          UserRole.admin,
-          'Administrador'
+        const user = new User(
+          'defaul-id',
+          'Administrador',
+          'admin@test.com',
+          '70000000',
+          UserRole.admin
         );
+        return this.messageService.create(message, ref.key, user);
       });
   }
 }
