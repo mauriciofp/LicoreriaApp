@@ -1,9 +1,11 @@
 import {
+  AfterViewChecked,
+  AfterViewInit,
   Component,
-  EventEmitter,
+  ElementRef,
   OnDestroy,
   OnInit,
-  Output,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -21,8 +23,11 @@ import { UtilsService } from 'src/app/utils/utils.service';
   templateUrl: './order-chat.component.html',
   styleUrls: ['./order-chat.component.scss'],
 })
-export class OrderChatComponent implements OnInit, OnDestroy {
+export class OrderChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   orderId: string;
+
+  @ViewChild('messagesBox') private messagesBox: ElementRef;
+
   messages: Message[] = [];
 
   newMessage = new FormControl('', Validators.required);
@@ -47,11 +52,16 @@ export class OrderChatComponent implements OnInit, OnDestroy {
       )
       .subscribe((messages) => {
         this.messages = messages;
+        this.scrollToBottom();
       });
 
     this.userSubs = this.store
       .select('auth')
       .subscribe(({ user }) => (this.user = user));
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
 
   ngOnDestroy() {
@@ -74,5 +84,12 @@ export class OrderChatComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         toast.present();
       });
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.messagesBox.nativeElement.scrollTop =
+        this.messagesBox.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 }

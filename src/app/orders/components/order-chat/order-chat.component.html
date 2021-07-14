@@ -1,9 +1,8 @@
-<div class="messages_container" *ngIf="messages.length > 0">
-  <div
-    class="body_messages"
-    #messagesBox
-    [scrollTop]="messagesBox.scrollHeight"
-  >
+<div class="messages_container">
+  <div class="loading_box" *ngIf="messages.length == 0">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <div class="body_messages" #messagesBox *ngIf="messages.length > 0">
     <div
       class="single_message"
       [class.own]="message.userId === user.uid"

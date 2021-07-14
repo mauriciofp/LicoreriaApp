@@ -7,6 +7,13 @@
   border-radius: 1rem;
   padding: 1rem;
   margin: 0.5rem 0;
+
+  .loading_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
   .body_messages {
     flex-grow: 1;
     height: 10px; // para que funcione el overflow tiene que tener un tamano fijo
