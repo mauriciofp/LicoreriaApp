@@ -4,15 +4,24 @@
     #messagesBox
     [scrollTop]="messagesBox.scrollHeight"
   >
-    <div class="single_message" *ngFor="let message of messages">
-      <p>{{ message.role }} dice:</p>
+    <div
+      class="single_message"
+      [class.own]="message.userId === user.uid"
+      *ngFor="let message of messages"
+    >
+      <p>{{ message.role }} - {{ message.name }} dice:</p>
       <p>{{ message.body }}</p>
       <p>{{ message.date | date: "mediumTime" }}</p>
     </div>
   </div>
   <div class="input_message">
-    <ion-input type="text" placeholder="Escribe tu mensaje"></ion-input>
-    <ion-button shape="round">
+    <ion-input
+      type="text"
+      placeholder="Escribe tu mensaje"
+      [formControl]="newMessage"
+      (keyup.enter)="sendMessage()"
+    ></ion-input>
+    <ion-button shape="round" (click)="sendMessage()" [disabled]="isLoading">
       <ion-icon slot="icon-only" name="send-outline"></ion-icon>
     </ion-button>
   </div>
