@@ -11,6 +11,7 @@ export interface Order {
   total: number;
   user: User;
   userId: string;
+  dealerId?: string;
 }
 
 export interface Location {

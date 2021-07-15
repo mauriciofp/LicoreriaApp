@@ -4,6 +4,10 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap, tap } from 'rxjs/operators';
+import { Order } from 'src/app/interfaces/order';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-order-options',
@@ -11,9 +15,26 @@ import {
   styleUrls: ['./order-options.component.scss'],
 })
 export class OrderOptionsComponent implements OnInit, AfterViewInit {
-  constructor(private cd: ChangeDetectorRef) {}
+  order: Order;
+  orderId: string;
 
-  ngOnInit() {}
+  constructor(
+    private cd: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private orderService: OrderService
+  ) {}
+
+  ngOnInit() {
+    this.route.params
+      .pipe(
+        tap(({ id }) => (this.orderId = id)),
+        switchMap(({ id }) => this.orderService.getOne(id))
+      )
+      .subscribe((order) => {
+        this.order = order;
+        this.order.id = this.orderId;
+      });
+  }
 
   ngAfterViewInit() {
     this.cd.detectChanges();

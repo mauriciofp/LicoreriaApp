@@ -1,14 +1,36 @@
-<div class="dealer_container">
+<div class="dealer_container" *ngIf="dealers.length > 0">
   <ion-item>
     <ion-label>Dealer Asignado</ion-label>
-    <ion-select value="0" placeholder="Sin assignar">
-      <ion-select-option value="1"> Juan - pedidos ya </ion-select-option>
-      <ion-select-option value="2"> Eduardo - Chasky </ion-select-option>
-      <ion-select-option value="3"> Maria - Loricito </ion-select-option>
+    <ion-select
+      value="0"
+      placeholder="Sin assignar"
+      [formControl]="dealerForm"
+      okText="Ok"
+      cancelText="Cancelar"
+    >
+      <ion-select-option [value]="dealer.id" *ngFor="let dealer of dealers">
+        {{ dealer.name }} - {{ dealer.company }}
+      </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-button>
+  <ion-button
+    *ngIf="!isLoading"
+    shape="round"
+    expand="block"
+    style="margin-top: 1rem"
+    (click)="assignDealer()"
+  >
     <ion-icon slot="start" name="person-outline"></ion-icon>
     Asignar
+  </ion-button>
+  <ion-button
+    *ngIf="isLoading"
+    shape="round"
+    expand="block"
+    style="margin-top: 1rem"
+    disabled
+  >
+    <ion-spinner name="bubbles"></ion-spinner>
+    Asignando...
   </ion-button>
 </div>

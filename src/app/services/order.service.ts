@@ -70,4 +70,8 @@ export class OrderService {
         return this.messageService.create(message, ref.key, user);
       });
   }
+
+  assignDealer(dealerId: string, orderId: string) {
+    return this.db.object(`${this.ordersRoot}/${orderId}`).update({ dealerId });
+  }
 }
