@@ -49,7 +49,7 @@
             <p>El campo es requerido</p>
           </ion-text>
         </div>
-  
+
         <ion-item>
           <ion-label color="primary" position="floating">Email</ion-label>
           <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
@@ -61,10 +61,16 @@
           <ion-text *ngIf="email.hasError('email')" color="danger">
             <p>Ingrese un email valido</p>
           </ion-text>
+          <ion-text *ngIf="email.hasError('notUnique')" color="danger">
+            <p>Ya existe un dealer con el email</p>
+          </ion-text>
+          <ion-text *ngIf="email.hasError('noUser')" color="danger">
+            <p>No existe email</p>
+          </ion-text>
           <!-- <p *ngIf="email.hasError('required')">El campo es requerido</p>
           <p *ngIf="email.hasError('email')">Ingrese un email valido</p> -->
         </div>
-  
+
         <div formArrayName="phones">
           <ng-container *ngFor="let phone of phones.controls; let i = index">
             <div class="num-container">
@@ -76,25 +82,27 @@
                 <ion-icon name="close-circle-outline" size="large"></ion-icon>
               </ion-button>
             </div>
-            
+
           </ng-container>
-  
+
           <ion-button (click)="addPhone()" [disabled]="phones.invalid">
             Agregar Numero
           </ion-button>
-          
+
         </div>
         <br />
         <div class="buttons_form_container">
           <ion-button color="primary" (click)="submitForm()" routerLink="../list" [disabled]="form.invalid">Guardar
           </ion-button>
+          <!-- <ion-button color="primary" (click)="submitForm()" [disabled]="form.invalid">Guardar
+          </ion-button> -->
           <ion-button color="primary">Cancelar</ion-button>
         </div>
-  
+
       </form>
       <!-- <p>{{form.value | json}}</p> -->
     </div>
-    
+
   </div>
 
 </ion-content>

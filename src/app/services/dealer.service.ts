@@ -148,8 +148,8 @@ export class DealerService {
     });
   }
 
-  existUser(email: string, discard?: string): Promise<any> {
-    return new Promise((resolve, reject) => {
+  existUser(email: string, discard?: string) {
+    return new Observable((o) => {
       this.db
         .list<Dealer>('users', (ref) =>
           ref.orderByChild('email').equalTo(email)
@@ -158,13 +158,15 @@ export class DealerService {
         .subscribe((data) => {
           if (discard) {
             if (data.length === 1 && data[0].email === discard) {
-              resolve(false);
+              o.next(false);
             } else {
-              resolve(data.length === 0 ? false : true);
+              o.next(data.length === 0 ? false : true);
             }
           } else {
-            resolve(data.length === 0 ? false : true);
+            console.log('value', data.length === 0 ? false : true);
+            o.next(data.length === 0 ? false : true);
           }
+          o.complete();
         });
     });
   }

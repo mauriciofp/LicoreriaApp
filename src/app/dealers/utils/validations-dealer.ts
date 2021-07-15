@@ -32,4 +32,19 @@ export class ValidationsDealer {
       }
     };
   }
+
+  static existUser(ds: DealerService, discard?: string) {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      if (discard) {
+        return ds
+          .existUser(value, discard)
+          .pipe(map((resp) => (resp === true ? null : { noUser: true })));
+      } else {
+        return ds
+          .existUser(value)
+          .pipe(map((resp) => (resp === true ? null : { noUser: true })));
+      }
+    };
+  }
 }

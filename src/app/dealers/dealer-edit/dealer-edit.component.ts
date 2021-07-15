@@ -16,7 +16,6 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./dealer-edit.component.scss'],
 })
 export class DealerEditComponent implements OnInit {
-
   newPhoto: Photo;
   newUrlPhoto: SafeResourceUrl;
   takedPhoto = false;
@@ -31,51 +30,54 @@ export class DealerEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private cs: CameraService
-  ) { }
+  ) {}
 
   ngOnInit() {
-
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       company: [''],
       email: ['', [Validators.required, Validators.email]],
-      phones: this.fb.array([])
+      phones: this.fb.array([]),
     });
 
     this.activatedRoute.params.subscribe((param) => {
       this.dealerId = param.id;
       this.dealer = this.ds.getDealer(param.id);
       this.ds.getDealer(param.id).subscribe((data) => {
-
         this.name.setValue(data.name);
         this.company.setValue(data.company);
         this.email.setValue(data.email);
 
-        this.name.setAsyncValidators([ValidationsDealer.isUniqueName(this.ds, data.name)]);
+        this.name.setAsyncValidators([
+          ValidationsDealer.isUniqueName(this.ds, data.name),
+        ]);
 
-        data.phones.forEach(element => {
+        data.phones.forEach((element) => {
           this.phones.push(new FormControl(element, Validators.required));
         });
-
       });
     });
   }
 
   loadImage() {
-    const photo = this.cs.takeSinglePhoto().then(ph => {
-      console.log('photoUrl',ph.webPath);
+    const photo = this.cs.takeSinglePhoto().then((ph) => {
+      console.log('photoUrl', ph.webPath);
       this.newPhoto = ph;
-      this.newUrlPhoto = this.sanitizer.bypassSecurityTrustUrl(ph && (ph.webPath));
+      this.newUrlPhoto = this.sanitizer.bypassSecurityTrustUrl(
+        ph && ph.webPath
+      );
       this.takedPhoto = true;
     });
   }
 
   save() {
-    if(!this.form.invalid) {
-      if(this.takedPhoto) {
+    if (!this.form.invalid) {
+      this.name.setValue(this.name.value.trim());
+      this.company.setValue(this.company.value.trim());
+      this.email.setValue(this.email.value.trim());
+      if (this.takedPhoto) {
         this.ds.updateDealer(this.dealerId, this.form.value, this.newPhoto);
-      }
-      else {
+      } else {
         this.ds.updateDealer(this.dealerId, this.form.value);
       }
     }
