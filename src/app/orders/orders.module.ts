@@ -12,6 +12,10 @@ import { OrderFormComponent } from './components/order-form/order-form.component
 import { OrderItemListComponent } from './components/order-item-list/order-item-list.component';
 import { OrderComponent } from './pages/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { OrderOptionsComponent } from './pages/order-options/order-options.component';
+import { OrderChatComponent } from './components/order-chat/order-chat.component';
+import { OrderNotificationComponent } from './components/order-notification/order-notification.component';
+import { OrderDealerComponent } from './components/order-dealer/order-dealer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
     OrderItemListComponent,
     OrderComponent,
     OrderDetailsComponent,
+    OrderOptionsComponent,
+    OrderChatComponent,
+    OrderNotificationComponent,
+    OrderDealerComponent,
   ],
   imports: [
     CommonModule,

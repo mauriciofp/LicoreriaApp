@@ -3,6 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="orders"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end" *ngIf="order">
+      <ion-button routerLink="../options/{{ order.id }}">
+        <ion-icon slot="start" name="options-outline"></ion-icon>
+        Opciones
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
