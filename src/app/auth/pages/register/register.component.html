@@ -1,4 +1,4 @@
-<ion-content>
+<!-- <ion-content>
   <ion-grid fixed class="justify-content-center">
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-xl="4" size-lg="6" size-md="9" size-sm="12">
@@ -122,4 +122,58 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</ion-content> -->
+
+<ion-content>
+  <div class="login-section ion-padding">
+    <div class="heading ion-padding">
+      <h1>Crea una cuenta !</h1>
+      <p>Empieza a comprar</p>
+    </div>
+
+    <form class="login-form ion-padding" [formGroup]="registerForm">
+      <div class="form-input">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="name"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-icon name="mail-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Correo</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="form-input">
+        <ion-icon name="call-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Telefono</ion-label>
+          <ion-input type="tel" formControlName="phone"></ion-input>
+        </ion-item>
+      </div>
+    </form>
+
+    <div class="action-buttons">
+      <ion-button class="login-button" (click)="register()" *ngIf="!isLoading">
+        Crea una cuenta
+      </ion-button>
+      <ion-button class="login-button" disabled *ngIf="isLoading">
+        <ion-spinner name="bubbles"></ion-spinner>
+        Creando...
+      </ion-button>
+      <ion-button class="signup-button" fill="outline" routerLink="../login">
+        Ingresa
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

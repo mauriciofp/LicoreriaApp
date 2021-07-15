@@ -15,7 +15,7 @@ import { UtilsService } from 'src/app/utils/utils.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['../login/login.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.store.dispatch(stopLoading());
         this.registerForm.reset();
         this.router.navigate(['home']).then(async () => {
-          const toast = await this.utilService.createToast('Bienvendio');
+          const toast = await this.utilService.createToast('Bienvenido');
           toast.present();
         });
       })
@@ -77,24 +77,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   private createForm() {
-    this.registerForm = this.fb.group(
-      {
-        name: ['', [Validators.required, Validators.minLength(2)]],
-        email: [
-          '',
-          [Validators.required, Validators.pattern(this.emailPattern)],
-        ],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        password2: ['', [Validators.required]],
-        phone: [
-          '',
-          [Validators.required, Validators.pattern(this.phonePattern)],
-        ],
-      },
-      {
-        validators: [this.validatorService.sameFields('password', 'password2')],
-      }
-    );
+    this.registerForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
+    });
   }
 
   invalidField(field: string) {

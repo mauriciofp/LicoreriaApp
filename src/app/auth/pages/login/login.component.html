@@ -1,82 +1,39 @@
 <ion-content>
-  <ion-grid fixed class="justify-content-center">
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-xl="4" size-lg="6" size-md="9" size-sm="12">
-        <app-auth-buttons></app-auth-buttons>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-xl="4" size-lg="6" size-md="9" size-sm="12">
-        <app-auth-logo></app-auth-logo>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col
-        size="12"
-        size-xl="4"
-        size-lg="6"
-        size-md="9"
-        size-sm="12"
-        class="ion-align-items-center"
-      >
-        <ion-card>
-          <ion-card-content>
-            <form
-              [formGroup]="loginForm"
-              (ngSubmit)="login()"
-              autocomplete="on"
-            >
-              <ion-item>
-                <ion-label color="primary" position="floating">Email</ion-label>
-                <ion-input
-                  type="text"
-                  formControlName="email"
-                  placeholder="Correo electronico"
-                ></ion-input>
-                <span class="error_message" *ngIf="invalidField('email')">{{
-                  emailMessageError
-                }}</span>
-              </ion-item>
+  <div class="login-section ion-padding">
+    <div class="heading ion-padding">
+      <h1>Bienvenido !!!</h1>
+      <p>Ingresar para continuar</p>
+    </div>
 
-              <ion-item>
-                <ion-label color="primary" position="floating"
-                  >Contraseña</ion-label
-                >
-                <ion-input
-                  type="password"
-                  formControlName="password"
-                  placeholder="***************"
-                ></ion-input>
-                <span class="error_message" *ngIf="invalidField('password')">{{
-                  passwordMessageError
-                }}</span>
-              </ion-item>
+    <form class="login-form ion-padding" [formGroup]="loginForm">
+      <div class="form-input">
+        <ion-icon name="mail-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Correo</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+      </div>
+    </form>
 
-              <ion-button
-                *ngIf="!isLoading"
-                type="submit"
-                expand="block"
-                fill="solid"
-                shape="round"
-              >
-                Ingresar
-              </ion-button>
-
-              <ion-button
-                *ngIf="isLoading"
-                type="button"
-                expand="block"
-                fill="solid"
-                shape="round"
-                disabled
-              >
-                <ion-spinner name="bubbles"></ion-spinner>
-                Ingresando ...
-              </ion-button>
-            </form>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <div class="action-buttons">
+      <ion-button class="login-button" (click)="login()" *ngIf="!isLoading">
+        Ingresar
+      </ion-button>
+      <ion-button class="login-button" disabled *ngIf="isLoading">
+        <ion-spinner name="bubbles"></ion-spinner>
+        Ingresando ...
+      </ion-button>
+      <!-- <p>Forgot password ?</p> -->
+      <ion-button class="signup-button" fill="outline" routerLink="../register">
+        Registrate
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
