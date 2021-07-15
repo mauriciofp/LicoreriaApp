@@ -1,1 +1,4 @@
 <div class="map_container" id="orderMap"></div>
+<p *ngIf="currentLocation.lat" class="map_label">
+  lng: {{ currentLocation.lng }}, lat: {{ currentLocation.lat }}
+</p>

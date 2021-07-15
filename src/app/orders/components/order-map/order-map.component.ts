@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as Mapboxgl from 'mapbox-gl';
+import { Subscription } from 'rxjs';
 import { Location } from 'src/app/interfaces/order';
 import {
   setLocation,
@@ -25,14 +26,28 @@ export class OrderMapComponent implements OnInit, OnDestroy {
     lat: -17.393779843949304,
   };
 
+  currentLocation: Location = {
+    lng: null,
+    lat: null,
+  };
+
+  locationSubs: Subscription;
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.createMap();
+    this.locationSubs = this.store
+      .select('location')
+      .subscribe(({ lng, lat }) => {
+        this.currentLocation.lng = lng;
+        this.currentLocation.lat = lat;
+      });
   }
 
   ngOnDestroy() {
     this.store.dispatch(unsetLocation());
+    this.locationSubs?.unsubscribe();
   }
 
   createMap() {

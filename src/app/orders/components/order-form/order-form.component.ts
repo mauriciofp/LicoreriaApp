@@ -88,8 +88,26 @@ export class OrderFormComponent implements OnInit, OnDestroy {
         'Mueve el marcador en el mapa donde quiere que te llevemos tu pedido'
       );
       alert.present();
+      this.detailForm.markAllAsTouched();
       return;
     }
+
+    const { lng, lat } = this.location;
+
+    if (
+      lng > -66.13689346418048 ||
+      lng < -66.17689346418048 ||
+      lat < -17.413779843949304 ||
+      lat > -17.373779843949304
+    ) {
+      const alert = await this.utilService.createAlert(
+        'Lo sentimos, no contamos con servicio en esa zona'
+      );
+      alert.present();
+      this.detailForm.markAllAsTouched();
+      return;
+    }
+
     if (this.detailForm.invalid) {
       this.detailForm.markAllAsTouched();
       return;
