@@ -4,36 +4,122 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="dealers"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="form">
-    <ion-item>
-      <ion-label color="primary" position="floating">Nombre</ion-label>
-      <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
-    </ion-item>
-    <div class="err-msg" *ngIf="name.invalid && (name.dirty || name.touched)">
-      <p *ngIf="name.hasError('required')">El campo es requerido</p>
-      <!-- <p *ngIf="name.hasError('notUnique')">Ya existe un Distribuidor con el mismo Nombre</p> -->
-    </div>
-    <ion-item>
-      <ion-label color="primary" position="floating">Empresa</ion-label>
-      <ion-input type="text" placeholder="Empresa" formControlName="company"></ion-input>
-    </ion-item>
-    <div class="err-msg" *ngIf="company.invalid && (company.dirty || company.touched)">
-      <p *ngIf="company.hasError('required')">El campo es requerido</p>
-    </div>
+  <div class="content">
+    <div>
 
-    <ion-item>
-      <ion-label color="primary" position="floating">Email</ion-label>
-      <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
-    </ion-item>
-    <div class="err-msg" *ngIf="email.invalid && (email.dirty || email.touched)">
-      <p *ngIf="email.hasError('required')">El campo es requerido</p>
-      <p *ngIf="email.hasError('email')">Ingrese un email valido</p>
-    </div>
+      <img class="img-dealer" *ngIf="!takedPhoto" [src]="(dealer | async)?.urlImage">
+      <img class="img-dealer" *ngIf="takedPhoto" [src]="newUrlPhoto">
 
-    <input type="button" value="Guardar" (click)="save()">
-  </form>
-  
+      <!-- <ion-button (click)="loadImage()">Cambiar</ion-button> -->
+
+      <div class="buttons_form_container">
+        <ion-button shape="round" (click)="loadImage()">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          <ion-label>Camara</ion-label>
+        </ion-button>
+        <ion-button shape="round" color="tertiary">
+          <ion-icon slot="start" name="image"></ion-icon>
+          <ion-label>Galeria</ion-label>
+        </ion-button>
+      </div>
+
+      <!-- <form [formGroup]="form">
+        <ion-input placeholder="" formControlName="name"></ion-input>
+        <br />
+        <ion-input placeholder="" formControlName="company"></ion-input>
+        <br />
+        <ion-input placeholder="" formControlName="email"></ion-input>
+        <br />
+
+        <div formArrayName="phones" *ngFor="let phone of phones.controls; let i = index">
+          <ion-item>
+            <ion-label>Numero</ion-label>
+            <ion-input placeholder="numero" type="number" [formControlName]="i"></ion-input>
+          </ion-item>
+          <ion-button (click)="removePhone(i)" *ngIf="i !== 0">Quitar</ion-button>
+        </div>
+        <ion-button color="primary" (click)="addPhone()">Agregar Numero</ion-button>
+        <ion-button color="primary" (click)="save()" routerLink="../../list" [disabled]="form.invalid">Guardar
+        </ion-button>
+      </form> -->
+
+      <form [formGroup]="form">
+        <ion-item>
+          <ion-label color="primary" position="floating">Nombre</ion-label>
+          <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+        </ion-item>
+        <div class="err-msg" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <ion-text *ngIf="name.hasError('required')" color="danger">
+            <p>El campo es requerido</p>
+          </ion-text>
+          <ion-text *ngIf="name.hasError('notUnique')" color="danger">
+            <p>Ya existe un Distribuidor con el mismo Nombre</p>
+          </ion-text>
+        </div>
+        <ion-item>
+          <ion-label color="primary" position="floating">Empresa</ion-label>
+          <ion-input type="text" placeholder="Empresa" formControlName="company"></ion-input>
+        </ion-item>
+        <div class="err-msg" *ngIf="company.invalid && (company.dirty || company.touched)">
+          <ion-text *ngIf="company.hasError('required')" color="danger">
+            <p>El campo es requerido</p>
+          </ion-text>
+        </div>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">Email</ion-label>
+          <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+        </ion-item>
+        <div class="err-msg" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <ion-text *ngIf="email.hasError('required')" color="danger">
+            <p>El campo es requerido</p>
+          </ion-text>
+          <ion-text *ngIf="email.hasError('email')" color="danger">
+            <p>Ingrese un email valido</p>
+          </ion-text>
+          <ion-text *ngIf="email.hasError('notUnique')" color="danger">
+            <p>Ya existe un dealer con el email</p>
+          </ion-text>
+          <ion-text *ngIf="email.hasError('noUser')" color="danger">
+            <p>No existe email</p>
+          </ion-text>
+        </div>
+
+        <div formArrayName="phones">
+          <ng-container *ngFor="let phone of phones.controls; let i = index">
+            <div class="num-container">
+              <ion-item>
+                <ion-label>Numero</ion-label>
+                <ion-input placeholder="numero" type="number" [formControlName]="i"></ion-input>
+              </ion-item>
+              <ion-button (click)="removePhone(i)" *ngIf="i !== 0">
+                <ion-icon name="close-circle-outline" size="large"></ion-icon>
+              </ion-button>
+            </div>
+
+          </ng-container>
+
+          <ion-button (click)="addPhone()" [disabled]="phones.invalid">
+            Agregar Numero
+          </ion-button>
+
+        </div>
+        <br />
+        <div class="buttons_form_container">
+          <ion-button color="primary" (click)="save()" routerLink="../../list" [disabled]="form.invalid">Guardar
+          </ion-button>
+          <ion-button color="primary">Cancelar</ion-button>
+        </div>
+
+      </form>
+      <p>{{form.value | json}}</p>
+    </div>
+  </div>
+
 </ion-content>

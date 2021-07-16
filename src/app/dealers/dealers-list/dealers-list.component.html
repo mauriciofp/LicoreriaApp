@@ -1,27 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Proveedores</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="../new-dealer">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let dealer of dealers | async">
+    <ion-item-sliding *ngFor="let dealer of dealers">
       <ion-item routerLink="../{{ dealer.id }}">
         <ion-avatar slot="start">
           <img [src]="dealer.urlImage" />
         </ion-avatar>
         <ion-label class="ion-text-wrap">
-          <ion-text color="primary">
-            <h3>{{ dealer.name }}</h3>
-          </ion-text>
-          <ion-text>
-            <p>{{ dealer.company }}</p>
-          </ion-text>
+          <h2>Delivery: {{ dealer.name }}</h2>
+          <h3>Empresa: {{ dealer.company }}</h3>
+          <h3>Email: {{ dealer.email }}</h3>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
@@ -34,4 +26,9 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary" routerLink="../new-dealer">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

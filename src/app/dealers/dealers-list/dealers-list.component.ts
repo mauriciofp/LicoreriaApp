@@ -10,7 +10,8 @@ import { DealerService } from '../../services/dealer.service';
   styleUrls: ['./dealers-list.component.scss'],
 })
 export class DealersListComponent implements OnInit {
-  dealers: Observable<Dealer[]>;
+  // dealers: Observable<any>;
+  dealers: any[];
   dealersData: Dealer[];
 
   constructor(
@@ -19,11 +20,16 @@ export class DealersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dealers = this.ds.getAll();
-    this.dealers.subscribe((data) => {
-      console.log('dealers', data);
-      this.dealersData = data;
-    });
+    // this.dealers = this.ds.getAll();
+    // this.dealers.subscribe((data) => {
+    //   console.log('dealers', data);
+    //   this.dealersData = data;
+    // });
+    this.ds.getAll().
+      subscribe(data => {
+        this.dealers = data;
+        console.log(this.dealers);
+      });
   }
 
   async remove(id: string) {

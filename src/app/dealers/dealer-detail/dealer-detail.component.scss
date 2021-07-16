@@ -1,0 +1,27 @@
+.content {
+    margin: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.all-row {
+
+}
+
+.img-dealer {
+    width: 400px;
+}
+
+.details-information {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
+.inf {
+    grid-column: 1 / 2;
+}
+
+.inf-values {
+    grid-column: 2 / 4;
+}

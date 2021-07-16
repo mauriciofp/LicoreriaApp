@@ -1,14 +1,20 @@
-
 import { Component, OnInit, Sanitizer } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormArray,
+} from '@angular/forms';
 import { DealerService } from 'src/app/services/dealer.service';
-import { Validators } from '@angular/forms';
 import { ValidationsDealer } from '../utils/validations-dealer';
 import { Camera, CameraResultType, Photo } from '@capacitor/camera';
 import { CameraService } from '../../services/camera.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Dealer } from '../../models/dealer';
-
+import { Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-new-dealer',
@@ -16,82 +22,85 @@ import { Dealer } from '../../models/dealer';
   styleUrls: ['./new-dealer.component.scss'],
 })
 export class NewDealerComponent implements OnInit {
-
-  form = new FormGroup({
-    name: new FormControl('', Validators.required, ValidationsDealer.isUniqueName(this.ds)),
-    company: new FormControl(''),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    celNumber: new FormControl('', Validators.minLength(7)),
-    phoneNumber: new FormControl('', Validators.minLength(8))
-  });
+  form: FormGroup;
 
   dealerUrlImage: SafeResourceUrl;
   dealerPhoto: Photo;
 
-  celNumbers: Array<string>;
-  phoneNumbers: Array<string>;
-  phoneEnabled = false;
-  celEnabled = false;
+  profileURL: Observable<string | null>;
 
   constructor(
     private ds: DealerService,
     private cs: CameraService,
-    private sanitizer: DomSanitizer
-    ) {
-      this.celNumbers = [];
-      this.phoneNumbers = [];
-      //this.phoneEnabled = ((String) this.phoneNumber.value).;
-    }
-
-  ngOnInit() {
-    this.dealerUrlImage = '';
-    console.log('invalid', this.celNumber.invalid);
-    this.celNumber.valueChanges.subscribe(data => {
-      console.log(this.celNumber.invalid);
-      console.log('errors', this.celNumber.errors);
-    });
+    private sanitizer: DomSanitizer,
+    private fb: FormBuilder,
+    private storage: AngularFireStorage,
+    private us: UserService
+  ) {
+    const ref = this.storage.ref('noimage.jpg');
+    this.profileURL = ref.getDownloadURL();
   }
 
-  invalidField(field: string) {
-    this.form.get('').hasError('required');
-    return (
-      this.form.get(field).invalid && this.form.get(field).touched
-    );
+  ngOnInit() {
+    //this.dealerUrlImage = '';
+
+    this.form = this.fb.group({
+      name: [
+        '',
+        [Validators.required],
+      ],
+      company: [''],
+      email: [
+        '',
+        [Validators.required, Validators.email],
+        [
+          ValidationsDealer.isUniqueEmail(this.ds),
+          ValidationsDealer.existUser(this.ds)
+        ],
+      ],
+      phones: this.fb.array([]),
+    });
+    this.phones.push(new FormControl('', Validators.required));
+    console.log('form', this.form);
   }
 
   takePicture() {
     console.log('taking the picture');
-    const photo = this.cs.takeSinglePhoto().then(ph => {
-      console.log('photoUrl',ph.webPath);
+    const photo = this.cs.takeSinglePhoto().then((ph) => {
+      console.log('photoUrl', ph.webPath);
       this.dealerPhoto = ph;
-      this.dealerUrlImage = this.sanitizer.bypassSecurityTrustUrl(ph && (ph.webPath));
+      this.dealerUrlImage = this.sanitizer.bypassSecurityTrustUrl(
+        ph && ph.webPath
+      );
     });
   }
 
-  getFromGallery() {
-
-  }
+  getFromGallery() {}
 
   submitForm() {
-    const dealer = new Dealer(
-      this.form.value.name, this.form.value.company, this.form.value.email);
-    dealer.addCelNumber(this.form.value.celNumber);
-    dealer.addPhoneNumber(this.form.value.phoneNumber);
-    if(this.form.valid) {
-      this.ds.createDealer(dealer, this.dealerPhoto);
+    if (this.form.valid) {
+      this.name.setValue(this.name.value.trim());
+      this.company.setValue(this.company.value.trim());
+      this.email.setValue(this.email.value.trim());
+      this.ds.createDealer(this.form.value, this.dealerPhoto);
     }
   }
 
-  savePhoto() {
-    this.ds.saveImageToStorage(this.dealerPhoto);
+  addPhone() {
+    const control = this.fb.control('', Validators.required);
+    this.phones.push(control);
   }
 
-  addPhoneNumber(n) {
-    this.phoneNumbers = n;
+  removePhone(index) {
+    this.phones.removeAt(index);
+    //this.phones.controls.splice(index, 1);
   }
 
-  addCelNumber(n) {
-    this.celNumbers = n;
+  test() {
+    this.us.getUserByEmail('test0996@test.com')
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 
   get name() {
@@ -106,11 +115,7 @@ export class NewDealerComponent implements OnInit {
     return this.form.get('email');
   }
 
-  get celNumber() {
-    return this.form.get('celNumber');
-  }
-
-  get phoneNumber() {
-    return this.form.get('phoneNumber');
+  get phones() {
+    return this.form.get('phones') as FormArray;
   }
 }

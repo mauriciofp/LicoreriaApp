@@ -8,13 +8,12 @@ import { Observable } from 'rxjs';
 import { finalize, map, take, tap } from 'rxjs/operators';
 
 import { Dealer } from '../models/dealer';
-
+import { UserService } from './user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DealerService {
-
   dealers$: Observable<any>;
 
   itemsRef: AngularFireList<any>;
@@ -22,102 +21,242 @@ export class DealerService {
 
   constructor(
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage
-    ) {
+    private storage: AngularFireStorage,
+    private us: UserService
+  ) {
     this.dealers$ = this.db.list<Dealer>('dealers').snapshotChanges();
+    this.itemsRef = this.db.list('dealers/');
   }
 
   createDealer(dealer: Dealer, dealerPhoto: Photo) {
-
     const photoName = '';
+    const insert = {
+      name: dealer.name,
+      company: dealer.company,
+      email: dealer.email,
+    };
 
     return new Promise((resolve, reject) => {
-      this.db.list('dealers/').push(dealer)
-        .then(ref => {
-          (async () =>{
-
-            const blob = await fetch(dealerPhoto.webPath).then(r => r.blob());
+      this.db
+        .list('dealers/')
+        .push(dealer)
+        .then((ref) => {
+          (async () => {
+            const blob = await fetch(dealerPhoto.webPath).then((r) => r.blob());
             console.log('photo', dealerPhoto);
-          const fileRef = this.storage.ref(`dealers/${ref.key}`);
-          const task = this.storage.upload(`dealers/${ref.key}`, blob);
-          task
-            .snapshotChanges()
-            .pipe(
-              finalize(() => {
-                fileRef.getDownloadURL().subscribe(res => {
-                  // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
-                  this.db.list(`dealers/`).update(ref.key, {urlImage: res});
-                  resolve(ref);
-                });
-              })
-            ).subscribe();
+            const fileRef = this.storage.ref(`dealers/${ref.key}`);
+            const task = this.storage.upload(`dealers/${ref.key}`, blob);
+
+            this.us.getUserByEmail(dealer.email).subscribe(data => {
+              this.db.list('user_dealer').push({
+                userId: data[0].id,
+                dealerId: ref.key
+              });
+            });
+
+            task
+              .snapshotChanges()
+              .pipe(
+                finalize(() => {
+                  fileRef.getDownloadURL().subscribe((res) => {
+                    // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
+                    this.db.list(`dealers/`).update(ref.key, { urlImage: res });
+                    resolve(ref);
+                  });
+                })
+              )
+              .subscribe();
           })();
         });
     });
+
+    // return new Promise((resolve, reject) => {
+    //   this.db
+    //     .list('dealers/')
+    //     .push(insert)
+    //     .then((ref) => {
+    //       (async () => {
+    //         dealer.phones.forEach((element) => {
+    //           this.db.list(`dealers/${ref.key}/phones`).push(element);
+    //         });
+
+    //         const blob = await fetch(dealerPhoto.webPath).then((r) => r.blob());
+    //         console.log('photo', dealerPhoto);
+    //         const fileRef = this.storage.ref(`dealers/${ref.key}`);
+    //         const task = this.storage.upload(`dealers/${ref.key}`, blob);
+    //         task
+    //           .snapshotChanges()
+    //           .pipe(
+    //             finalize(() => {
+    //               fileRef.getDownloadURL().subscribe((res) => {
+    //                 // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
+    //                 this.db.list(`dealers/`).update(ref.key, { urlImage: res });
+    //                 resolve(ref);
+    //               });
+    //             })
+    //           )
+    //           .subscribe();
+    //       })();
+    //     });
+    // });
   }
 
   getAll() {
     this.itemsRef = this.db.list('dealers');
-    this.dealers = this.itemsRef.snapshotChanges()
+    this.dealers = this.itemsRef
+      .snapshotChanges()
       .pipe(
-          map(changes =>
-            changes.map(c => ({id: c.payload.key, ...c.payload.val()})))
+        map((changes) =>
+          changes.map((c) => ({ id: c.payload.key, ...c.payload.val() }))
+        )
       );
 
     return this.dealers;
   }
 
-  existDealer(name: string) {
-    return new Observable(o => {
-      this.db.list<Dealer>('dealers', ref => ref.orderByChild('name').equalTo(name))
-      .valueChanges()
-      .subscribe(data => {
-        o.next(data.length === 0 ? false : true);
-        o.complete();
-      });
+  existDealer(name: string, discard?: string) {
+    return new Observable((o) => {
+      this.db
+        .list<Dealer>('dealers', (ref) =>
+          ref.orderByChild('name').equalTo(name)
+        )
+        .valueChanges()
+        .subscribe((data) => {
+          if (discard) {
+            if (data.length === 1 && data[0].name === discard) {
+              o.next(false);
+            } else {
+              o.next(data.length === 0 ? false : true);
+            }
+          } else {
+            o.next(data.length === 0 ? false : true);
+          }
+          o.complete();
+        });
     });
   }
 
-  getDealer(id: string): Observable<Dealer>{
-    return this.db.object<Dealer>(`dealers/${id}`)
-      .valueChanges();
-  }
+  existEmail(email: string, discard?: string) {
+    return new Observable((o) => {
+      this.db
+        .list<Dealer>('dealers', (ref) =>
+          ref.orderByChild('email').equalTo(email)
+        )
+        .valueChanges()
+        .subscribe((data) => {
+          if (discard) {
+            console.log('discard', data.length);
+            if (data.length === 1 && data[0].email === discard) {
+              o.next(false);
+            } else {
+              console.log('else', data.length !== 0);
+              o.next(data.length === 0 ? false : true);
+            }
+          } else {
+            o.next(data.length === 0 ? false : true);
 
-  updateDealer(id: string, dealer: Dealer) {
-    this.db.object(`dealers/${id}`).update({name: dealer.name});
-    this.db.object(`dealers/${id}`).update({company:dealer.company});
-    this.db.object(`dealers/${id}`).update({email: dealer.email});
-  }
-  perfObservable() {
-    const obs = new Observable(observer => {
-      observer.next(1);
-      observer.next(2);
-      observer.next(3);
-      setTimeout(() => {
-        observer.next(4);
-        observer.complete();
-      }, 1000);
+          }
+          o.complete();
+        });
     });
-
-    console.log('Just before subscribe');
-    // obs.subscribe({
-    //   next: x => {
-    //     console.log('got value ', x);
-    //   },
-    //   error: err => console.log('something wrong occurred'),
-    //   complete: () => console.log('done')
-    // });
-    obs.subscribe(data => console.log('data', data));
-
-    console.log('just after subscribe');
   }
 
-  async saveImageToStorage(dealerPhoto: Photo) {
+  existUser(email: string, discard?: string) {
+    return new Observable((o) => {
+      this.db
+        .list<Dealer>('users', (ref) =>
+          ref.orderByChild('email').equalTo(email)
+        )
+        .valueChanges()
+        .subscribe((data) => {
+          if (discard) {
+            console.log('discard', data.length);
+            if (data.length === 1 && data[0].email === discard) {
+              o.next(false);
+            } else {
+              o.next(data.length === 0 ? false : true);
+            }
+          } else {
+            console.log('value', data.length === 0 ? false : true);
+            o.next(data.length === 0 ? false : true);
+          }
+          o.complete();
+        });
+    });
+  }
 
-    const blob = await fetch(dealerPhoto.webPath).then(r => r.blob());
-    console.log('photo', dealerPhoto);
-    this.storage.ref('dealers/nombre');
-    this.storage.upload('dealers/nombre', blob).then(resp => console.log('response', resp));
+  getDealer(id: string): Observable<Dealer> {
+    return this.db.object<Dealer>(`dealers/${id}`).valueChanges();
+  }
 
+  updateDealer(id: string, userReferenceId: string, dealer: Dealer, dealerPhoto?: Photo) {
+    // this.db.list('dealers/').set(id, dealer);
+    return new Promise((resolve, reject) => {
+      if (!dealerPhoto) {
+        return this.db
+          .list('dealers/')
+          .update(id, dealer)
+          .then((ref) => {
+            resolve(ref);
+            this.us.getUserByEmail(dealer.email).subscribe(data => {
+              console.log('userId', data);
+              this.db.list('user_dealer').update(userReferenceId, {
+                userId: data[0].id,
+                dealerId: id
+              });
+            });
+          });
+      } else {
+        this.db
+          .list(`dealers/`)
+          .set(id, dealer)
+          .then((ref) => {
+
+            this.us.getUserByEmail(dealer.email).subscribe(data => {
+              console.log('userId', data);
+              this.db.list('user_dealer').update(userReferenceId, {
+                userId: data[0].id,
+                dealerId: id
+              });
+            });
+
+            (async () => {
+              const blob = await fetch(dealerPhoto.webPath).then((r) =>
+                r.blob()
+              );
+              console.log('photo', dealerPhoto);
+              const fileRef = this.storage.ref(`dealers/${id}`);
+              const task = this.storage.upload(`dealers/${id}`, blob);
+              task
+                .snapshotChanges()
+                .pipe(
+                  finalize(() => {
+                    fileRef.getDownloadURL().subscribe((res) => {
+                      // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
+                      this.db.list(`dealers/`).update(id, { urlImage: res });
+                      resolve(ref);
+                    });
+                  })
+                )
+                .subscribe();
+            })();
+          });
+      }
+    });
+  }
+
+  getUserId(id: string) {
+    return this.db.list<any>('user_dealer', ref => ref.orderByChild('dealerId').equalTo(id)
+    ).snapshotChanges()
+    .pipe(
+      map((changes) =>
+        changes.map((c) => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
+  }
+
+  deleteDealer(id: string, urlImage) {
+    this.storage.refFromURL(urlImage).delete();
+    return this.db.list('dealers/').remove(id);
   }
 }
