@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { CameraService } from 'src/app/services/camera.service';
 import { Photo } from '@capacitor/camera';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dealer-edit',
@@ -23,13 +24,15 @@ export class DealerEditComponent implements OnInit {
   form: FormGroup;
 
   dealerId: string;
+  userReference: any;
   dealer: Observable<Dealer>;
   constructor(
     private fb: FormBuilder,
     private ds: DealerService,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private cs: CameraService
+    private cs: CameraService,
+    private us: UserService
   ) {}
 
   ngOnInit() {
@@ -48,13 +51,17 @@ export class DealerEditComponent implements OnInit {
         this.company.setValue(data.company);
         this.email.setValue(data.email);
 
-        this.name.setAsyncValidators([
-          ValidationsDealer.isUniqueName(this.ds, data.name),
+        this.email.setAsyncValidators([
+          ValidationsDealer.isUniqueEmail(this.ds, data.email),
+          ValidationsDealer.existUser(this.ds, data.email)
         ]);
 
         data.phones.forEach((element) => {
           this.phones.push(new FormControl(element, Validators.required));
         });
+
+        this.ds.getUserId(param.id)
+          .subscribe(res => this.userReference = res[0]);
       });
     });
   }
@@ -76,9 +83,9 @@ export class DealerEditComponent implements OnInit {
       this.company.setValue(this.company.value.trim());
       this.email.setValue(this.email.value.trim());
       if (this.takedPhoto) {
-        this.ds.updateDealer(this.dealerId, this.form.value, this.newPhoto);
+        this.ds.updateDealer(this.dealerId, this.userReference.id, this.form.value, this.newPhoto);
       } else {
-        this.ds.updateDealer(this.dealerId, this.form.value);
+        this.ds.updateDealer(this.dealerId, this.userReference.id, this.form.value);
       }
     }
   }
@@ -89,8 +96,8 @@ export class DealerEditComponent implements OnInit {
   }
 
   removePhone(index) {
-    this.phones.controls.splice(index, 1);
     this.phones.removeAt(index);
+    //this.phones.controls.splice(index, 1);
   }
 
   get name() {

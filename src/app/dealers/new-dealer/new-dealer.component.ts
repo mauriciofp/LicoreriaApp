@@ -48,7 +48,6 @@ export class NewDealerComponent implements OnInit {
       name: [
         '',
         [Validators.required],
-        [ValidationsDealer.isUniqueName(this.ds)],
       ],
       company: [''],
       email: [
@@ -56,7 +55,7 @@ export class NewDealerComponent implements OnInit {
         [Validators.required, Validators.email],
         [
           ValidationsDealer.isUniqueEmail(this.ds),
-          ValidationsDealer.existUser(this.ds),
+          ValidationsDealer.existUser(this.ds)
         ],
       ],
       phones: this.fb.array([]),
@@ -93,8 +92,8 @@ export class NewDealerComponent implements OnInit {
   }
 
   removePhone(index) {
-    this.phones.controls.splice(index, 1);
     this.phones.removeAt(index);
+    //this.phones.controls.splice(index, 1);
   }
 
   test() {

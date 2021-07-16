@@ -51,9 +51,8 @@ export class DealerService {
               this.db.list('user_dealer').push({
                 userId: data[0].id,
                 dealerId: ref.key
-              })
+              });
             });
-            
 
             task
               .snapshotChanges()
@@ -146,15 +145,18 @@ export class DealerService {
         .valueChanges()
         .subscribe((data) => {
           if (discard) {
+            console.log('discard', data.length);
             if (data.length === 1 && data[0].email === discard) {
               o.next(false);
             } else {
+              console.log('else', data.length !== 0);
               o.next(data.length === 0 ? false : true);
             }
           } else {
             o.next(data.length === 0 ? false : true);
-            o.complete();
+
           }
+          o.complete();
         });
     });
   }
@@ -168,6 +170,7 @@ export class DealerService {
         .valueChanges()
         .subscribe((data) => {
           if (discard) {
+            console.log('discard', data.length);
             if (data.length === 1 && data[0].email === discard) {
               o.next(false);
             } else {
@@ -186,19 +189,37 @@ export class DealerService {
     return this.db.object<Dealer>(`dealers/${id}`).valueChanges();
   }
 
-  updateDealer(id: string, dealer: Dealer, dealerPhoto?: Photo) {
+  updateDealer(id: string, userReferenceId: string, dealer: Dealer, dealerPhoto?: Photo) {
     // this.db.list('dealers/').set(id, dealer);
     return new Promise((resolve, reject) => {
       if (!dealerPhoto) {
         return this.db
           .list('dealers/')
           .update(id, dealer)
-          .then((ref) => resolve(ref));
+          .then((ref) => {
+            resolve(ref);
+            this.us.getUserByEmail(dealer.email).subscribe(data => {
+              console.log('userId', data);
+              this.db.list('user_dealer').update(userReferenceId, {
+                userId: data[0].id,
+                dealerId: id
+              });
+            });
+          });
       } else {
         this.db
           .list(`dealers/`)
           .set(id, dealer)
           .then((ref) => {
+
+            this.us.getUserByEmail(dealer.email).subscribe(data => {
+              console.log('userId', data);
+              this.db.list('user_dealer').update(userReferenceId, {
+                userId: data[0].id,
+                dealerId: id
+              });
+            });
+
             (async () => {
               const blob = await fetch(dealerPhoto.webPath).then((r) =>
                 r.blob()
@@ -222,6 +243,16 @@ export class DealerService {
           });
       }
     });
+  }
+
+  getUserId(id: string) {
+    return this.db.list<any>('user_dealer', ref => ref.orderByChild('dealerId').equalTo(id)
+    ).snapshotChanges()
+    .pipe(
+      map((changes) =>
+        changes.map((c) => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
   }
 
   deleteDealer(id: string, urlImage) {
