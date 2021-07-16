@@ -14,6 +14,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Dealer } from '../../models/dealer';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-new-dealer',
@@ -33,7 +34,8 @@ export class NewDealerComponent implements OnInit {
     private cs: CameraService,
     private sanitizer: DomSanitizer,
     private fb: FormBuilder,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private us: UserService
   ) {
     const ref = this.storage.ref('noimage.jpg');
     this.profileURL = ref.getDownloadURL();
@@ -93,6 +95,13 @@ export class NewDealerComponent implements OnInit {
   removePhone(index) {
     this.phones.controls.splice(index, 1);
     this.phones.removeAt(index);
+  }
+
+  test() {
+    this.us.getUserByEmail('test0996@test.com')
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 
   get name() {

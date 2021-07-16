@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { finalize, map, take, tap } from 'rxjs/operators';
 
 import { Dealer } from '../models/dealer';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class DealerService {
 
   constructor(
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private us: UserService
   ) {
     this.dealers$ = this.db.list<Dealer>('dealers').snapshotChanges();
     this.itemsRef = this.db.list('dealers/');
@@ -44,6 +46,15 @@ export class DealerService {
             console.log('photo', dealerPhoto);
             const fileRef = this.storage.ref(`dealers/${ref.key}`);
             const task = this.storage.upload(`dealers/${ref.key}`, blob);
+
+            this.us.getUserByEmail(dealer.email).subscribe(data => {
+              this.db.list('user_dealer').push({
+                userId: data[0].id,
+                dealerId: ref.key
+              })
+            });
+            
+
             task
               .snapshotChanges()
               .pipe(
