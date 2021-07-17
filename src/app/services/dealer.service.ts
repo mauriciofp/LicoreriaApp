@@ -48,8 +48,8 @@ export class DealerService {
             const task = this.storage.upload(`dealers/${ref.key}`, blob);
 
             this.us.getUserByEmail(dealer.email).subscribe(data => {
-              this.db.list('user_dealer').push({
-                userId: data[0].id,
+              this.db.list('users').update(data[0].id, {
+                role: 'DEALER',
                 dealerId: ref.key
               });
             });
@@ -198,27 +198,19 @@ export class DealerService {
           .update(id, dealer)
           .then((ref) => {
             resolve(ref);
-            this.us.getUserByEmail(dealer.email).subscribe(data => {
-              console.log('userId', data);
-              this.db.list('user_dealer').update(userReferenceId, {
-                userId: data[0].id,
-                dealerId: id
-              });
-            });
+            // this.us.getUserByEmail(dealer.email).subscribe(data => {
+            //   console.log('userId', data);
+            //   this.db.list('user_dealer').update(userReferenceId, {
+            //     userId: data[0].id,
+            //     dealerId: id
+            //   });
+            // });
           });
       } else {
         this.db
           .list(`dealers/`)
           .set(id, dealer)
           .then((ref) => {
-
-            this.us.getUserByEmail(dealer.email).subscribe(data => {
-              console.log('userId', data);
-              this.db.list('user_dealer').update(userReferenceId, {
-                userId: data[0].id,
-                dealerId: id
-              });
-            });
 
             (async () => {
               const blob = await fetch(dealerPhoto.webPath).then((r) =>
@@ -242,6 +234,15 @@ export class DealerService {
             })();
           });
       }
+
+      // this.us.getUserByEmail(dealer.email).subscribe(data => {
+      //   console.log('userId', data);
+      //   this.db.list('users').update(userReferenceId, {
+      //     userId: data[0].id,
+      //     dealerId: id
+      //   });
+      // });
+
     });
   }
 
