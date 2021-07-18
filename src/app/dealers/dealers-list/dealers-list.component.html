@@ -4,6 +4,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-searchbar showCancelButton="never"></ion-searchbar>
   <ion-list>
     <ion-item-sliding *ngFor="let dealer of dealers">
       <ion-item routerLink="../{{ dealer.id }}">
