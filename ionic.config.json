@@ -1,5 +1,7 @@
 {
-  "name": "LicoreriaApp",
-  "integrations": {},
+  "name": "Licorcito",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

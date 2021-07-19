@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserRole } from './models/user.model';
 import { AuthService } from './services/auth.service';
+import { OnesignalService } from './services/onesignal.service';
 import { AppState } from './state/app.reducer';
 
 @Component({
@@ -11,8 +12,13 @@ import { AppState } from './state/app.reducer';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private onesignalService: OnesignalService
+  ) {
     this.authService.initAuthListener();
+    this.onesignalService.initialize();
   }
 
   logout() {
