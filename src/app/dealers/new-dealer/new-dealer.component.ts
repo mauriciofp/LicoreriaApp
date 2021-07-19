@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { DealerService } from 'src/app/services/dealer.service';
 import { ValidationsDealer } from '../utils/validations-dealer';
-import { Camera, CameraResultType, Photo } from '@capacitor/camera';
+import { CameraPhoto } from '@capacitor/core';
 import { CameraService } from '../../services/camera.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Dealer } from '../../models/dealer';
@@ -25,7 +25,7 @@ export class NewDealerComponent implements OnInit {
   form: FormGroup;
 
   dealerUrlImage: SafeResourceUrl;
-  dealerPhoto: Photo;
+  dealerPhoto: CameraPhoto;
 
   profileURL: Observable<string | null>;
 
@@ -45,17 +45,14 @@ export class NewDealerComponent implements OnInit {
     //this.dealerUrlImage = '';
 
     this.form = this.fb.group({
-      name: [
-        '',
-        [Validators.required],
-      ],
+      name: ['', [Validators.required]],
       company: [''],
       email: [
         '',
         [Validators.required, Validators.email],
         [
           ValidationsDealer.isUniqueEmail(this.ds),
-          ValidationsDealer.existUser(this.ds)
+          ValidationsDealer.existUser(this.ds),
         ],
       ],
       phones: this.fb.array([]),
@@ -97,10 +94,9 @@ export class NewDealerComponent implements OnInit {
   }
 
   test() {
-    this.us.getUserByEmail('test0996@test.com')
-      .subscribe(data => {
-        console.log(data);
-      });
+    this.us.getUserByEmail('test0996@test.com').subscribe((data) => {
+      console.log(data);
+    });
   }
 
   get name() {

@@ -2,7 +2,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Photo } from '@capacitor/camera';
+import { CameraPhoto } from '@capacitor/core';
 
 import { Observable } from 'rxjs';
 import { finalize, map, take, tap } from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class DealerService {
     this.itemsRef = this.db.list('dealers/');
   }
 
-  createDealer(dealer: Dealer, dealerPhoto: Photo) {
+  createDealer(dealer: Dealer, dealerPhoto: CameraPhoto) {
     const photoName = '';
     const insert = {
       name: dealer.name,
@@ -47,10 +47,10 @@ export class DealerService {
             const fileRef = this.storage.ref(`dealers/${ref.key}`);
             const task = this.storage.upload(`dealers/${ref.key}`, blob);
 
-            this.us.getUserByEmail(dealer.email).subscribe(data => {
+            this.us.getUserByEmail(dealer.email).subscribe((data) => {
               this.db.list('user_dealer').push({
                 userId: data[0].id,
-                dealerId: ref.key
+                dealerId: ref.key,
               });
             });
 
@@ -154,7 +154,6 @@ export class DealerService {
             }
           } else {
             o.next(data.length === 0 ? false : true);
-
           }
           o.complete();
         });
@@ -189,7 +188,12 @@ export class DealerService {
     return this.db.object<Dealer>(`dealers/${id}`).valueChanges();
   }
 
-  updateDealer(id: string, userReferenceId: string, dealer: Dealer, dealerPhoto?: Photo) {
+  updateDealer(
+    id: string,
+    userReferenceId: string,
+    dealer: Dealer,
+    dealerPhoto?: CameraPhoto
+  ) {
     // this.db.list('dealers/').set(id, dealer);
     return new Promise((resolve, reject) => {
       if (!dealerPhoto) {
@@ -198,11 +202,11 @@ export class DealerService {
           .update(id, dealer)
           .then((ref) => {
             resolve(ref);
-            this.us.getUserByEmail(dealer.email).subscribe(data => {
+            this.us.getUserByEmail(dealer.email).subscribe((data) => {
               console.log('userId', data);
               this.db.list('user_dealer').update(userReferenceId, {
                 userId: data[0].id,
-                dealerId: id
+                dealerId: id,
               });
             });
           });
@@ -211,12 +215,11 @@ export class DealerService {
           .list(`dealers/`)
           .set(id, dealer)
           .then((ref) => {
-
-            this.us.getUserByEmail(dealer.email).subscribe(data => {
+            this.us.getUserByEmail(dealer.email).subscribe((data) => {
               console.log('userId', data);
               this.db.list('user_dealer').update(userReferenceId, {
                 userId: data[0].id,
-                dealerId: id
+                dealerId: id,
               });
             });
 
@@ -246,13 +249,16 @@ export class DealerService {
   }
 
   getUserId(id: string) {
-    return this.db.list<any>('user_dealer', ref => ref.orderByChild('dealerId').equalTo(id)
-    ).snapshotChanges()
-    .pipe(
-      map((changes) =>
-        changes.map((c) => ({ id: c.payload.key, ...c.payload.val() }))
+    return this.db
+      .list<any>('user_dealer', (ref) =>
+        ref.orderByChild('dealerId').equalTo(id)
       )
-    );
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ id: c.payload.key, ...c.payload.val() }))
+        )
+      );
   }
 
   deleteDealer(id: string, urlImage) {

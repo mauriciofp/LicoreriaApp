@@ -2,10 +2,10 @@ import { EventEmitter, Injectable } from '@angular/core';
 import {
   Camera,
   CameraOptions,
+  CameraPhoto,
   CameraResultType,
   CameraSource,
-  Photo,
-} from '@capacitor/camera';
+} from '@capacitor/core';
 import { Observable } from 'rxjs';
 import { ImageItem } from '../models/imageItem';
 
@@ -50,8 +50,8 @@ export class CameraService {
     this.emitChanges();
   }
 
-  takeSinglePhoto(): Promise<Photo>{
-    const source =CameraSource.Camera;
+  takeSinglePhoto(): Promise<CameraPhoto> {
+    const source = CameraSource.Camera;
     const opts: CameraOptions = {
       source,
       resultType: CameraResultType.Uri,
@@ -80,6 +80,4 @@ export class CameraService {
     };
     return await Camera.getPhoto(opts);
   }
-
-
 }

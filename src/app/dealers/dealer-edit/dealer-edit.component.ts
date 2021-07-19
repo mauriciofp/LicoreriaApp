@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Dealer } from 'src/app/models/dealer';
 import { Observable } from 'rxjs';
 import { CameraService } from 'src/app/services/camera.service';
-import { Photo } from '@capacitor/camera';
+import { CameraPhoto } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./dealer-edit.component.scss'],
 })
 export class DealerEditComponent implements OnInit {
-  newPhoto: Photo;
+  newPhoto: CameraPhoto;
   newUrlPhoto: SafeResourceUrl;
   takedPhoto = false;
 
@@ -53,15 +53,16 @@ export class DealerEditComponent implements OnInit {
 
         this.email.setAsyncValidators([
           ValidationsDealer.isUniqueEmail(this.ds, data.email),
-          ValidationsDealer.existUser(this.ds, data.email)
+          ValidationsDealer.existUser(this.ds, data.email),
         ]);
 
         data.phones.forEach((element) => {
           this.phones.push(new FormControl(element, Validators.required));
         });
 
-        this.ds.getUserId(param.id)
-          .subscribe(res => this.userReference = res[0]);
+        this.ds
+          .getUserId(param.id)
+          .subscribe((res) => (this.userReference = res[0]));
       });
     });
   }
@@ -83,9 +84,18 @@ export class DealerEditComponent implements OnInit {
       this.company.setValue(this.company.value.trim());
       this.email.setValue(this.email.value.trim());
       if (this.takedPhoto) {
-        this.ds.updateDealer(this.dealerId, this.userReference.id, this.form.value, this.newPhoto);
+        this.ds.updateDealer(
+          this.dealerId,
+          this.userReference.id,
+          this.form.value,
+          this.newPhoto
+        );
       } else {
-        this.ds.updateDealer(this.dealerId, this.userReference.id, this.form.value);
+        this.ds.updateDealer(
+          this.dealerId,
+          this.userReference.id,
+          this.form.value
+        );
       }
     }
   }
