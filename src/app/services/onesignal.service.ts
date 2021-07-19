@@ -2,12 +2,17 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Platform } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OnesignalService {
-  private pushId;
+  private _onesignalId: string;
+
+  get onesignalId() {
+    return this._onesignalId;
+  }
 
   constructor(
     private oneSignal: OneSignal,
@@ -18,8 +23,8 @@ export class OnesignalService {
 
   initialize() {
     this.oneSignal.startInit(
-      '79f8f686-4a3d-4321-9275-91342d4aa20d',
-      '405383394698'
+      environment.onesignal.appId,
+      environment.firebaseConfig.messagingSenderId
     );
 
     this.oneSignal.inFocusDisplaying(
@@ -32,6 +37,7 @@ export class OnesignalService {
 
     this.oneSignal.handleNotificationOpened().subscribe((push) => {
       console.log('Abierto', push);
+
       // this._ngZone.run(() =>
       //   this.router.navigate([
       //     'tabs/orders',
@@ -41,19 +47,13 @@ export class OnesignalService {
     });
 
     this.oneSignal.getIds().then((info) => {
-      this.pushId = info.userId;
-      console.log(this.pushId);
-      // localStorage.setItem('pushId', this.pushId);
+      this._onesignalId = info.userId;
     });
 
     this.oneSignal.endInit();
   }
 
-  getPushId() {
-    return this.oneSignal.getIds();
-  }
-
-  isCordova() {
-    return this.platform.is('cordova');
+  isAndroid() {
+    return this.platform.is('android');
   }
 }

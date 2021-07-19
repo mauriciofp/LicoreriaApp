@@ -16,6 +16,10 @@ export const environment = {
     appId: '1:405383394698:web:78ff125b31fdaf03f48473',
     measurementId: 'G-NJHM89VBBF',
   },
+  onesignal: {
+    appId: '79f8f686-4a3d-4321-9275-91342d4aa20d',
+    apiKey: 'MDY3NjYxNGUtMGJiMC00OWMwLTlkMzYtYjE2YWJmODk1YmI4',
+  },
 };
 
 /*

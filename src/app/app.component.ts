@@ -18,7 +18,9 @@ export class AppComponent {
     private onesignalService: OnesignalService
   ) {
     this.authService.initAuthListener();
-    this.onesignalService.initialize();
+    if (this.onesignalService.isAndroid()) {
+      this.onesignalService.initialize();
+    }
   }
 
   logout() {

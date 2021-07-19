@@ -12,6 +12,7 @@ import { AppState } from '../state/app.reducer';
 import * as authActions from '../state/actions/auth.action';
 
 import { User, UserRole } from '../models/user.model';
+import { OnesignalService } from './onesignal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class AuthService {
   constructor(
     private auth: AngularFireAuth,
     private db: AngularFireDatabase,
+    private onesignalService: OnesignalService,
     private store: Store<AppState>
   ) {}
 
@@ -46,11 +48,20 @@ export class AuthService {
   }
 
   login({ email, password }) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    return this.auth.signInWithEmailAndPassword(email, password).then((ref) => {
+      return this.db
+        .object(`users/${ref.user.uid}`)
+        .update({ onesignalId: this.onesignalService.onesignalId });
+    });
   }
 
   logout() {
-    return this.auth.signOut();
+    return this.db
+      .object(`users/${this._user.uid}`)
+      .update({ onesignalId: null })
+      .then(() => {
+        return this.auth.signOut();
+      });
   }
 
   initAuthListener() {
