@@ -5,6 +5,7 @@ import { Order } from '../interfaces/order';
 import { ProductCart } from '../models/product-cart';
 import { User, UserRole } from '../models/user.model';
 import { MessageService } from './message.service';
+import { OnesignalApiService } from './onesignal-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class OrderService {
 
   constructor(
     private db: AngularFireDatabase,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private onesignalApiService: OnesignalApiService
   ) {}
 
   getAllOrders() {
@@ -58,16 +60,21 @@ export class OrderService {
         userId: user.uid,
       })
       .then((ref) => {
+        this.onesignalApiService.sendNotificationToAdmin(
+          ref.key,
+          user.name,
+          total
+        );
         const message =
           'Estamos preparando tu pedido, nos comunicaremos por este medio!';
-        const user = new User(
-          'defaul-id',
+        const adminUser = new User(
+          'default-id',
           'Administrador',
           'admin@test.com',
           '70000000',
           UserRole.admin
         );
-        return this.messageService.create(message, ref.key, user);
+        return this.messageService.create(message, ref.key, adminUser);
       });
   }
 
