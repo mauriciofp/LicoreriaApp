@@ -19,6 +19,10 @@
             <ion-text color="tertiary">
               <p>{{ order.createdAt | date: "medium" }}</p>
             </ion-text>
+
+            <ion-badge [color]="getColor(order.state)" mode="md">
+              {{ order.state }}
+            </ion-badge>
           </ion-label>
         </ion-item>
       </ion-col>

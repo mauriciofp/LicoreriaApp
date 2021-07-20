@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Order } from 'src/app/interfaces/order';
+import { Order, OrderState } from 'src/app/interfaces/order';
 
 @Component({
   selector: 'app-order-item-list',
@@ -12,4 +12,14 @@ export class OrderItemListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  getColor(state: OrderState) {
+    if (state === OrderState.new) {
+      return 'primary';
+    } else if (state === OrderState.progress) {
+      return 'secondary';
+    } else {
+      return 'warning';
+    }
+  }
 }
