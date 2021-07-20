@@ -30,6 +30,10 @@ export class AuthService {
     return this._user?.role === UserRole.dealer;
   }
 
+  get isLogged() {
+    return this._user !== null;
+  }
+
   constructor(
     private auth: AngularFireAuth,
     private db: AngularFireDatabase,
@@ -49,9 +53,12 @@ export class AuthService {
 
   login({ email, password }) {
     return this.auth.signInWithEmailAndPassword(email, password).then((ref) => {
-      return this.db
-        .object(`users/${ref.user.uid}`)
-        .update({ onesignalId: this.onesignalService.onesignalId });
+      if (this.onesignalService.onesignalId) {
+        return this.db
+          .object(`users/${ref.user.uid}`)
+          .update({ onesignalId: this.onesignalService.onesignalId });
+      }
+      return;
     });
   }
 

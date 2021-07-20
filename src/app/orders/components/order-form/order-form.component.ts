@@ -114,6 +114,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch(initLoading());
+    const { onesignalId, dealerId, ...rest } = this.user;
     this.orderService
       .createOrder(
         this.detailForm.value,
@@ -121,7 +122,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
         this.products,
         this.total,
         this.cant,
-        this.user
+        rest
       )
       .then((ref) => {
         this.router.navigate(['/home']).then(async () => {

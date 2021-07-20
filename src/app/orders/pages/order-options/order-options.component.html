@@ -10,7 +10,11 @@
   <div class="options_container">
     <div class="options_container_dealer_notification">
       <app-order-dealer [order]="order" *ngIf="order"></app-order-dealer>
-      <app-order-notification></app-order-notification>
+      <app-order-notification
+        [userId]="order.userId"
+        [orderId]="order.id"
+        *ngIf="order"
+      ></app-order-notification>
     </div>
     <app-order-chat class="options_container_messages"></app-order-chat>
   </div>

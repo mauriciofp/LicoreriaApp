@@ -31,6 +31,7 @@
     "@ngrx/store-devtools": "^12.1.0",
     "firebase": "^7.0 || ^8.0",
     "mapbox-gl": "^2.3.1",
+    "onesignal-api-client-core": "^1.1.12",
     "onesignal-cordova-plugin": "^2.11.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

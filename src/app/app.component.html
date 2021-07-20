@@ -65,15 +65,26 @@
           >
         </ion-menu-toggle>
 
-        <ion-menu-toggle class="pointer">
+        <ion-menu-toggle class="pointer" *ngIf="authService.isLogged">
           <ion-item detail (click)="logout()">
             <ion-icon
               slot="start"
               name="log-out-outline"
               color="primary"
             ></ion-icon>
-            Cerrar sesion</ion-item
-          >
+            Cerrar sesion
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle class="pointer" *ngIf="!authService.isLogged">
+          <ion-item detail routerLink="/auth">
+            <ion-icon
+              slot="start"
+              name="log-out-outline"
+              color="primary"
+            ></ion-icon>
+            Login
+          </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>

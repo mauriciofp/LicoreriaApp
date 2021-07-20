@@ -38,7 +38,7 @@ export class OrderService {
     products: ProductCart[],
     total: number,
     cant: number,
-    user: User
+    user: any
   ) {
     const createdAt = new Date().toUTCString();
 
