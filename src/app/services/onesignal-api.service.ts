@@ -81,4 +81,39 @@ export class OnesignalApiService {
         this.client.createNotification(input);
       });
   }
+
+  sendNotificationToDealer(dealerId: string, orderId: string, total: number) {
+    const header = 'Nueva orden asignada!';
+    const message = `Se te asigno una orden de Bs. ${total}, ya esta lista llevasela al usuario`;
+
+    this.db
+      .list(`${this.usersRef}`, (ref) =>
+        ref.orderByChild('dealerId').equalTo(dealerId)
+      )
+      .valueChanges()
+      .pipe(
+        map((res: any) => User.fromFirebase(res[0])),
+        take(1)
+      )
+      .subscribe((user) => {
+        if (!user.onesignalId) {
+          console.log('no tiene onesignal id');
+          return;
+        }
+
+        const input = new NotificationByDeviceBuilder()
+          .setIncludePlayerIds([user.onesignalId])
+          .notification() // .email()
+          .setHeadings({
+            en: header,
+            es: header,
+          })
+          .setContents({ en: message, es: message })
+          .setSubtitle({ en: 'El licorcito feliz', es: 'El licorcito feliz' })
+          .setAttachments({ data: { orderId } })
+          .build();
+
+        this.client.createNotification(input);
+      });
+  }
 }
