@@ -21,7 +21,7 @@ export class AppComponent {
     private store: Store<AppState>
   ) {
     this.authService.initAuthListener();
-    if (this.onesignalService.isAndroid()) {
+    if (this.onesignalService.isCordova()) {
       this.onesignalService.initialize();
     }
     this.store

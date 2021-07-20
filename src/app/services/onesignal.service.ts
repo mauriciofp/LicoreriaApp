@@ -56,4 +56,8 @@ export class OnesignalService {
   isAndroid() {
     return this.platform.is('android');
   }
+
+  isCordova() {
+    return this.platform.is('cordova');
+  }
 }
