@@ -38,12 +38,12 @@ export class OnesignalService {
     this.oneSignal.handleNotificationOpened().subscribe((push) => {
       console.log('Abierto', push);
 
-      // this._ngZone.run(() =>
-      //   this.router.navigate([
-      //     'tabs/orders',
-      //     push.notification.payload.additionalData.orderId,
-      //   ])
-      // );
+      this._ngZone.run(() =>
+        this.router.navigate([
+          '/orders',
+          push.notification.payload.additionalData.orderId,
+        ])
+      );
     });
 
     this.oneSignal.getIds().then((info) => {
