@@ -30,6 +30,41 @@ export class OrderService {
       );
   }
 
+  getOrdersByRole(role: UserRole, userId: string, dealerId?: string) {
+    if (role === UserRole.admin) {
+      return this.db
+        .list(this.ordersRoot)
+        .snapshotChanges()
+        .pipe(
+          map((res: any[]) =>
+            res.map((r) => ({ id: r.key, ...r.payload.val() } as Order))
+          )
+        );
+    } else if (role === UserRole.dealer) {
+      return this.db
+        .list(this.ordersRoot, (ref) =>
+          ref.orderByChild('dealerId').equalTo(dealerId)
+        )
+        .snapshotChanges()
+        .pipe(
+          map((res: any[]) =>
+            res.map((r) => ({ id: r.key, ...r.payload.val() } as Order))
+          )
+        );
+    } else {
+      return this.db
+        .list(this.ordersRoot, (ref) =>
+          ref.orderByChild('userId').equalTo(userId)
+        )
+        .snapshotChanges()
+        .pipe(
+          map((res: any[]) =>
+            res.map((r) => ({ id: r.key, ...r.payload.val() } as Order))
+          )
+        );
+    }
+  }
+
   getOne(id: string) {
     return this.db.object<Order>(`${this.ordersRoot}/${id}`).valueChanges();
   }
