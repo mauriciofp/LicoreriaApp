@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserRole } from './models/user.model';
+import { User, UserRole } from './models/user.model';
 import { AuthService } from './services/auth.service';
 import { OnesignalService } from './services/onesignal.service';
 import { AppState } from './state/app.reducer';
@@ -12,15 +12,21 @@ import { AppState } from './state/app.reducer';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  currentUser: User;
+
   constructor(
     public authService: AuthService,
     private router: Router,
-    private onesignalService: OnesignalService
+    private onesignalService: OnesignalService,
+    private store: Store<AppState>
   ) {
     this.authService.initAuthListener();
     if (this.onesignalService.isAndroid()) {
       this.onesignalService.initialize();
     }
+    this.store
+      .select('auth')
+      .subscribe(({ user }) => (this.currentUser = user));
   }
 
   logout() {

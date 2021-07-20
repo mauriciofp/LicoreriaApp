@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import { Order } from 'src/app/interfaces/order';
+import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class OrderOptionsComponent implements OnInit, AfterViewInit {
   constructor(
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private orderService: OrderService
+    private orderService: OrderService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
