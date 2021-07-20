@@ -11,6 +11,7 @@ export interface Order {
   total: number;
   user: User;
   userId: string;
+  state: OrderState;
   dealerId?: string;
 }
 
@@ -39,4 +40,10 @@ export interface User {
   phone: string;
   role: string;
   uid: string;
+}
+
+export enum OrderState {
+  new = 'NEW',
+  progress = 'PROGRESS',
+  completed = 'COMPLETED',
 }

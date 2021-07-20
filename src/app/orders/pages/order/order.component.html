@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="orders"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end" *ngIf="order">
+    <ion-buttons slot="end" *ngIf="order && isNewOrProgress">
       <ion-button routerLink="../options/{{ order.id }}">
         <ion-icon slot="start" name="options-outline"></ion-icon>
         Opciones
@@ -26,6 +26,42 @@
           <p>Total</p>
           <p>{{ order.total | currency: "Bs. " }}</p>
         </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button
+          (click)="setCompleted()"
+          color="danger"
+          *ngIf="authService.isAdmin && isNewOrProgress && !isLoading"
+          shape="round"
+          expand="block"
+        >
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Finalizar Pedido
+        </ion-button>
+
+        <ion-button
+          (click)="setNew()"
+          color="primary"
+          *ngIf="authService.isAdmin && !isNewOrProgress && !isLoading"
+          shape="round"
+          expand="block"
+        >
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Reanudar Pedido
+        </ion-button>
+
+        <ion-button
+          disabled
+          color="dark"
+          *ngIf="isLoading"
+          shape="round"
+          expand="block"
+        >
+          <ion-spinner name="bubbles"></ion-spinner>
+          guardando...
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

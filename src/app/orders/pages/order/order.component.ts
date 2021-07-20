@@ -5,7 +5,9 @@ import { switchMap, tap } from 'rxjs/operators';
 
 import { OrderService } from 'src/app/services/order.service';
 
-import { Order } from 'src/app/interfaces/order';
+import { Order, OrderState } from 'src/app/interfaces/order';
+import { AuthService } from 'src/app/services/auth.service';
+import { UtilsService } from 'src/app/utils/utils.service';
 
 @Component({
   selector: 'app-order',
@@ -20,7 +22,9 @@ export class OrderComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    private orderService: OrderService
+    private orderService: OrderService,
+    public authService: AuthService,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit() {
@@ -33,5 +37,48 @@ export class OrderComponent implements OnInit {
         this.order = order;
         this.order.id = this.orderId;
       });
+  }
+
+  setCompleted() {
+    this.isLoading = true;
+    this.orderService
+      .setCompleted(this.orderId)
+      .then(async () => {
+        const toast = await this.utilService.createToast(
+          'Se completo esta orden!'
+        );
+        this.isLoading = false;
+        toast.present();
+      })
+      .catch(async (err) => {
+        const alert = await this.utilService.createAlert(err.message);
+        this.isLoading = false;
+        alert.present();
+      });
+  }
+
+  setNew() {
+    this.isLoading = true;
+    this.orderService
+      .setNew(this.orderId)
+      .then(async () => {
+        const toast = await this.utilService.createToast(
+          'Se reanudo esta orden!'
+        );
+        this.isLoading = false;
+        toast.present();
+      })
+      .catch(async (err) => {
+        const alert = await this.utilService.createAlert(err.message);
+        this.isLoading = false;
+        alert.present();
+      });
+  }
+
+  get isNewOrProgress() {
+    return (
+      this.order?.state === OrderState.new ||
+      this.order?.state === OrderState.progress
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { Order } from '../interfaces/order';
+import { Order, OrderState } from '../interfaces/order';
 import { ProductCart } from '../models/product-cart';
 import { User, UserRole } from '../models/user.model';
 import { MessageService } from './message.service';
@@ -92,6 +92,7 @@ export class OrderService {
         cant,
         user,
         createdAt,
+        state: OrderState.new,
         userId: user.uid,
       })
       .then((ref) => {
@@ -114,6 +115,20 @@ export class OrderService {
   }
 
   assignDealer(dealerId: string, orderId: string) {
-    return this.db.object(`${this.ordersRoot}/${orderId}`).update({ dealerId });
+    return this.db
+      .object(`${this.ordersRoot}/${orderId}`)
+      .update({ dealerId, state: OrderState.progress });
+  }
+
+  setCompleted(orderId: string) {
+    return this.db
+      .object(`${this.ordersRoot}/${orderId}`)
+      .update({ state: OrderState.completed });
+  }
+
+  setNew(orderId: string) {
+    return this.db
+      .object(`${this.ordersRoot}/${orderId}`)
+      .update({ state: OrderState.new });
   }
 }
