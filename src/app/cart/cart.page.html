@@ -7,34 +7,8 @@
 </ion-header>
 
 <ion-content>
-  <!-- <h2>Carrito</h2>
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col
-        size-sm="12"
-        size-md="6"
-        size-lg="4"
-        size-xl="3"
-        *ngFor="let product of products"
-      >
-        <app-cart-product [product]="product"></app-cart-product>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div class="total_container">
-    <p>Total</p>
-    <p>{{total | currency: 'Bs. '}}</p>
-  </div>
-  <div class="button_container">
-    <ion-button shape="round" routerLink="/orders/new">
-      Confirmar pedido
-    </ion-button>
-  </div> -->
-
   <h3 class="title" *ngIf="products.length"></h3>
-  <!-- {{(cartItems$|async).length}} towards at cart -->
 
-  <!-- CART ITEMS -->
   <ion-list lines="none">
     <ion-item-sliding *ngFor="let product of products">
       <ion-item>
@@ -48,13 +22,11 @@
     </ion-item-sliding>
   </ion-list>
 
-  <!-- EMPTY CART -->
   <div class="empty-cart" *ngIf="!products.length">
     <ion-icon name="cart-outline"></ion-icon>
     <p>Tu carrito esta vacio</p>
   </div>
 
-  <!-- CHECKOUT BUTTON -->
   <app-cart-button *ngIf="products.length">
     Total: <span><sup>Bs. </sup>{{total | number: "1.2"}}</span>
   </app-cart-button>
