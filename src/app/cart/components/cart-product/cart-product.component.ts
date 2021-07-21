@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { ProductCart } from 'src/app/models/product-cart';
 import {
@@ -15,7 +16,7 @@ import {
 export class CartProductComponent implements OnInit {
   @Input() product: ProductCart;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private alertController: AlertController) {}
 
   ngOnInit() {}
 
@@ -27,11 +28,25 @@ export class CartProductComponent implements OnInit {
     if (product.subtotal > product.price) {
       this.store.dispatch(decrementProduct({ product }));
     } else {
-      this.store.dispatch(removeProduct({ product }));
+      this.removeFromCart(product);
     }
   }
 
-  removeProductFromCart(product: ProductCart) {
-    this.store.dispatch(removeProduct({ product }));
+  private async removeFromCart(product: ProductCart) {
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      message: '¿Estás seguro que quieres eliminar este producto?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => this.store.dispatch(removeProduct({ product })),
+        },
+        {
+          text: 'No',
+        },
+      ],
+    });
+
+    alert.present();
   }
 }

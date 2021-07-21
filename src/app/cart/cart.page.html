@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <h2>Carrito</h2>
+  <!-- <h2>Carrito</h2>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col
@@ -29,5 +29,33 @@
     <ion-button shape="round" routerLink="/orders/new">
       Confirmar pedido
     </ion-button>
+  </div> -->
+
+  <h3 class="title" *ngIf="products.length"></h3>
+  <!-- {{(cartItems$|async).length}} towards at cart -->
+
+  <!-- CART ITEMS -->
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let product of products">
+      <ion-item>
+        <app-cart-product [product]="product"></app-cart-product>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="removeFromCart(product)">
+          <ion-icon name="trash-outline" size="large" color="danger"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- EMPTY CART -->
+  <div class="empty-cart" *ngIf="!products.length">
+    <ion-icon name="cart-outline"></ion-icon>
+    <p>Tu carrito esta vacio</p>
   </div>
+
+  <!-- CHECKOUT BUTTON -->
+  <app-cart-button *ngIf="products.length">
+    Total: <span><sup>Bs. </sup>{{total | number: "1.2"}}</span>
+  </app-cart-button>
 </ion-content>

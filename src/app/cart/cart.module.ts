@@ -9,6 +9,7 @@ import { CartPageRoutingModule } from './cart-routing.module';
 import { CartPage } from './cart.page';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { CartButtonComponent } from './components/cart-button/cart-button.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { PipesModule } from '../pipes/pipes.module';
     CartPageRoutingModule,
     PipesModule,
   ],
-  declarations: [CartPage, CartProductComponent],
+  declarations: [CartPage, CartProductComponent, CartButtonComponent],
 })
 export class CartPageModule {}

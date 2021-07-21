@@ -36,17 +36,7 @@ export class CartPage implements OnInit, OnDestroy {
     this.cartSubs?.unsubscribe();
   }
 
-  incrementCant(product: ProductCart) {
-    this.store.dispatch(incrementProduct({ product }));
-  }
-
-  decrementCant(product: ProductCart) {
-    if (product.subtotal > product.price) {
-      this.store.dispatch(decrementProduct({ product }));
-    }
-  }
-
-  removeProductFromCart(product: ProductCart) {
+  removeFromCart(product: ProductCart) {
     this.store.dispatch(removeProduct({ product }));
   }
 }
