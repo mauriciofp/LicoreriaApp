@@ -13,11 +13,12 @@
       <ion-button routerLink="/cart" *ngIf="!cantInCart">
         <ion-icon slot="icon-only" name="cart-outline"> </ion-icon>
       </ion-button>
-
-      <ion-button routerLink="/cart" *ngIf="cantInCart">
-        <ion-icon slot="icon-only" name="cart-outline"> </ion-icon>
-        <ion-badge color="primary" mode="md">{{cantInCart}}</ion-badge>
-      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" routerLink="/cart">
+      <ion-icon slot="end" name="cart-outline"></ion-icon>
+      <ion-badge color="primary" mode="md" *ngIf="cantInCart">
+        {{ cantInCart }}
+      </ion-badge>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -35,7 +36,10 @@
     <div class="categories_scroll">
       <h2>Categorias</h2>
       <ion-slides mode="md" [options]="categoriesSlideOpts">
-        <ion-slide *ngFor="let category of categories">
+        <ion-slide
+          *ngFor="let category of categories"
+          routerLink="./{{category}}"
+        >
           <app-category-item [category]="category"></app-category-item>
         </ion-slide>
       </ion-slides>

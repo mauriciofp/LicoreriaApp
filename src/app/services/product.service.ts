@@ -69,6 +69,25 @@ export class ProductService {
       );
   }
 
+  getProductsByCategory(category: string) {
+    return this.db
+      .list('products', (ref) => ref.orderByChild('category').equalTo(category))
+      .snapshotChanges()
+      .pipe(
+        map((res: any[]) =>
+          res.map((r) => ({ id: r.key, ...r.payload.val() }))
+        ),
+        map((res: any[]) =>
+          res.map((r) => {
+            const imgArr = this.createImagesArr(r.images);
+            const newp = { ...r };
+            newp.images = imgArr;
+            return newp as Product;
+          })
+        )
+      );
+  }
+
   createImagesArr(imagesObj: object) {
     const images: Image[] = [];
     if (!imagesObj) {

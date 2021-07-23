@@ -10,6 +10,7 @@ import { ItemListComponent } from './components/item-list/item-list.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { CategoryItemComponent } from './components/category-item/category-item.component';
 import { PromotionItemComponent } from './components/promotion-item/promotion-item.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { PromotionItemComponent } from './components/promotion-item/promotion-it
     ItemListComponent,
     CategoryItemComponent,
     PromotionItemComponent,
+    CategoryComponent,
   ],
 })
 export class HomePageModule {}
