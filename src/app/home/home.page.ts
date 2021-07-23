@@ -27,7 +27,14 @@ export class HomePage implements OnInit, OnDestroy {
     spaceBetween: 8,
   };
 
+  promotionsSlideOpts = {
+    slidesPerView: 1.2,
+    spaceBetween: 4,
+  };
+
   categories = categories;
+
+  promotions = ['PROMOCION 1', 'PROMOCION 2', 'PROMOCION 3'];
 
   cantInCart: number;
   cartSubs: Subscription;

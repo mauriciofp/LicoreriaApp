@@ -24,7 +24,14 @@
 
 <ion-content [fullscreen]="true">
   <div class="main_page">
-    <div class="promotion_scroll">scroll view de promociones</div>
+    <div class="promotion_scroll">
+      <h2>Promociones</h2>
+      <ion-slides mode="md" [options]="promotionsSlideOpts">
+        <ion-slide *ngFor="let promotion of promotions">
+          <app-promotion-item [promotion]="promotion"></app-promotion-item>
+        </ion-slide>
+      </ion-slides>
+    </div>
     <div class="categories_scroll">
       <h2>Categorias</h2>
       <ion-slides mode="md" [options]="categoriesSlideOpts">
