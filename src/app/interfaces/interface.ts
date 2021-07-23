@@ -23,3 +23,14 @@ export interface Image {
   id: string;
   url: string;
 }
+
+export const categories = [
+  'VINO',
+  'CERVEZA',
+  'RON',
+  'GASEOSA',
+  'SNACK',
+  'OTRO',
+];
+
+export const units = ['UNIDAD', 'CAJA', 'LIBRA'];

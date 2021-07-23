@@ -1,5 +1,5 @@
 .product_container {
-  height: 10rem;
+  min-height: 9rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,7 +8,7 @@
   background-position: 50% 30%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-size: percentage($number: 0.6);
+  background-size: percentage($number: 0.5);
   padding: 0.4rem 1rem;
   border-radius: 1rem;
   p {

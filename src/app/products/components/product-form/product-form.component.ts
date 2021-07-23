@@ -13,7 +13,7 @@ import { CameraService } from 'src/app/services/camera.service';
 import { UtilsService } from 'src/app/utils/utils.service';
 import { ProductUniqueService } from 'src/app/utils/product-unique.service';
 
-import { Product } from 'src/app/interfaces/interface';
+import { categories, Product, units } from 'src/app/interfaces/interface';
 import { ImageItem } from 'src/app/models/imageItem';
 
 @Component({
@@ -28,8 +28,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   productForm: FormGroup;
 
-  units: string[] = ['UNIDAD', 'CAJA', 'LIBRA'];
-  categories: string[] = ['VINOS', 'CERVEZAS', 'RON', 'GASEOSAS', 'OTRO'];
+  units: string[] = units;
+  categories: string[] = categories;
   imageList: ImageItem[] = [];
 
   productsSubs: Subscription;

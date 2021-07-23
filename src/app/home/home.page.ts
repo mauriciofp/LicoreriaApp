@@ -17,6 +17,11 @@ import { Product } from '../interfaces/interface';
 export class HomePage implements OnInit, OnDestroy {
   products: Product[] = [];
 
+  productsSlideOpts = {
+    slidesPerView: 2.1,
+    spaceBetween: 8,
+  };
+
   cantInCart: number;
   cartSubs: Subscription;
 
@@ -26,7 +31,9 @@ export class HomePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.productService.getAll().subscribe((res) => (this.products = res));
+    this.productService
+      .getProductForHome()
+      .subscribe((res) => (this.products = res));
     this.cartSubs = this.store
       .select('cart')
       .subscribe(({ cant }) => (this.cantInCart = cant));
