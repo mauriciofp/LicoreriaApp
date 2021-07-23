@@ -7,7 +7,7 @@ import { AppState } from '../state/app.reducer';
 
 import { ProductService } from '../services/product.service';
 
-import { Product } from '../interfaces/interface';
+import { categories, Product } from '../interfaces/interface';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +21,13 @@ export class HomePage implements OnInit, OnDestroy {
     slidesPerView: 2.1,
     spaceBetween: 8,
   };
+
+  categoriesSlideOpts = {
+    slidesPerView: 2.5,
+    spaceBetween: 8,
+  };
+
+  categories = categories;
 
   cantInCart: number;
   cartSubs: Subscription;

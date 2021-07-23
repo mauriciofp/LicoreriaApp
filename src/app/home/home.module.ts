@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { ItemComponent } from './components/item/item.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { CategoryItemComponent } from './components/category-item/category-item.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,11 @@ import { PipesModule } from '../pipes/pipes.module';
     HomePageRoutingModule,
     PipesModule,
   ],
-  declarations: [HomePage, ItemComponent, ItemListComponent],
+  declarations: [
+    HomePage,
+    ItemComponent,
+    ItemListComponent,
+    CategoryItemComponent,
+  ],
 })
 export class HomePageModule {}
