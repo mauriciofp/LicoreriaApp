@@ -31,8 +31,10 @@
         <ion-slide
           *ngFor="let promotion of promotions"
           routerLink="./promotion/{{promotion.id}}"
+          class="image-slide"
+          [style]="promotion.image | domSanitizer"
         >
-          <app-promotion-item [promotion]="promotion"></app-promotion-item>
+          <!-- <app-promotion-item [promotion]="promotion"></app-promotion-item> -->
         </ion-slide>
       </ion-slides>
     </div>
