@@ -1,0 +1,14 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" routerLink="/cart">
+      <ion-icon slot="end" name="cart-outline"></ion-icon>
+      <ion-badge color="primary" mode="md" *ngIf="cant">{{ cant }}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="promotion">
+  <pre>{{ promotion | json }}</pre>
+</ion-content>

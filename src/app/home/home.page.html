@@ -28,7 +28,10 @@
     <div class="promotion_scroll">
       <h2>Promociones</h2>
       <ion-slides mode="md" [options]="promotionsSlideOpts">
-        <ion-slide *ngFor="let promotion of promotions">
+        <ion-slide
+          *ngFor="let promotion of promotions"
+          routerLink="./promotion/{{promotion.id}}"
+        >
           <app-promotion-item [promotion]="promotion"></app-promotion-item>
         </ion-slide>
       </ion-slides>
@@ -39,7 +42,7 @@
         <ion-slides mode="md" [options]="categoriesSlideOpts">
           <ion-slide
             *ngFor="let category of categories"
-            routerLink="./{{category}}"
+            routerLink="./category/{{category}}"
           >
             <app-category-item [category]="category"></app-category-item>
           </ion-slide>

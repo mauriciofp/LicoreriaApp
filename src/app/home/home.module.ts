@@ -11,6 +11,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { CategoryItemComponent } from './components/category-item/category-item.component';
 import { PromotionItemComponent } from './components/promotion-item/promotion-item.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { HomePromotionComponent } from './pages/home-promotion/home-promotion.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { CategoryComponent } from './pages/category/category.component';
     CategoryItemComponent,
     PromotionItemComponent,
     CategoryComponent,
+    HomePromotionComponent,
   ],
 })
 export class HomePageModule {}
