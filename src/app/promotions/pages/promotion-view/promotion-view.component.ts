@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Promotion } from 'src/app/models/promotion';
 import { PromotionService } from 'src/app/services/promotion.service';
+import { UtilsService } from 'src/app/utils/utils.service';
 
 @Component({
   selector: 'app-promotion-view',
@@ -17,7 +19,11 @@ export class PromotionViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private promotionService: PromotionService
+    private router: Router,
+    private promotionService: PromotionService,
+    private actionSheetController: ActionSheetController,
+    private alertController: AlertController,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit() {
@@ -28,5 +34,59 @@ export class PromotionViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.promotionSubs?.unsubscribe();
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Esta Promocion',
+      buttons: [
+        {
+          text: 'Eliminar',
+          role: 'destructive',
+          icon: 'trash-outline',
+          handler: async () => {
+            const alert = await this.alertController.create({
+              header: 'Cuidado!',
+              message: '¿Seguro quieres eliminar este producto?',
+              buttons: [
+                {
+                  text: 'Cancelar',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                },
+                {
+                  text: 'Si, Estoy seguro',
+                  handler: () => {
+                    this.promotionService
+                      .delete(this.promotion.id, this.promotion.image)
+                      .then(() => {
+                        this.router.navigate(['/promotions']).then(async () => {
+                          const toast = await this.utilService.createToast(
+                            'Se elimino la promocion!'
+                          );
+                          toast.present();
+                        });
+                      });
+                  },
+                },
+              ],
+            });
+            alert.present();
+          },
+        },
+        {
+          text: 'Editar',
+          icon: 'create-outline',
+          handler: () =>
+            this.router.navigate(['promotions/edit', this.promotion.id]),
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+        },
+      ],
+    });
+    await actionSheet.present();
   }
 }
