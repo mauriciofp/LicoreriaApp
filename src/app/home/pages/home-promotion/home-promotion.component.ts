@@ -3,8 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { ProductCart } from 'src/app/models/product-cart';
 import { Promotion } from 'src/app/models/promotion';
 import { PromotionService } from 'src/app/services/promotion.service';
+import { addProduct } from 'src/app/state/actions/cart.action';
 import { AppState } from 'src/app/state/app.reducer';
 
 @Component({
@@ -37,5 +39,14 @@ export class HomePromotionComponent implements OnInit {
   ngOnDestroy() {
     this.promotionSubs?.unsubscribe();
     this.cantSubs?.unsubscribe();
+  }
+
+  inmgDidLoad(event: any) {
+    return;
+  }
+
+  addToCart() {
+    const product = ProductCart.fromPromotion(this.promotion);
+    this.store.dispatch(addProduct({ product }));
   }
 }

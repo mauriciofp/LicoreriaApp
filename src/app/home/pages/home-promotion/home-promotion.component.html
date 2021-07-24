@@ -10,5 +10,24 @@
   </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="promotion">
-  <pre>{{ promotion | json }}</pre>
+  <div class="promotion_image">
+    <ion-img
+      [src]="promotion.image"
+      (ionImgDidLoad)="inmgDidLoad($event)"
+    ></ion-img>
+  </div>
+  <div class="promotion_detail">
+    <p>{{ promotion.name }}</p>
+    <p>{{ promotion.price | currency: "Bs. " }}</p>
+  </div>
+
+  <div class="promotion_description">
+    <p>Descripcion</p>
+    <p>{{ promotion.description }}</p>
+  </div>
+
+  <ion-button (click)="addToCart()" shape="round" expand="block">
+    <ion-icon slot="start" name="add"></ion-icon>
+    Agregar al carrito
+  </ion-button>
 </ion-content>
