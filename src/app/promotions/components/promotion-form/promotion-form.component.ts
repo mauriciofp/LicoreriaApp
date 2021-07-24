@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CameraPhoto } from '@capacitor/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Promotion } from 'src/app/models/promotion';
+import { CameraSingleService } from 'src/app/services/camera-single.service';
+import { PromotionService } from 'src/app/services/promotion.service';
+import { initLoading, stopLoading } from 'src/app/state/actions/ui.actions';
 import { AppState } from 'src/app/state/app.reducer';
 import { UtilsService } from 'src/app/utils/utils.service';
 
@@ -21,11 +25,16 @@ export class PromotionFormComponent implements OnInit {
 
   uiSubs: Subscription;
 
+  singlePhoto: CameraPhoto;
+  singlePhotoSubs: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private store: Store<AppState>,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private cameraSingleService: CameraSingleService,
+    private promotionService: PromotionService
   ) {}
 
   ngOnInit() {
@@ -33,18 +42,52 @@ export class PromotionFormComponent implements OnInit {
     this.uiSubs = this.store.select('ui').subscribe(({ isLoading }) => {
       this.isLoading = isLoading;
     });
+
+    this.singlePhotoSubs = this.cameraSingleService.singleImage$.subscribe(
+      (singlePhoto) => (this.singlePhoto = singlePhoto)
+    );
   }
 
   ngOnDestroy(): void {
     this.uiSubs?.unsubscribe();
+    this.singlePhotoSubs?.unsubscribe();
   }
 
   async save() {
+    if (!this.singlePhoto) {
+      const alert = await this.utilsService.createAlert(
+        'Se necesita la imagen'
+      );
+      alert.present();
+      this.promotionForm.markAllAsTouched();
+      return;
+    }
+
     if (this.promotionForm.invalid) {
       this.promotionForm.markAllAsTouched();
       return;
     }
-    console.log(this.promotionForm.value);
+
+    this.store.dispatch(initLoading());
+    const image = await this.createBlobImage();
+
+    this.promotionService
+      .save(this.promotionForm.value, image)
+      .then(() => {
+        this.store.dispatch(stopLoading());
+        this.router.navigate(['/promotions']).then(async () => {
+          this.promotionForm.reset();
+          const toast = await this.utilsService.createToast(
+            'Promocion creada!'
+          );
+          toast.present();
+        });
+      })
+      .catch(async (err) => {
+        this.store.dispatch(stopLoading());
+        const alert = await this.utilsService.createAlert(err.message);
+        alert.present();
+      });
   }
 
   cancel() {
@@ -119,5 +162,9 @@ export class PromotionFormComponent implements OnInit {
     //   images.push(blob);
     // }
     // return images;
+  }
+
+  private async createBlobImage() {
+    return fetch(this.singlePhoto.webPath).then((r) => r.blob());
   }
 }
