@@ -11,3 +11,9 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <pre *ngIf="promotion">
+    {{ promotion | json }}
+  </pre>
+</ion-content>

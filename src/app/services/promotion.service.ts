@@ -52,6 +52,16 @@ export class PromotionService {
       );
   }
 
+  getOne(id: string) {
+    return this.db
+      .object(`${this.promotionRoot}/${id}`)
+      .snapshotChanges()
+      .pipe(
+        map((res: any) => ({ id: res.key, ...res.payload.val() })),
+        map((res: any) => Promotion.fromFirebase(res))
+      );
+  }
+
   delete(id: string, image: string) {
     this.storage.refFromURL(image).delete();
     return this.db.object(`${this.promotionRoot}/${id}`).remove();
