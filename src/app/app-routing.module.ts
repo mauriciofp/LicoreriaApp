@@ -43,6 +43,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],
   },
+  {
+    path: 'promotions',
+    loadChildren: () =>
+      import('./promotions/promotions.module').then((m) => m.PromotionsModule),
+  },
 ];
 
 @NgModule({

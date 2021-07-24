@@ -54,6 +54,17 @@
           >
         </ion-menu-toggle>
 
+        <ion-menu-toggle *ngIf="authService.isAdmin">
+          <ion-item detail routerLink="promotions">
+            <ion-icon
+              slot="start"
+              name="list-outline"
+              color="primary"
+            ></ion-icon>
+            Promociones
+          </ion-item>
+        </ion-menu-toggle>
+
         <ion-menu-toggle>
           <ion-item detail routerLink="/orders/list" *ngIf="currentUser">
             <ion-icon
