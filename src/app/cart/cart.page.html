@@ -27,7 +27,7 @@
     <p>Tu carrito esta vacio</p>
   </div>
 
-  <app-cart-button *ngIf="products.length">
+  <app-cart-button *ngIf="products.length" routerLink="/orders/new">
     Total: <span><sup>Bs. </sup>{{total | number: "1.2"}}</span>
   </app-cart-button>
 </ion-content>
