@@ -1,9 +1,21 @@
-.promotion_item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 20rem;
-  background-color: gray;
-  border-radius: 1rem;
-  min-width: 18rem;
+@media only screen and (max-width: 767px) {
+  .promotion_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 20rem;
+    background-color: gray;
+    border-radius: 1rem;
+    min-width: 18rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .promotion_item {
+    background-color: gray;
+    display: flex;
+    min-height: 18rem;
+    min-width: 18rem;
+    border-radius: 1rem;
+  }
 }

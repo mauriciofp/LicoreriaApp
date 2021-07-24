@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: #f2f3f4;
+  max-width: 10rem;
 
   background-position: 50% 30%;
   background-repeat: no-repeat;
@@ -14,6 +15,11 @@
   p {
     margin: 0px;
     padding: 0px;
+  }
+
+  .product_price {
+    font-size: 0.8rem;
+    margin-left: 4px;
   }
 }
 
