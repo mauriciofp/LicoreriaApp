@@ -17,6 +17,8 @@ export class PromotionViewComponent implements OnInit, OnDestroy {
 
   promotionSubs: Subscription;
 
+  imageLoad = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -88,5 +90,9 @@ export class PromotionViewComponent implements OnInit, OnDestroy {
       ],
     });
     await actionSheet.present();
+  }
+
+  inmgDidLoad(event: any) {
+    this.imageLoad = true;
   }
 }

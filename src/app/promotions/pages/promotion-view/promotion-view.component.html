@@ -12,8 +12,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <pre *ngIf="promotion">
-    {{ promotion | json }}
-  </pre>
+<ion-content *ngIf="promotion">
+  <div class="promotion_image">
+    <ion-img
+      [src]="promotion.image"
+      (ionImgDidLoad)="inmgDidLoad($event)"
+    ></ion-img>
+  </div>
+  <div class="promotion_detail">
+    <p>{{ promotion.name }}</p>
+    <p>{{ promotion.price | currency: "Bs. " }}</p>
+  </div>
+
+  <div class="promotion_description">
+    <p>Descripcion</p>
+    <p>{{ promotion.description }}</p>
+  </div>
 </ion-content>
