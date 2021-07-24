@@ -10,6 +10,7 @@ import { PromotionNewComponent } from './pages/promotion-new/promotion-new.compo
 import { PromotionListComponent } from './pages/promotion-list/promotion-list.component';
 import { PromotionFormComponent } from './components/promotion-form/promotion-form.component';
 import { PromotionsComponent } from './promotions.component';
+import { PromotionNewImageComponent } from './components/promotion-new-image/promotion-new-image.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PromotionsComponent } from './promotions.component';
     PromotionListComponent,
     PromotionFormComponent,
     PromotionsComponent,
+    PromotionNewImageComponent,
   ],
   imports: [
     IonicModule,
