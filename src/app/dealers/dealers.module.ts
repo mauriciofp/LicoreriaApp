@@ -9,6 +9,7 @@ import { DealersListComponent } from './dealers-list/dealers-list.component';
 import { DealerDetailComponent } from './dealer-detail/dealer-detail.component';
 import { DealerEditComponent } from './dealer-edit/dealer-edit.component';
 import { DealersComponent } from './dealers.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { DealersComponent } from './dealers.component';
     DealersListComponent,
     DealerDetailComponent,
     DealerEditComponent,
-    DealersComponent,
+    DealersComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +25,7 @@ import { DealersComponent } from './dealers.component';
     FormsModule,
     ReactiveFormsModule,
     DealersRoutingModule,
+    PipesModule
   ],
 })
 export class DealersModule {}

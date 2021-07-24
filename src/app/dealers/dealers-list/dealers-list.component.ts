@@ -14,17 +14,15 @@ export class DealersListComponent implements OnInit {
   dealers: any[];
   dealersData: Dealer[];
 
+  search = '';
+
   constructor(
     private ds: DealerService,
     private alertController: AlertController
   ) {}
 
   ngOnInit() {
-    // this.dealers = this.ds.getAll();
-    // this.dealers.subscribe((data) => {
-    //   console.log('dealers', data);
-    //   this.dealersData = data;
-    // });
+    this.dealers = [];
     this.ds.getAll().
       subscribe(data => {
         this.dealers = data;

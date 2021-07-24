@@ -4,9 +4,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar showCancelButton="never"></ion-searchbar>
+  <ion-searchbar showCancelButton="never" [(ngModel)]="search"></ion-searchbar>
   <ion-list>
-    <ion-item-sliding *ngFor="let dealer of dealers">
+    <ion-item-sliding *ngFor="let dealer of dealers | filter:search">
       <ion-item routerLink="../{{ dealer.id }}">
         <ion-avatar slot="start">
           <img [src]="dealer.urlImage" />
