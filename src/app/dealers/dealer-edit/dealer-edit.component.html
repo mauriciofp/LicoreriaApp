@@ -74,7 +74,7 @@
 
         <ion-item>
           <ion-label color="primary" position="floating">Email</ion-label>
-          <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+          <ion-input type="text" placeholder="Email" formControlName="email" [disabled]="true"></ion-input>
         </ion-item>
         <div class="err-msg" *ngIf="email.invalid && (email.dirty || email.touched)">
           <ion-text *ngIf="email.hasError('required')" color="danger">
