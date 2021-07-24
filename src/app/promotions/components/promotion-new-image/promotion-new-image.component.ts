@@ -30,7 +30,7 @@ export class PromotionNewImageComponent implements OnInit, OnDestroy {
     this.cameraSingleService.takePicture();
   }
 
-  chooseGalery() {
+  chooseGallery() {
     this.cameraSingleService.chooseGallery();
   }
 }

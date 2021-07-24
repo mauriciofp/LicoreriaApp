@@ -1,4 +1,5 @@
 export interface Dealer {
+  id?: string;
   name: string;
   company: string;
   celNumbers: number[];
