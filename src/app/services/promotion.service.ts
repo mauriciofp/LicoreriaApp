@@ -38,6 +38,39 @@ export class PromotionService {
       });
   }
 
+  edit(
+    id: string,
+    { name, description, price, available },
+    imageUrl: string,
+    image?: Blob
+  ) {
+    return this.db
+      .object(`${this.promotionRoot}/${id}`)
+      .update({ name, description, price, available })
+      .then(() => {
+        if (image) {
+          const filePath = this.generateFileName();
+          const fileRef = this.storage.ref(filePath);
+          const task = this.storage.upload(filePath, image);
+          task
+            .snapshotChanges()
+            .pipe(
+              finalize(() => {
+                fileRef.getDownloadURL().subscribe((res) => {
+                  this.db
+                    .object(`${this.promotionRoot}/${id}`)
+                    .update({ image: res })
+                    .then(() => {
+                      this.storage.refFromURL(imageUrl).delete().subscribe();
+                    });
+                });
+              })
+            )
+            .subscribe();
+        }
+      });
+  }
+
   getAvailable() {
     return this.db
       .list(this.promotionRoot, (ref) =>

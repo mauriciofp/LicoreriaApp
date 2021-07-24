@@ -7,7 +7,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <pre *ngIf="promotion">
-    {{ promotion | json }}
-  </pre>
+  <app-promotion-form
+    [promotion]="promotion"
+    *ngIf="promotion"
+  ></app-promotion-form>
 </ion-content>

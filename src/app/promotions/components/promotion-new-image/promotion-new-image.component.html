@@ -1,7 +1,11 @@
 <div class="photo_component_container">
   <div class="photo_container">
-    <ion-img src="assets/no-image.jpg" *ngIf="!singlePhoto"></ion-img>
+    <ion-img
+      src="assets/no-image.jpg"
+      *ngIf="!singlePhoto && !photoDB"
+    ></ion-img>
     <ion-img [src]="singlePhoto.webPath" *ngIf="singlePhoto"></ion-img>
+    <ion-img [src]="photoDB" *ngIf="photoDB && !singlePhoto"></ion-img>
   </div>
 
   <div class="buttons_container">

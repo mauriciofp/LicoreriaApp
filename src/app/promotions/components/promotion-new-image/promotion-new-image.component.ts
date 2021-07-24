@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CameraPhoto } from '@capacitor/core';
 import { Subscription } from 'rxjs';
 import { CameraSingleService } from 'src/app/services/camera-single.service';
@@ -11,6 +11,8 @@ import { CameraSingleService } from 'src/app/services/camera-single.service';
 export class PromotionNewImageComponent implements OnInit, OnDestroy {
   singlePhoto: CameraPhoto;
   singlePhotoSubs: Subscription;
+
+  @Input() photoDB: string;
 
   constructor(private cameraSingleService: CameraSingleService) {}
 

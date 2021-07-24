@@ -54,40 +54,74 @@ export class PromotionFormComponent implements OnInit {
   }
 
   async save() {
-    if (!this.singlePhoto) {
-      const alert = await this.utilsService.createAlert(
-        'Se necesita la imagen'
-      );
-      alert.present();
-      this.promotionForm.markAllAsTouched();
-      return;
-    }
+    if (this.promotion) {
+      if (this.promotionForm.invalid) {
+        this.promotionForm.markAllAsTouched();
+        return;
+      }
 
-    if (this.promotionForm.invalid) {
-      this.promotionForm.markAllAsTouched();
-      return;
-    }
+      this.store.dispatch(initLoading());
+      const image = await this.createBlobImage();
 
-    this.store.dispatch(initLoading());
-    const image = await this.createBlobImage();
-
-    this.promotionService
-      .save(this.promotionForm.value, image)
-      .then(() => {
-        this.store.dispatch(stopLoading());
-        this.router.navigate(['/promotions']).then(async () => {
-          this.promotionForm.reset();
-          const toast = await this.utilsService.createToast(
-            'Promocion creada!'
-          );
-          toast.present();
+      this.promotionService
+        .edit(
+          this.promotion.id,
+          this.promotionForm.value,
+          this.promotion.image,
+          image
+        )
+        .then(() => {
+          this.store.dispatch(stopLoading());
+          this.router
+            .navigate(['/promotions', this.promotion.id])
+            .then(async () => {
+              const toast = await this.utilsService.createToast(
+                'Promocion editada!'
+              );
+              toast.present();
+            });
+        })
+        .catch(async (err) => {
+          this.store.dispatch(stopLoading());
+          const alert = await this.utilsService.createAlert(err.message);
+          alert.present();
         });
-      })
-      .catch(async (err) => {
-        this.store.dispatch(stopLoading());
-        const alert = await this.utilsService.createAlert(err.message);
+    } else {
+      if (!this.singlePhoto) {
+        const alert = await this.utilsService.createAlert(
+          'Se necesita la imagen'
+        );
         alert.present();
-      });
+        this.promotionForm.markAllAsTouched();
+        return;
+      }
+
+      if (this.promotionForm.invalid) {
+        this.promotionForm.markAllAsTouched();
+        return;
+      }
+
+      this.store.dispatch(initLoading());
+      const image = await this.createBlobImage();
+
+      this.promotionService
+        .save(this.promotionForm.value, image)
+        .then(() => {
+          this.store.dispatch(stopLoading());
+          this.router.navigate(['/promotions']).then(async () => {
+            this.promotionForm.reset();
+            const toast = await this.utilsService.createToast(
+              'Promocion creada!'
+            );
+            toast.present();
+          });
+        })
+        .catch(async (err) => {
+          this.store.dispatch(stopLoading());
+          const alert = await this.utilsService.createAlert(err.message);
+          alert.present();
+        });
+    }
   }
 
   cancel() {
@@ -165,6 +199,10 @@ export class PromotionFormComponent implements OnInit {
   }
 
   private async createBlobImage() {
-    return fetch(this.singlePhoto.webPath).then((r) => r.blob());
+    try {
+      return fetch(this.singlePhoto.webPath).then((r) => r.blob());
+    } catch (error) {
+      return null;
+    }
   }
 }

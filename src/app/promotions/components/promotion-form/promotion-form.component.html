@@ -1,4 +1,4 @@
-<app-promotion-new-image></app-promotion-new-image>
+<app-promotion-new-image [photoDB]="promotion?.image"></app-promotion-new-image>
 
 <div class="form">
   <form [formGroup]="promotionForm" autocomplete="off" (ngSubmit)="save()">
