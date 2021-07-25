@@ -36,7 +36,6 @@ export class SearchProductsComponent implements OnInit {
             this.categories.push(x.category);
           }
         });
-        console.log('cats', this.categories);
       });
   }
 

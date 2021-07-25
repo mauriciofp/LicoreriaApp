@@ -1,3 +1,10 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
   <ion-searchbar showCancelButton="never" [(ngModel)]="searchText"></ion-searchbar>
   <ion-item>
@@ -10,8 +17,15 @@
 
     </ion-select>
   </ion-item>
-  <ng-container *ngFor="let product of products | filterCategories:searchText:selectCat">
-    <app-item [product]="product"></app-item>
-  </ng-container>
+<br>
+<br>
+  <div class="grid-wrapper">
+    <ng-container *ngFor="let product of products | filterCategories:searchText:selectCat">
+      <app-item [product]="product"></app-item>
+    </ng-container>
+  </div>
+
+
+
 
 </ion-content>
