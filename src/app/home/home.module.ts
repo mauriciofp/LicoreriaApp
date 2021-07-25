@@ -12,6 +12,7 @@ import { CategoryItemComponent } from './components/category-item/category-item.
 import { PromotionItemComponent } from './components/promotion-item/promotion-item.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { HomePromotionComponent } from './pages/home-promotion/home-promotion.component';
+import { SearchProductsComponent } from './components/search-products/search-products.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { HomePromotionComponent } from './pages/home-promotion/home-promotion.co
     PromotionItemComponent,
     CategoryComponent,
     HomePromotionComponent,
+    SearchProductsComponent
   ],
 })
 export class HomePageModule {}

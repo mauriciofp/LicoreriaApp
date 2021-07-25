@@ -1,0 +1,17 @@
+<ion-content [fullscreen]="true">
+  <ion-searchbar showCancelButton="never" [(ngModel)]="searchText"></ion-searchbar>
+  <ion-item>
+    <ion-label>Busqueda por categorias</ion-label>
+    <ion-select value="all" [(ngModel)]="selectCat">
+      <ion-select-option value="all">Todos los productos</ion-select-option>
+      <ng-container *ngFor="let cat of categories">
+        <ion-select-option value="{{cat}}">{{ cat }}</ion-select-option>
+      </ng-container>
+
+    </ion-select>
+  </ion-item>
+  <ng-container *ngFor="let product of products | filterCategories:searchText:selectCat">
+    <app-item [product]="product"></app-item>
+  </ng-container>
+
+</ion-content>
