@@ -1,6 +1,7 @@
 <div
   class="product_container pointer"
   [style]="product.images[0].url | domSanitizer"
+  (click)="addProductToCart()"
 >
   <div class="product_container_header">
     <p>{{ product.name }}</p>
