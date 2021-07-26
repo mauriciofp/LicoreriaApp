@@ -69,36 +69,6 @@ export class DealerService {
           })();
         });
     });
-
-    // return new Promise((resolve, reject) => {
-    //   this.db
-    //     .list('dealers/')
-    //     .push(insert)
-    //     .then((ref) => {
-    //       (async () => {
-    //         dealer.phones.forEach((element) => {
-    //           this.db.list(`dealers/${ref.key}/phones`).push(element);
-    //         });
-
-    //         const blob = await fetch(dealerPhoto.webPath).then((r) => r.blob());
-    //         console.log('photo', dealerPhoto);
-    //         const fileRef = this.storage.ref(`dealers/${ref.key}`);
-    //         const task = this.storage.upload(`dealers/${ref.key}`, blob);
-    //         task
-    //           .snapshotChanges()
-    //           .pipe(
-    //             finalize(() => {
-    //               fileRef.getDownloadURL().subscribe((res) => {
-    //                 // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
-    //                 this.db.list(`dealers/`).update(ref.key, { urlImage: res });
-    //                 resolve(ref);
-    //               });
-    //             })
-    //           )
-    //           .subscribe();
-    //       })();
-    //     });
-    // });
   }
 
   getAll() {

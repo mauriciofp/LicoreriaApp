@@ -15,9 +15,8 @@ import { DealerService } from 'src/app/services/dealer.service';
 })
 export class DealerDetailComponent implements OnInit {
 
-  dealer: Observable<Dealer>;
+  dealer: Dealer = new Dealer('', '', '');
   dealerId: string;
-  urlImage: string;
 
   constructor(
     private ds: DealerService,
@@ -31,11 +30,9 @@ export class DealerDetailComponent implements OnInit {
     this.activatedRoute.params.
       subscribe(data => {
         this.dealerId = data.id;
-        console.log('id', this.dealerId);
-        this.dealer = this.ds.getDealer(this.dealerId);
 
         this.ds.getDealer(this.dealerId).subscribe(elm => {
-          this.urlImage = elm.urlImage;
+          this.dealer = elm;
         });
       });
   }
@@ -61,7 +58,7 @@ export class DealerDetailComponent implements OnInit {
                 {
                   text: 'Si Eliminar',
                   handler: () => {
-                    this.ds.deleteDealer(this.dealerId, this.urlImage)
+                    this.ds.deleteDealer(this.dealerId, this.dealer.urlImage)
                       .then(data => {console.log('deleted', data);});
                       this.router.navigate(['dealers/list']);
                   }

@@ -14,18 +14,18 @@
 <ion-content>
   <div class="content">
     <div class="all-row">
-      <img class="img-dealer" [src]="(dealer | async)?.urlImage">
+      <img class="img-dealer" [src]="dealer.urlImage">
       <div class="details-information">
         <h4 class="inf">Dealer:</h4>
-        <h4 class="inf-values">{{(dealer | async)?.name}}</h4>
+        <h4 class="inf-values">{{ dealer.name }}</h4>
         <h4 class="inf">Empresa:</h4>
-        <h4 class="inf-values">{{(dealer | async)?.company}}</h4>
+        <h4 class="inf-values">{{ dealer.company }}</h4>
         <h4 class="inf">Email:</h4>
-        <h4 class="inf-values">{{(dealer | async)?.email}}</h4>
+        <h4 class="inf-values">{{dealer.email}}</h4>
         <h4 class="inf">
           Telefonos:
         </h4>
-        <span class="inf-values" *ngFor="let phone of (dealer | async)?.phones">
+        <span class="inf-values" *ngFor="let phone of dealer.phones">
           <ion-chip>
             <ion-label>{{ phone }}</ion-label>
           </ion-chip>
