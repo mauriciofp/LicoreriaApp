@@ -15,4 +15,5 @@ export class Dealer {
     this.urlImage = '';
 
   }
+
 }

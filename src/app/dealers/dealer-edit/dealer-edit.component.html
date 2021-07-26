@@ -29,26 +29,6 @@
         </ion-button>
       </div>
 
-      <!-- <form [formGroup]="form">
-        <ion-input placeholder="" formControlName="name"></ion-input>
-        <br />
-        <ion-input placeholder="" formControlName="company"></ion-input>
-        <br />
-        <ion-input placeholder="" formControlName="email"></ion-input>
-        <br />
-
-        <div formArrayName="phones" *ngFor="let phone of phones.controls; let i = index">
-          <ion-item>
-            <ion-label>Numero</ion-label>
-            <ion-input placeholder="numero" type="number" [formControlName]="i"></ion-input>
-          </ion-item>
-          <ion-button (click)="removePhone(i)" *ngIf="i !== 0">Quitar</ion-button>
-        </div>
-        <ion-button color="primary" (click)="addPhone()">Agregar Numero</ion-button>
-        <ion-button color="primary" (click)="save()" routerLink="../../list" [disabled]="form.invalid">Guardar
-        </ion-button>
-      </form> -->
-
       <form [formGroup]="form">
         <ion-item>
           <ion-label color="primary" position="floating">Nombre</ion-label>
@@ -116,9 +96,7 @@
           </ion-button>
           <ion-button color="primary">Cancelar</ion-button>
         </div>
-
       </form>
-      <p>{{form.value | json}}</p>
     </div>
   </div>
 
