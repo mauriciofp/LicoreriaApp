@@ -45,9 +45,17 @@ export class AuthService {
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        return this.db
-          .object(`users/${res.user.uid}`)
-          .set({ uid: res.user.uid, name, email, role: UserRole.user, phone });
+        const newUser: any = {
+          uid: res.user.uid,
+          name,
+          email,
+          role: UserRole.user,
+          phone,
+        };
+        if (this.onesignalService.onesignalId) {
+          newUser.onesignalId = this.onesignalService.onesignalId;
+        }
+        return this.db.object(`users/${res.user.uid}`).set(newUser);
       });
   }
 

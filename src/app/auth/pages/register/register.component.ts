@@ -69,7 +69,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       })
       .catch(async (err) => {
         this.registerForm.get('password').reset();
-        this.registerForm.get('password2').reset();
         this.store.dispatch(stopLoading());
         const alert = await this.utilService.createAlert(err.message);
         alert.present();
