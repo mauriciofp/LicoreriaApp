@@ -24,6 +24,9 @@
   <div class="main_page">
     <div class="promotion_scroll">
       <h2>Promociones</h2>
+      <div *ngIf="!promotions.length" class="loading-center">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </div>
       <ion-slides mode="md" [options]="promotionsSlideOpts">
         <ion-slide
           *ngFor="let promotion of promotions"
@@ -37,6 +40,9 @@
     <div class="categories_products">
       <div class="categories_scroll">
         <h2>Categorias</h2>
+        <div *ngIf="!categories.length">
+          <ion-spinner name="bubbles"></ion-spinner>
+        </div>
         <ion-slides mode="md" [options]="categoriesSlideOpts">
           <ion-slide
             *ngFor="let category of categories"
@@ -49,6 +55,9 @@
 
       <div class="products_scroll">
         <h2>Productos nuevos</h2>
+        <div *ngIf="!products.length" class="loading-center">
+          <ion-spinner name="bubbles"></ion-spinner>
+        </div>
         <ion-slides [options]="productsSlideOpts">
           <ion-slide *ngFor="let product of products">
             <app-item [product]="product"></app-item>
