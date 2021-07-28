@@ -23,7 +23,7 @@
           <ion-icon slot="start" name="camera"></ion-icon>
           <ion-label>Camara</ion-label>
         </ion-button>
-        <ion-button shape="round" color="tertiary">
+        <ion-button shape="round" color="tertiary" (click)="getFromGallery()">
           <ion-icon slot="start" name="image"></ion-icon>
           <ion-label>Galeria</ion-label>
         </ion-button>
@@ -97,6 +97,7 @@
           <ion-button color="primary">Cancelar</ion-button>
         </div>
       </form>
+      <p>{{ form.value | json }}</p>
     </div>
   </div>
 

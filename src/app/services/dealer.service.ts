@@ -164,6 +164,7 @@ export class DealerService {
     dealer: Dealer,
     dealerPhoto?: CameraPhoto
   ) {
+    console.log('updating dealer');
     // this.db.list('dealers/').set(id, dealer);
     return new Promise((resolve, reject) => {
       if (!dealerPhoto) {

@@ -64,6 +64,20 @@ export class CameraService {
     return Camera.getPhoto(opts);
   }
 
+  getPhotoGallery() {
+    const source = CameraSource.Photos;
+    const opts: CameraOptions = {
+      source,
+      resultType: CameraResultType.Uri,
+      allowEditing: false,
+      quality: 50,
+      correctOrientation: true,
+      height: 800,
+      width: 800,
+    };
+    return Camera.getPhoto(opts);
+  }
+
   private emitChanges() {
     this.imageList$.emit(this._imagesList);
   }

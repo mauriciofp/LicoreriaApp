@@ -42,7 +42,6 @@ export class NewDealerComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.dealerUrlImage = '';
 
     this.form = this.fb.group({
       name: ['', [Validators.required]],
@@ -62,9 +61,7 @@ export class NewDealerComponent implements OnInit {
   }
 
   takePicture() {
-    console.log('taking the picture');
     const photo = this.cs.takeSinglePhoto().then((ph) => {
-      console.log('photoUrl', ph.webPath);
       this.dealerPhoto = ph;
       this.dealerUrlImage = this.sanitizer.bypassSecurityTrustUrl(
         ph && ph.webPath
@@ -72,7 +69,14 @@ export class NewDealerComponent implements OnInit {
     });
   }
 
-  getFromGallery() {}
+  getFromGallery() {
+    const photo = this.cs.getPhotoGallery().then((ph) => {
+      this.dealerPhoto = ph;
+      this.dealerUrlImage = this.sanitizer.bypassSecurityTrustUrl(
+        ph && ph.webPath
+      );
+    });
+  }
 
   submitForm() {
     if (this.form.valid) {

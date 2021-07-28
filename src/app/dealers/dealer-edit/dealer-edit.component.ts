@@ -78,6 +78,15 @@ export class DealerEditComponent implements OnInit {
     });
   }
 
+  getFromGallery() {
+    const photo = this.cs.getPhotoGallery().then((ph) => {
+      this.newPhoto = ph;
+      this.newUrlPhoto = this.sanitizer.bypassSecurityTrustUrl(
+        ph && ph.webPath
+      );
+    });
+  }
+
   save() {
     if (!this.form.invalid) {
       this.name.setValue(this.name.value.trim());
@@ -107,7 +116,6 @@ export class DealerEditComponent implements OnInit {
 
   removePhone(index) {
     this.phones.removeAt(index);
-    //this.phones.controls.splice(index, 1);
   }
 
   get name() {
