@@ -1,7 +1,5 @@
 export const environment = {
   production: true,
-  mapBoxKey:
-    'pk.eyJ1IjoidHJveWFuaXRvMTIzIiwiYSI6ImNrcXF3d3VoeTFsa3Iyb284NnI5bHo2dHQifQ.oNt95CiFic1zFeXqsH52BA',
   firebaseConfig: {
     apiKey: 'AIzaSyAWHCCh3ywXTvUIMWSx_j2F58Ah0zl7Wuw',
     authDomain: 'storeapp-9941c.firebaseapp.com',
