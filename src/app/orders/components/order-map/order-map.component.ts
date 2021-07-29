@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as Mapboxgl from 'mapbox-gl';
+import * as L from 'leaflet';
+
 import { Subscription } from 'rxjs';
 import { Location } from 'src/app/interfaces/order';
 import {
@@ -9,7 +10,6 @@ import {
   unsetLocation,
 } from 'src/app/state/actions/location.action';
 import { AppState } from 'src/app/state/app.reducer';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order-map',
@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./order-map.component.scss'],
 })
 export class OrderMapComponent implements OnInit, OnDestroy {
-  orderMap: Mapboxgl.Map;
+  orderMapLeaf: L.Map;
 
   @Input() location: Location = { lng: null, lat: null };
 
@@ -36,7 +36,7 @@ export class OrderMapComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.createMap();
+    this.createMapLeaf();
     this.locationSubs = this.store
       .select('location')
       .subscribe(({ lng, lat }) => {
@@ -50,40 +50,64 @@ export class OrderMapComponent implements OnInit, OnDestroy {
     this.locationSubs?.unsubscribe();
   }
 
-  createMap() {
-    (Mapboxgl.accessToken as any) = environment.mapBoxKey;
-    this.orderMap = new Mapboxgl.Map({
-      container: 'orderMap',
-      style: 'mapbox://styles/mapbox/satellite-streets-v11',
+  private createMapLeaf() {
+    this.orderMapLeaf = L.map('orderMap', {
       center: this.location.lat
-        ? [this.location.lng, this.location.lat]
-        : [this.defaultLocation.lng, this.defaultLocation.lat],
+        ? [this.location.lat, this.location.lng]
+        : [this.defaultLocation.lat, this.defaultLocation.lng],
       zoom: 16,
+      renderer: L.canvas(),
     });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Licorcito © PTAANG UMSS',
+    }).addTo(this.orderMapLeaf);
+
     if (this.location.lat) {
-      this.createdMark();
+      this.createMarkFixedLeafLet();
     } else {
-      this.createdMarkerWithDrag();
+      this.createMarkWithDragLeafLet();
     }
+
+    setTimeout(() => {
+      this.orderMapLeaf.invalidateSize();
+    }, 100);
   }
 
-  createdMarkerWithDrag() {
-    const marker = new Mapboxgl.Marker({ draggable: true })
-      .setLngLat([this.defaultLocation.lng, this.defaultLocation.lat])
-      .addTo(this.orderMap);
-    marker.on('dragend', () => {
-      this.store.dispatch(
-        setLocation({
-          lng: marker.getLngLat().lng,
-          lat: marker.getLngLat().lat,
-        })
-      );
-    });
+  private createMarkWithDragLeafLet() {
+    const marker = L.marker(
+      [this.defaultLocation.lat, this.defaultLocation.lng],
+      {
+        draggable: true,
+        icon: L.icon({ iconUrl: 'assets/icon-mark.png', iconSize: [60, 60] }),
+      }
+    )
+      .addEventListener('dragend', (e) => {
+        this.store.dispatch(
+          setLocation({
+            lat: marker.getLatLng().lat,
+            lng: marker.getLatLng().lng,
+          })
+        );
+      })
+      .addTo(this.orderMapLeaf);
   }
 
-  createdMark() {
-    new Mapboxgl.Marker()
-      .setLngLat([this.location.lng, this.location.lat])
-      .addTo(this.orderMap);
+  private createMarkFixedLeafLet() {
+    const { lat, lng } = this.location;
+    L.marker([lat, lng], {
+      icon: L.icon({ iconUrl: 'assets/icon-mark.png', iconSize: [60, 60] }),
+    }).addTo(this.orderMapLeaf);
+  }
+
+  flyToCenter() {
+    if (this.location.lat) {
+      this.orderMapLeaf.flyTo([this.location.lat, this.location.lng]);
+    } else {
+      this.orderMapLeaf.flyTo([
+        this.defaultLocation.lat,
+        this.defaultLocation.lng,
+      ]);
+    }
   }
 }

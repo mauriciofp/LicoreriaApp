@@ -2,6 +2,22 @@
   width: 100%;
   height: 15rem;
   border-radius: 1rem;
+  position: relative;
+
+  ion-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 10px;
+    z-index: 401;
+    --border-radius: 50%;
+    --padding-bottom: 4px;
+    --padding-top: 4px;
+    --padding-start: 4px;
+    --padding-end: 4px;
+    --background: gray;
+    height: 3rem;
+  }
 }
 
 .map_label {
