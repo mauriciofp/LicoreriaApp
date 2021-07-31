@@ -1,13 +1,18 @@
-<div
-  class="product_container pointer"
-  [style]="product.images[0].url | domSanitizer"
-  (click)="addProductToCart()"
->
-  <div class="product_container_header">
-    <p>{{ product.name }}</p>
-  </div>
-  <div class="product_container_footer">
-    <button class="btn" (click)="addProductToCart()">Comprar</button>
-    <p class="product_price">{{ product.price | currency: " Bs." }}</p>
+<div class="card">
+  <ion-img src="assets/loading.gif" *ngIf="imgLoading"></ion-img>
+  <ion-img
+    [src]="product.images[0].url"
+    (ionImgDidLoad)="imgLoading = false"
+  ></ion-img>
+
+  <div class="card-content">
+    <h3 class="title">{{ product.name }}</h3>
+    <h2 class="subtitle"><sup>Bs.</sup>{{ product.price | number: "1.2" }}</h2>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="addProductToCart()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </div>
 </div>

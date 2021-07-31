@@ -13,6 +13,8 @@ import { AppState } from 'src/app/state/app.reducer';
 export class ItemComponent implements OnInit {
   @Input() product: Product;
 
+  imgLoading = true;
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {}

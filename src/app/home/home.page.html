@@ -18,7 +18,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="main_page">
+  <!-- <div class="main_page">
     <div class="promotion_scroll">
       <h2>Promociones</h2>
       <div *ngIf="!promotions.length" class="loading-center">
@@ -62,5 +62,6 @@
         </ion-slides>
       </div>
     </div>
-  </div>
+  </div> -->
+  <app-item-list [products]="products"></app-item-list>
 </ion-content>
