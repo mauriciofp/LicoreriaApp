@@ -18,72 +18,33 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <div class="main_page">
-    <div class="promotion_scroll">
-      <h2>Promociones</h2>
-      <div *ngIf="!promotions.length" class="loading-center">
-        <ion-spinner name="bubbles"></ion-spinner>
-      </div>
-      <ion-slides mode="md" [options]="promotionsSlideOpts">
-        <ion-slide
-          *ngFor="let promotion of promotions"
-          routerLink="./promotion/{{promotion.id}}"
-          class="image-slide"
-          [style]="promotion.image | domSanitizer"
-        >
-        </ion-slide>
-      </ion-slides>
-    </div>
-    <div class="categories_products">
-      <div class="categories_scroll">
-        <h2>Categorias</h2>
-        <div *ngIf="!categories.length">
-          <ion-spinner name="bubbles"></ion-spinner>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <div>
+          <h2 class="subtitle">Promociones</h2>
+          <ion-slides mode="md" pager="md" [options]="promotionsSlideOpts">
+            <ion-slide *ngFor="let promotion of promotions">
+              <app-promotion-item [promotion]="promotion"></app-promotion-item>
+            </ion-slide>
+          </ion-slides>
         </div>
-        <ion-slides mode="md" [options]="categoriesSlideOpts">
-          <ion-slide
-            *ngFor="let category of categories"
-            routerLink="./category/{{category}}"
-          >
-            <app-category-item [category]="category"></app-category-item>
-          </ion-slide>
-        </ion-slides>
-      </div>
-
-      <div class="products_scroll">
-        <h2>Productos nuevos</h2>
-        <div *ngIf="!products.length" class="loading-center">
-          <ion-spinner name="bubbles"></ion-spinner>
+        <div>
+          <h2 class="subtitle">Categorias</h2>
+          <ion-slides mode="md" [options]="categoriesSlideOpts">
+            <ion-slide
+              *ngFor="let category of categories"
+              routerLink="./category/{{category}}"
+            >
+              <app-category-item [category]="category"></app-category-item>
+            </ion-slide>
+          </ion-slides>
         </div>
-        <ion-slides [options]="productsSlideOpts">
-          <ion-slide *ngFor="let product of products">
-            <app-item [product]="product"></app-item>
-          </ion-slide>
-        </ion-slides>
-      </div>
-    </div>
-  </div> -->
-  <div>
-    <h2 class="subtitle">Promociones</h2>
-    <ion-slides mode="md" pager="md">
-      <ion-slide *ngFor="let promotion of promotions">
-        <app-promotion-item [promotion]="promotion"></app-promotion-item>
-      </ion-slide>
-    </ion-slides>
-  </div>
-  <div>
-    <h2 class="subtitle">Categorias</h2>
-    <ion-slides mode="md" [options]="categoriesSlideOpts">
-      <ion-slide
-        *ngFor="let category of categories"
-        routerLink="./category/{{category}}"
-      >
-        <app-category-item [category]="category"></app-category-item>
-      </ion-slide>
-    </ion-slides>
-  </div>
-  <div>
-    <h2 class="subtitle">Nuevos productos</h2>
-    <app-item-list [products]="products"></app-item-list>
-  </div>
+        <div>
+          <h2 class="subtitle">Nuevos productos</h2>
+          <app-item-list [products]="products"></app-item-list>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
