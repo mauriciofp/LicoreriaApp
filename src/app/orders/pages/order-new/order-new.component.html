@@ -1,22 +1,14 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/cart"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 <ion-content>
   <ion-grid fixed>
-    <ion-row>
-      <ion-col size="12"><h1>Detalles del pedido</h1></ion-col>
-    </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="12" size-md="9" size-lg="8" size-lg="6">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/cart"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <h1>Detalles del pedido</h1>
         <app-order-map></app-order-map>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-sm="12" size-md="9" size-lg="8" size-lg="6">
         <app-order-form></app-order-form>
       </ion-col>
     </ion-row>

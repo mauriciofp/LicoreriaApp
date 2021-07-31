@@ -27,3 +27,15 @@
   color: gray;
   font-weight: 400;
 }
+
+@media screen and (min-width: 720px) {
+  .map_container {
+    height: 20rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .map_container {
+    height: 25rem;
+  }
+}
