@@ -1,15 +1,22 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ category }}</ion-title>
-    <ion-buttons slot="end" routerLink="/cart">
-      <ion-icon slot="end" name="cart-outline"></ion-icon>
-      <ion-badge color="primary" mode="md" *ngIf="cant">{{ cant }}</ion-badge>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 <ion-content>
-  <app-item-list [products]="products"></app-item-list>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+          </ion-buttons>
+          <ion-title>{{ category }}</ion-title>
+          <ion-buttons slot="end" routerLink="/cart">
+            <ion-icon slot="end" name="cart-outline"></ion-icon>
+            <ion-badge color="primary" mode="md" *ngIf="cant">
+              {{ cant }}
+            </ion-badge>
+          </ion-buttons>
+        </ion-toolbar>
+
+        <app-item-list [products]="products"></app-item-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
