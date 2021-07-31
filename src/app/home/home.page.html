@@ -63,5 +63,16 @@
       </div>
     </div>
   </div> -->
+  <div>
+    <h2>Categorias</h2>
+    <ion-slides mode="md" [options]="categoriesSlideOpts">
+      <ion-slide
+        *ngFor="let category of categories"
+        routerLink="./category/{{category}}"
+      >
+        <app-category-item [category]="category"></app-category-item>
+      </ion-slide>
+    </ion-slides>
+  </div>
   <app-item-list [products]="products"></app-item-list>
 </ion-content>

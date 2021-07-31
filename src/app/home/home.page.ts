@@ -19,12 +19,27 @@ import { Promotion } from '../models/promotion';
 export class HomePage implements OnInit, OnDestroy {
   productsSlideOpts = {
     slidesPerView: 2.1,
-    spaceBetween: 8,
   };
 
   categoriesSlideOpts = {
-    slidesPerView: 2.5,
+    slidesPerView: 3.3,
     spaceBetween: 8,
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 3.3,
+      },
+      // when window width is >= 480px
+      480: {
+        slidesPerView: 4.3,
+        spaceBetween: 12,
+      },
+      // when window width is >= 640px
+      640: {
+        slidesPerView: 5.3,
+        spaceBetween: 16,
+      },
+    },
   };
 
   promotionsSlideOpts = {
