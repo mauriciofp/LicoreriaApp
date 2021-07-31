@@ -4,6 +4,7 @@ import { SearchProductsComponent } from './components/search-products/search-pro
 
 import { HomePage } from './home.page';
 import { CategoryComponent } from './pages/category/category.component';
+import { HomeProductComponent } from './pages/home-product/home-product.component';
 import { HomePromotionComponent } from './pages/home-promotion/home-promotion.component';
 
 const routes: Routes = [
@@ -20,9 +21,13 @@ const routes: Routes = [
     component: HomePromotionComponent,
   },
   {
+    path: 'product/:id',
+    component: HomeProductComponent,
+  },
+  {
     path: 'search',
-    component: SearchProductsComponent
-  }
+    component: SearchProductsComponent,
+  },
 ];
 
 @NgModule({

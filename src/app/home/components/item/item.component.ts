@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Product } from 'src/app/interfaces/interface';
 import { ProductCart } from 'src/app/models/product-cart';
@@ -15,12 +16,16 @@ export class ItemComponent implements OnInit {
 
   imgLoading = true;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {}
 
   addProductToCart() {
     const product = ProductCart.fromProduct(this.product);
     this.store.dispatch(addProduct({ product }));
+  }
+
+  toProduct(id: string) {
+    this.router.navigate(['/home/product', id]);
   }
 }

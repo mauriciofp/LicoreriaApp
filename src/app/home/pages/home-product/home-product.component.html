@@ -1,0 +1,50 @@
+<ion-content *ngIf="product">
+  <div class="header">
+    <ion-buttons>
+      <ion-button routerLink="/home">
+        <ion-icon
+          slot="icon-only"
+          color="light"
+          name="arrow-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons routerLink="/cart">
+      <ion-button>
+        <ion-icon slot="start" color="light" name="cart-outline"></ion-icon>
+      </ion-button>
+      <div style="color: #fff; font-size: 1.6rem" *ngIf="cant != 0">
+        {{ cant }}
+      </div>
+    </ion-buttons>
+  </div>
+
+  <div class="card">
+    <div class="image">
+      <!-- <ion-img [src]="product.images[0].url"></ion-img> -->
+      <ion-slides [options]="imgSlideOpts" pager="true" scrollbar="tr">
+        <ion-slide *ngFor="let img of product.images">
+          <ion-img [src]="img.url"></ion-img>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="card-content">
+      <div class="card-title">
+        <h1 class="ion-no-margin">{{ product.title }}</h1>
+        <p class="ion-no-margin">
+          <sup>Bs. </sup> {{ product.price | number: "1.2" }}
+        </p>
+      </div>
+    </div>
+
+    <div class="about">
+      <h1>Descripcion</h1>
+      <p>{{ product.description }}</p>
+    </div>
+
+    <ion-button (click)="addProductToCart()" expand="block">
+      Agregar al carrito
+    </ion-button>
+  </div>
+</ion-content>

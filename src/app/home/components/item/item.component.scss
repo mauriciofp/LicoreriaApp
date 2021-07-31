@@ -30,24 +30,23 @@
         color: #ffb800;
       }
     }
+  }
+  ion-buttons {
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
 
-    ion-buttons {
-      position: absolute;
-      bottom: -1rem;
-      left: 50%;
-      transform: translateX(-50%);
-
-      ion-button {
-        --background: #09699c;
-        font-weight: 700;
-        color: #fff;
-        width: 40px;
-        height: 40px;
-        --padding-start: 0;
-        --padding-end: 0;
-        --padding-top: 0;
-        --padding-bottom: 0;
-      }
+    ion-button {
+      --background: #09699c;
+      font-weight: 700;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      --padding-start: 0;
+      --padding-end: 0;
+      --padding-top: 0;
+      --padding-bottom: 0;
     }
   }
 }

@@ -13,6 +13,7 @@ import { PromotionItemComponent } from './components/promotion-item/promotion-it
 import { CategoryComponent } from './pages/category/category.component';
 import { HomePromotionComponent } from './pages/home-promotion/home-promotion.component';
 import { SearchProductsComponent } from './components/search-products/search-products.component';
+import { HomeProductComponent } from './pages/home-product/home-product.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { SearchProductsComponent } from './components/search-products/search-pro
     PromotionItemComponent,
     CategoryComponent,
     HomePromotionComponent,
-    SearchProductsComponent
+    SearchProductsComponent,
+    HomeProductComponent,
   ],
 })
 export class HomePageModule {}

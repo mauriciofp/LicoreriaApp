@@ -3,16 +3,16 @@
   <ion-img
     [src]="product.images[0].url"
     (ionImgDidLoad)="imgLoading = false"
+    (click)="toProduct(product.id)"
   ></ion-img>
 
-  <div class="card-content">
+  <div class="card-content" (click)="toProduct(product.id)">
     <h3 class="title">{{ product.name }}</h3>
     <h2 class="subtitle"><sup>Bs.</sup>{{ product.price | number: "1.2" }}</h2>
-
-    <ion-buttons slot="start">
-      <ion-button (click)="addProductToCart()">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </div>
+  <ion-buttons slot="start">
+    <ion-button (click)="addProductToCart()">
+      <ion-icon slot="icon-only" name="add"></ion-icon>
+    </ion-button>
+  </ion-buttons>
 </div>
