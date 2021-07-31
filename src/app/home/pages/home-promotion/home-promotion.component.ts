@@ -21,6 +21,8 @@ export class HomePromotionComponent implements OnInit {
   cant: number;
   cantSubs: Subscription;
 
+  imgLoading = true;
+
   constructor(
     private route: ActivatedRoute,
     private promotionService: PromotionService,
@@ -39,10 +41,6 @@ export class HomePromotionComponent implements OnInit {
   ngOnDestroy() {
     this.promotionSubs?.unsubscribe();
     this.cantSubs?.unsubscribe();
-  }
-
-  inmgDidLoad(event: any) {
-    return;
   }
 
   addToCart() {

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Promotion } from 'src/app/models/promotion';
 
 @Component({
@@ -9,7 +10,13 @@ import { Promotion } from 'src/app/models/promotion';
 export class PromotionItemComponent implements OnInit {
   @Input() promotion: Promotion;
 
-  constructor() {}
+  imgLoading = true;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  toPromotion() {
+    this.router.navigate(['/home/promotion', this.promotion.id]);
+  }
 }

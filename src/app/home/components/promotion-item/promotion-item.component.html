@@ -1,3 +1,15 @@
-<div class="promotion_item">
-  <p>{{ promotion.name }}</p>
+<div class="card">
+  <ion-img src="assets/loading.gif" *ngIf="imgLoading"></ion-img>
+  <ion-img
+    [src]="promotion.image"
+    (ionImgDidLoad)="imgLoading = false"
+    (click)="toPromotion(promotion.id)"
+  ></ion-img>
+
+  <div class="card-content" (click)="toPromotion(promotion.id)">
+    <h3 class="title">{{ promotion.name }}</h3>
+    <h2 class="subtitle">
+      <sup>Bs.</sup>{{ promotion.price | number: "1.2" }}
+    </h2>
+  </div>
 </div>
