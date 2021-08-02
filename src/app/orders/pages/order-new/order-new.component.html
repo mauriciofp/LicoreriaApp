@@ -7,7 +7,14 @@
             <ion-back-button defaultHref="/cart"></ion-back-button>
           </ion-buttons>
         </ion-toolbar>
-        <h1>Detalles del pedido</h1>
+        <div class="header">
+          <h1>Detalles del pedido</h1>
+          <ion-icon
+            slot="icon-only"
+            name="information-circle-outline"
+            (click)="presentPopover()"
+          ></ion-icon>
+        </div>
         <app-order-map></app-order-map>
         <app-order-form></app-order-form>
       </ion-col>

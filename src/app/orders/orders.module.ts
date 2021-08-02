@@ -16,6 +16,7 @@ import { OrderOptionsComponent } from './pages/order-options/order-options.compo
 import { OrderChatComponent } from './components/order-chat/order-chat.component';
 import { OrderNotificationComponent } from './components/order-notification/order-notification.component';
 import { OrderDealerComponent } from './components/order-dealer/order-dealer.component';
+import { OrderPopoverComponent } from './components/order-popover/order-popover.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { OrderDealerComponent } from './components/order-dealer/order-dealer.com
     OrderChatComponent,
     OrderNotificationComponent,
     OrderDealerComponent,
+    OrderPopoverComponent,
   ],
   imports: [
     CommonModule,

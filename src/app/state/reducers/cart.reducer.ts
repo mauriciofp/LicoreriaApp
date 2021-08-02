@@ -15,9 +15,23 @@ export interface CartState {
 }
 
 export const initialCartState: CartState = {
-  products: [],
-  total: 0,
-  cant: 0,
+  products: [
+    {
+      id: '-MdltyvaX3JK6gu62yjl',
+      cant: 2,
+      images: [
+        {
+          id: '-Mdltzff6WDW9mwGM9JE',
+          url: 'https://firebasestorage.googleapis.com/v0/b/storeapp-9941c.appspot.com/o/products%2F1625408665885_1625408665885-no-name?alt=media&token=29b4c868-8c26-45f0-9b40-f5f66944d84e',
+        },
+      ],
+      name: 'Coca cola',
+      price: 10,
+      subtotal: 10,
+    },
+  ],
+  total: 10,
+  cant: 1,
 };
 
 const _cartReducer = createReducer(
