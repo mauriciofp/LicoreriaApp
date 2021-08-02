@@ -3,18 +3,19 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="home"></ion-back-button>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="/home" text=""></ion-back-button>
           </ion-buttons>
-          <ion-title>{{ category }}</ion-title>
           <ion-buttons slot="end" routerLink="/cart">
-            <ion-icon slot="end" name="cart-outline"></ion-icon>
-            <ion-badge color="primary" mode="md" *ngIf="cant">
+            <div style="font-size: 1.3rem" *ngIf="cant != 0">
               {{ cant }}
-            </ion-badge>
+            </div>
+            <ion-button>
+              <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+            </ion-button>
           </ion-buttons>
         </ion-toolbar>
-
+        <h2>Categoria: {{ category }}</h2>
         <app-item-list [products]="products"></app-item-list>
       </ion-col>
     </ion-row>
