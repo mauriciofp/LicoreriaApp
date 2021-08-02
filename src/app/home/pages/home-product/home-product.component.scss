@@ -5,7 +5,7 @@ ion-content {
   .header {
     display: flex;
     justify-content: space-between;
-    padding: 1rem 0.5rem;
+    padding: 1rem 0rem;
 
     ion-button {
       height: 60px;
@@ -107,10 +107,35 @@ ion-content {
 
 @media screen and (min-width: 720px) {
   ion-content {
+    --padding-start: 15%;
+    --padding-end: 12%;
     .card {
+      width: 66%;
+      left: 9rem;
       .image {
         width: 40%;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  ion-content {
+    --padding-start: 15%;
+    --padding-end: 16%;
+    .card {
+      left: 11rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  ion-content {
+    --padding-start: 15%;
+    --padding-end: 16%;
+    .card {
+      width: 62%;
+      left: 16rem;
     }
   }
 }
