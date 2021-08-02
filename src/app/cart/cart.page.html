@@ -3,12 +3,19 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="/home"></ion-back-button>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="/home" text=""></ion-back-button>
           </ion-buttons>
         </ion-toolbar>
 
-        <h3 class="title" *ngIf="products.length"></h3>
+        <h2 class="title" *ngIf="products.length">Tu carrito</h2>
+
+        <div class="total_container">
+          <p>Total:</p>
+          <p>
+            <span><sup>Bs. </sup>{{total | number: "1.2"}}</span>
+          </p>
+        </div>
 
         <ion-list lines="none">
           <ion-item-sliding *ngFor="let product of products">
@@ -32,9 +39,9 @@
           <p>Tu carrito esta vacio</p>
         </div>
 
-        <app-cart-button *ngIf="products.length" routerLink="/orders/new">
-          Total: <span><sup>Bs. </sup>{{total | number: "1.2"}}</span>
-        </app-cart-button>
+        <ion-button expand="block" routerLink="/orders/new">
+          Continuar
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
