@@ -1,13 +1,7 @@
 <ion-list>
   <ion-grid fixed>
-    <ion-row class="ion-justify-content-center">
-      <ion-col
-        *ngFor="let order of orders"
-        size="12"
-        size-xl="3"
-        size-lg="4"
-        size-md="6"
-      >
+    <ion-row>
+      <ion-col *ngFor="let order of orders" size="12" size-md="6">
         <ion-item detail routerLink="../{{ order.id }}">
           <ion-label class="ion-text-wrap">
             <ion-text color="primary">
