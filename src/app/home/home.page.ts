@@ -22,15 +22,15 @@ export class HomePage implements OnInit, OnDestroy {
   };
 
   categoriesSlideOpts = {
-    slidesPerView: 3.3,
+    slidesPerView: 2.3,
     spaceBetween: 8,
     breakpoints: {
       // when window width is >= 320px
       320: {
-        slidesPerView: 3.3,
+        slidesPerView: 2.3,
       },
       768: {
-        slidesPerView: 4.3,
+        slidesPerView: 3.3,
         spaceBetween: 16,
       },
     },

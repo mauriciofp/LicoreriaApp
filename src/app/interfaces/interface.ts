@@ -25,11 +25,15 @@ export interface Image {
 }
 
 export const categories = [
-  'VINO',
   'CERVEZA',
+  'EXTRAS',
   'RON',
+  'SNACKS',
+  'TEQUILA',
+  'VINO',
+  'VODKA',
+  'WHISKEY',
   'GASEOSA',
-  'SNACK',
   'OTRO',
 ];
 

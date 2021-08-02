@@ -7,8 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CategoryItemComponent implements OnInit {
   @Input() category: string;
+  img: string;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.img = `assets/categories/${this.category.toLocaleLowerCase()}.png`;
+  }
 }
