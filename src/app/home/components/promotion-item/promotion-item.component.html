@@ -3,10 +3,10 @@
   <ion-img
     [src]="promotion.image"
     (ionImgDidLoad)="imgLoading = false"
-    (click)="toPromotion(promotion.id)"
+    (click)="toPromotion()"
   ></ion-img>
 
-  <div class="card-content" (click)="toPromotion(promotion.id)">
+  <div class="card-content" (click)="toPromotion()">
     <h3 class="title">{{ promotion.name }}</h3>
     <h2 class="subtitle">
       <sup>Bs.</sup>{{ promotion.price | number: "1.2" }}
