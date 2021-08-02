@@ -1,6 +1,9 @@
 ion-content {
   --background: #09699c;
   position: relative;
+  ion-toolbar {
+    --background: #09699c;
+  }
 
   .header {
     display: flex;

@@ -1,24 +1,21 @@
 <ion-content *ngIf="product">
-  <div class="header">
-    <ion-buttons>
-      <ion-button routerLink="/home">
-        <ion-icon
-          slot="icon-only"
-          color="light"
-          name="arrow-back-outline"
-        ></ion-icon>
-      </ion-button>
+  <ion-toolbar>
+    <ion-buttons slot="start" mode="ios">
+      <ion-back-button
+        defaultHref="/home"
+        color="light"
+        text=""
+      ></ion-back-button>
     </ion-buttons>
-    <ion-buttons routerLink="/cart">
-      <ion-button>
-        <ion-icon slot="start" color="light" name="cart-outline"></ion-icon>
-      </ion-button>
-      <div style="color: #fff; font-size: 1.6rem" *ngIf="cant != 0">
+    <ion-buttons slot="end" routerLink="/cart">
+      <div style="color: #fff; font-size: 1.3rem" *ngIf="cant != 0">
         {{ cant }}
       </div>
+      <ion-button>
+        <ion-icon slot="icon-only" name="cart-outline" color="light"></ion-icon>
+      </ion-button>
     </ion-buttons>
-  </div>
-
+  </ion-toolbar>
   <div class="card">
     <div class="image">
       <!-- <ion-img [src]="product.images[0].url"></ion-img> -->
