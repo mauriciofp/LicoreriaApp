@@ -160,12 +160,10 @@ export class DealerService {
 
   updateDealer(
     id: string,
-    userReferenceId: string,
     dealer: Dealer,
     dealerPhoto?: CameraPhoto
   ) {
-    console.log('updating dealer');
-    // this.db.list('dealers/').set(id, dealer);
+    
     return new Promise((resolve, reject) => {
       if (!dealerPhoto) {
         return this.db
@@ -173,13 +171,6 @@ export class DealerService {
           .update(id, dealer)
           .then((ref) => {
             resolve(ref);
-            // this.us.getUserByEmail(dealer.email).subscribe(data => {
-            //   console.log('userId', data);
-            //   this.db.list('user_dealer').update(userReferenceId, {
-            //     userId: data[0].id,
-            //     dealerId: id
-            //   });
-            // });
           });
       } else {
         this.db
@@ -198,7 +189,6 @@ export class DealerService {
                 .pipe(
                   finalize(() => {
                     fileRef.getDownloadURL().subscribe((res) => {
-                      // this.db.list(`dealers/${ref.key}/urlImage`).push(res);
                       this.db.list(`dealers/`).update(id, { urlImage: res });
                       resolve(ref);
                     });
@@ -208,14 +198,6 @@ export class DealerService {
             })();
           });
       }
-
-      // this.us.getUserByEmail(dealer.email).subscribe(data => {
-      //   console.log('userId', data);
-      //   this.db.list('users').update(userReferenceId, {
-      //     userId: data[0].id,
-      //     dealerId: id
-      //   });
-      // });
     });
   }
 

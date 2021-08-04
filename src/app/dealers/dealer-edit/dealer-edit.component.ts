@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 import { Validators } from '@angular/forms';
 import { DealerService } from 'src/app/services/dealer.service';
 import { ValidationsDealer } from '../utils/validations-dealer';
@@ -24,15 +25,22 @@ export class DealerEditComponent implements OnInit {
   form: FormGroup;
 
   dealerId: string;
-  userReference: any;
   dealer: Observable<Dealer>;
+
+  enableBackdropDismiss = false;
+  showBackdrop = false;
+  shouldPropagate = true;
+
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private ds: DealerService,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private cs: CameraService,
-    private us: UserService
+    private us: UserService,
+
+    public toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -60,11 +68,19 @@ export class DealerEditComponent implements OnInit {
           this.phones.push(new FormControl(element, Validators.required));
         });
 
-        this.ds
-          .getUserId(param.id)
-          .subscribe((res) => (this.userReference = res[0]));
+        // this.ds
+        //   .getUserId(param.id)
+        //   .subscribe((res) => (this.userReference = res[0]));
       });
     });
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Datos guardados!!!',
+      duration: 2000
+    });
+    toast.present();
   }
 
   loadImage() {
@@ -84,6 +100,7 @@ export class DealerEditComponent implements OnInit {
       this.newUrlPhoto = this.sanitizer.bypassSecurityTrustUrl(
         ph && ph.webPath
       );
+      this.takedPhoto = true;
     });
   }
 
@@ -95,16 +112,22 @@ export class DealerEditComponent implements OnInit {
       if (this.takedPhoto) {
         this.ds.updateDealer(
           this.dealerId,
-          this.userReference.id,
           this.form.value,
           this.newPhoto
-        );
+        )
+        .then(data => {
+          this.presentToast();
+          this.router.navigate(['dealers']);
+        });
       } else {
         this.ds.updateDealer(
           this.dealerId,
-          this.userReference.id,
           this.form.value
-        );
+        )
+        .then(data => {
+          this.presentToast();
+          this.router.navigate(['dealers']);
+        });;
       }
     }
   }

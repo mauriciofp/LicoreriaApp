@@ -10,6 +10,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <!-- <ion-backdrop
+  [tappable]="enableBackdropDismiss"
+  [visible]="showBackdrop"
+  [stopPropagation]="shouldPropagate">
+</ion-backdrop> -->
+<ion-backdrop visible="false" stopPropagation="true"></ion-backdrop>
   <div class="content">
     <div>
 
@@ -92,13 +98,12 @@
         </div>
         <br />
         <div class="buttons_form_container">
-          <ion-button color="primary" (click)="save()" routerLink="../../list" [disabled]="form.invalid">Guardar
+          <ion-button color="primary" (click)="save()" [disabled]="form.invalid">Guardar
           </ion-button>
-          <ion-button color="primary">Cancelar</ion-button>
+          <ion-button color="primary" routerLink="../../">Cancelar</ion-button>
         </div>
       </form>
-      <p>{{ form.value | json }}</p>
     </div>
   </div>
-
+  
 </ion-content>
