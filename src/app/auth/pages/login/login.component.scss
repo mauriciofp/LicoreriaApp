@@ -1,22 +1,16 @@
 ion-content {
-  // --background: linear-gradient(0deg, rgba(40,83,107,.8), rgba(40,83,107,.1)),
-
-  // url("/assets/lback.png") no-repeat center center / cover;
-
-  // --background: #000000, url("/assets/lback.png") center center / cover;
-  // --background: #000000, url("/assets/lback.png") no-repeat center center / cover;
   --background: linear-gradient(70deg, black, #28536b);
 }
 
 .login-section {
-  height: 80vh;
+  height: calc(100% + 15rem);
   width: 100%;
   max-width: 500px;
   background: #fff;
   right: 0;
   left: 0;
-  bottom: 0;
-  position: fixed;
+  top: 10rem;
+  position: absolute;
   margin: auto;
   border-top-left-radius: 46px;
   border-top-right-radius: 46px;
