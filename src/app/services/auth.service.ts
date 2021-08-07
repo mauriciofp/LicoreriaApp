@@ -97,6 +97,26 @@ export class AuthService {
     });
   }
 
+  googleAuth() {
+    return this.googleLogin(new firebase.auth.GoogleAuthProvider());
+  }
+
+  private googleLogin(provider) {
+    return this.auth.signInWithPopup(provider).then((res) => {
+      const newUser: any = {
+        uid: res.user.uid,
+        name: res.user.displayName,
+        email: res.user.email,
+        role: UserRole.user,
+        phone: res.user.phoneNumber,
+      };
+      if (this.onesignalService.onesignalId) {
+        newUser.onesignalId = this.onesignalService.onesignalId;
+      }
+      return this.db.object(`users/${res.user.uid}`).set(newUser);
+    });
+  }
+
   isAuth() {
     return this.auth.authState.pipe(map((user) => user !== null));
   }

@@ -72,6 +72,25 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
+  googleLogin() {
+    this.authService
+      .googleAuth()
+      .then(() => {
+        // this.store.dispatch(stopLoading());
+        this.loginForm.reset();
+        this.router.navigate(['home']).then(async () => {
+          const toast = await this.utilService.createToast('Bienvendio');
+          toast.present();
+        });
+      })
+      .catch(async (err) => {
+        this.loginForm.get('password').reset();
+        this.store.dispatch(stopLoading());
+        const alert = await this.utilService.createAlert(err.message);
+        alert.present();
+      });
+  }
+
   private createForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
