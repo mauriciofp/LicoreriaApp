@@ -7,12 +7,10 @@
             <ion-back-button defaultHref="/home" text=""></ion-back-button>
           </ion-buttons>
           <ion-buttons slot="end" routerLink="/cart">
-            <div style="font-size: 1.3rem" *ngIf="cant != 0">
+            <ion-icon slot="end" name="cart-outline"></ion-icon>
+            <ion-badge mode="md" *ngIf="cant">
               {{ cant }}
-            </div>
-            <ion-button>
-              <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-            </ion-button>
+            </ion-badge>
           </ion-buttons>
         </ion-toolbar>
         <h2>Categoria: {{ category }}</h2>

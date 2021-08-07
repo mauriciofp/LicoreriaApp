@@ -8,12 +8,10 @@
       ></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end" routerLink="/cart">
-      <div style="color: #fff; font-size: 1.3rem" *ngIf="cant != 0">
+      <ion-icon slot="end" name="cart-outline" color="light"></ion-icon>
+      <ion-badge color="light" mode="md" *ngIf="cant">
         {{ cant }}
-      </div>
-      <ion-button>
-        <ion-icon slot="icon-only" name="cart-outline" color="light"></ion-icon>
-      </ion-button>
+      </ion-badge>
     </ion-buttons>
   </ion-toolbar>
   <div class="card">
