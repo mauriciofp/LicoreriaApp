@@ -1,14 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Nombre de la promocion</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="promotions"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <app-promotion-form
-    [promotion]="promotion"
-    *ngIf="promotion"
-  ></app-promotion-form>
+<ion-content *ngIf="promotion">
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="promotions" text=""></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+        <h1>{{ promotion.name | uppercase }}</h1>
+        <app-promotion-form
+          [promotion]="promotion"
+          *ngIf="promotion"
+        ></app-promotion-form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

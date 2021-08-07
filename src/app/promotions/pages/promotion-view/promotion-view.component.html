@@ -1,31 +1,40 @@
-<ion-header>
+<ion-content *ngIf="promotion">
   <ion-toolbar>
-    <ion-title text-center>Detalle</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="promotions"></ion-back-button>
+    <ion-buttons slot="start" mode="ios">
+      <ion-back-button
+        defaultHref="/promotions"
+        color="light"
+        text=""
+      ></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="presentActionSheet()">
+      <ion-button (click)="presentActionSheet()" color="light">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
 
-<ion-content *ngIf="promotion">
-  <div class="promotion_image">
-    <ion-img
-      [src]="promotion.image"
-      (ionImgDidLoad)="inmgDidLoad($event)"
-    ></ion-img>
-  </div>
-  <div class="promotion_detail">
-    <p>{{ promotion.name }}</p>
-    <p>{{ promotion.price | currency: "Bs. " }}</p>
-  </div>
+  <div class="card">
+    <div class="image">
+      <ion-img src="assets/loading.gif" *ngIf="imgLoading"></ion-img>
+      <ion-img
+        [src]="promotion.image"
+        (ionImgDidLoad)="imgLoading = false"
+      ></ion-img>
+    </div>
 
-  <div class="promotion_description">
-    <p>Descripcion</p>
-    <p>{{ promotion.description }}</p>
+    <div class="card-content">
+      <div class="card-title">
+        <h1 class="ion-no-margin">{{ promotion.name }}</h1>
+        <p class="ion-no-margin">
+          <sup>Bs. </sup> {{ promotion.price | number: "1.2" }}
+        </p>
+      </div>
+    </div>
+
+    <div class="about">
+      <h1>Descripcion</h1>
+      <p>{{ promotion.description }}</p>
+    </div>
   </div>
 </ion-content>
