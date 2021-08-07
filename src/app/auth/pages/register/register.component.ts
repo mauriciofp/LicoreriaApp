@@ -11,6 +11,8 @@ import { initLoading, stopLoading } from 'src/app/state/actions/ui.actions';
 import { AuthService } from 'src/app/services/auth.service';
 import { ValidatorService } from '../../../utils/validator.service';
 import { UtilsService } from 'src/app/utils/utils.service';
+import { PopoverController } from '@ionic/angular';
+import { AuthPopOverInfoComponent } from '../../components/auth-pop-over-info/auth-pop-over-info.component';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +34,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private utilService: UtilsService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private popoverController: PopoverController
   ) {
     this.emailPattern = this.validatorService.emailPattern;
     this.phonePattern = this.validatorService.phonePattern;
@@ -73,6 +76,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
         const alert = await this.utilService.createAlert(err.message);
         alert.present();
       });
+  }
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: AuthPopOverInfoComponent,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true,
+      mode: 'ios',
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
 
   private createForm() {
