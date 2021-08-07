@@ -3,8 +3,8 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="orders"></ion-back-button>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="orders" text=""></ion-back-button>
           </ion-buttons>
           <ion-buttons slot="end" *ngIf="order && isNewOrProgress">
             <ion-button routerLink="../options/{{ order.id }}">
