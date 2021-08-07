@@ -1,16 +1,14 @@
-<ion-header>
-  <ion-toolbar *ngIf="product">
-    <ion-title>{{ product.name }}</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="products"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content *ngIf="product">
   <ion-grid fixed>
     <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-xl="4" size-lg="4" size-md="6">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar *ngIf="product">
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="products" text=""></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+        <h1>{{ product.name | uppercase }}</h1>
         <app-product-images
           [images]="product.images"
           [productId]="product.id"

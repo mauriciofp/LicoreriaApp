@@ -1,19 +1,17 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Producto</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="products"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-header> </ion-header>
 
 <ion-content>
   <ion-grid fixed>
     <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-xl="4" size-lg="4" size-md="6">
-        <ion-text color="primary">
-          <h1>Crea un nuevo producto</h1>
-        </ion-text>
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="products" text=""></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+        <h1>Crea un nuevo producto</h1>
+
         <app-product-new-images></app-product-new-images>
         <app-product-form></app-product-form>
       </ion-col>
