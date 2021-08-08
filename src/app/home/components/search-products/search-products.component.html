@@ -8,7 +8,7 @@
           </ion-buttons>
           <ion-buttons slot="end" routerLink="/cart">
             <ion-icon slot="end" name="cart-outline"></ion-icon>
-            <ion-badge color="primary" mode="md" *ngIf="cantInCart">
+            <ion-badge mode="md" *ngIf="cantInCart">
               {{ cantInCart }}
             </ion-badge>
           </ion-buttons>
@@ -21,7 +21,12 @@
         ></ion-searchbar>
         <ion-item>
           <ion-label>Busqueda por categorias</ion-label>
-          <ion-select value="all" [(ngModel)]="selectCat" cancelText="Cancelar">
+          <ion-select
+            value="all"
+            [(ngModel)]="selectCat"
+            cancelText="Cancelar"
+            class="custom-options"
+          >
             <ion-select-option value="all"
               >Todos los productos</ion-select-option
             >

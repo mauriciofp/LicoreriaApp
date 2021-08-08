@@ -7,7 +7,14 @@
 }
 
 ion-searchbar {
-  --background: #f5f5f5;
+  --background: #f3f3fb;
   --border-radius: 2rem;
   --box-shadow: none;
+  --icon-color: #2c344b;
+  --placeholder-color: #8c949c;
+  --color: #8c8c9c;
+}
+
+ion-label {
+  --color: #8c8c9c;
 }
