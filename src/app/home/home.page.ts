@@ -40,17 +40,8 @@ export class HomePage implements OnInit, OnDestroy {
     slidesPerView: 1.1,
     spaceBetween: 4,
     breakpoints: {
-      640: {
-        slidesPerView: 1.3,
-        spaceBetween: 8,
-      },
       768: {
-        slidesPerView: 1.5,
-        spaceBetween: 8,
-      },
-      1366: {
-        slidesPerView: 1.7,
-        spaceBetween: 8,
+        slidesPerView: 1.2,
       },
     },
   };

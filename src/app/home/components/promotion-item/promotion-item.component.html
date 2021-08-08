@@ -1,15 +1,18 @@
-<div class="card">
-  <ion-img src="assets/loading.gif" *ngIf="imgLoading"></ion-img>
-  <ion-img
-    [src]="promotion.image"
-    (ionImgDidLoad)="imgLoading = false"
-    (click)="toPromotion()"
-  ></ion-img>
-
-  <div class="card-content" (click)="toPromotion()">
-    <h3 class="title">{{ promotion.name }}</h3>
-    <h2 class="subtitle">
-      <sup>Bs.</sup>{{ promotion.price | number: "1.2" }}
-    </h2>
+<ion-card (click)="toPromotion()">
+  <div class="img_container">
+    <ion-spinner name="crescent" *ngIf="imgLoading"></ion-spinner>
+    <ion-img
+      [src]="promotion.image"
+      (ionImgDidLoad)="imgLoading = false"
+    ></ion-img>
   </div>
-</div>
+  <ion-card-header>
+    <ion-card-title>{{ promotion.name }}</ion-card-title>
+    <ion-card-subtitle
+      ><sup>Bs.</sup>{{ promotion.price | number: "1.2" }}</ion-card-subtitle
+    >
+  </ion-card-header>
+  <ion-card-content>
+    {{ promotion.description }}
+  </ion-card-content>
+</ion-card>
