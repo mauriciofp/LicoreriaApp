@@ -59,9 +59,9 @@ export class OrderMapComponent implements OnInit, OnDestroy {
       renderer: L.canvas(),
     });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Licorcito © PTAANG UMSS',
-    }).addTo(this.orderMapLeaf);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
+      this.orderMapLeaf
+    );
 
     if (this.location.lat) {
       this.createMarkFixedLeafLet();

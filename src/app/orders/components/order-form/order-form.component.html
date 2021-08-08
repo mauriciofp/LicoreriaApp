@@ -1,7 +1,34 @@
 <div class="address_form_container">
   <form [formGroup]="detailForm" (ngSubmit)="sendOrder()" autocomplete="on">
     <ion-item>
-      <ion-label color="primary" position="floating">Calle Principal</ion-label>
+      <ion-label position="floating"> Descripcion (*) </ion-label>
+      <ion-textarea
+        type="text"
+        formControlName="description"
+        placeholder="Puerta color negra, acera este, alado de ..."
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"> Telefono de contacto (*) </ion-label>
+      <ion-input
+        type="tef"
+        formControlName="phone"
+        placeholder="60000000"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"> Descripcion (*) </ion-label>
+      <ion-textarea
+        type="text"
+        formControlName="description"
+        placeholder="Puerta color negra, acera este, alado de ..."
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Calle Principal</ion-label>
       <ion-input
         type="text"
         formControlName="street1"
@@ -10,9 +37,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" position="floating">
-        Calle colindante 1
-      </ion-label>
+      <ion-label position="floating"> Calle colindante 1 </ion-label>
       <ion-input
         type="text"
         formControlName="street2"
@@ -21,9 +46,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" position="floating">
-        Calle colindante 2
-      </ion-label>
+      <ion-label position="floating"> Calle colindante 2 </ion-label>
       <ion-input
         type="text"
         formControlName="street3"
@@ -31,41 +54,7 @@
       ></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" position="floating">
-        Telefono de contacto (*)
-      </ion-label>
-      <ion-input
-        type="tef"
-        formControlName="phone"
-        placeholder="60000000"
-      ></ion-input>
-      <span class="error_message" *ngIf="invalidField('phone')">
-        {{ phoneMessageError }}
-      </span>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" position="floating">
-        Descripcion (*)
-      </ion-label>
-      <ion-textarea
-        type="text"
-        formControlName="description"
-        placeholder="Puerta color negra, acera este, alado de ..."
-      ></ion-textarea>
-      <span class="error_message" *ngIf="invalidField('description')">
-        {{ descriptionMessageError }}
-      </span>
-    </ion-item>
-
-    <ion-button
-      *ngIf="!isLoading"
-      type="submit"
-      fill="solid"
-      expand="block"
-      shape="round"
-    >
+    <ion-button *ngIf="!isLoading" type="submit" fill="solid" expand="block">
       Realizar Pedido
     </ion-button>
 
@@ -74,7 +63,6 @@
       type="button"
       expand="block"
       fill="solid"
-      shape="round"
       disabled
     >
       <ion-spinner name="bubbles"></ion-spinner>
