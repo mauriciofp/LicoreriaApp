@@ -19,6 +19,8 @@ export class PromotionViewComponent implements OnInit, OnDestroy {
 
   imageLoad = false;
 
+  imgLoading = true;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

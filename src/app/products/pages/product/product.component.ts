@@ -22,6 +22,10 @@ export class ProductComponent implements OnInit {
     other: '# unidades disponibles',
   };
 
+  imgSlideOpts = {
+    watchSlidesProgress: true,
+  };
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
