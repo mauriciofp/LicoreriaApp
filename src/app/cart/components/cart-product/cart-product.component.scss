@@ -1,5 +1,5 @@
 .cart-item {
-  background: #f3f3f3;
+  background: #f3f3fb;
   padding: 1.5rem 1rem;
   border-radius: 1.5rem;
   display: flex;
@@ -30,13 +30,13 @@
 
     h3 {
       font-weight: 600;
-      color: #1f1f1f;
+      color: #8c8c9c;
     }
 
     p {
       font-size: 1.4rem;
       font-weight: 700;
-      color: #ffb800;
+      color: #2c344b;
       margin: 0.5rem 0;
 
       sup {
@@ -49,7 +49,9 @@
   .actions {
     border: 1px solid #c7c7c7;
     border-radius: 2rem;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .counter {
       width: 35px;
       height: 35px;
@@ -58,17 +60,17 @@
       align-items: center;
       font-size: 1.3rem;
       font-weight: 700;
-      color: #09699c;
+      color: #2c344b;
     }
 
     ion-button {
-      --background: #fff;
+      --background: #f3f3fb;
       --box-shadow: 0px 2px 10px grey;
       --padding-start: 0;
       --padding-end: 0;
       --padding-top: 0;
       --padding-bottom: 0;
-      --color: #09699c;
+      --color: #2c344b;
 
       height: 35px;
       width: 35px;

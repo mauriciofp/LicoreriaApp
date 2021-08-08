@@ -8,9 +8,9 @@
           </ion-buttons>
         </ion-toolbar>
 
-        <h2 class="title" *ngIf="products.length">Tu carrito</h2>
+        <h2 class="subtitle">Tu carrito</h2>
 
-        <div class="total_container">
+        <div class="total_container" *ngIf="products.length">
           <p>Total:</p>
           <p>
             <span><sup>Bs. </sup>{{total | number: "1.2"}}</span>
