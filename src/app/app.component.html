@@ -6,71 +6,52 @@
           <ion-buttons slot="start">
             <ion-menu-button menu="first"></ion-menu-button>
           </ion-buttons>
-          <ion-title>{{ currentUser ? currentUser.name : "Menu" }}</ion-title>
+          <!-- <ion-title>{{ currentUser ? currentUser.name : "Menu" }}</ion-title> -->
         </ion-toolbar>
         <ion-list>
           <ion-menu-toggle autoHide="false">
-            <ion-item detail routerLink="home">
-              <ion-icon
-                slot="start"
-                name="home-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail routerLink="home">
+              <ion-icon slot="start" name="home-outline"></ion-icon>
               Inicio</ion-item
             >
           </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item detail routerLink="cart">
-              <ion-icon
-                slot="start"
-                name="cart-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail routerLink="cart">
+              <ion-icon slot="start" name="cart-outline"></ion-icon>
               Carrito</ion-item
             >
           </ion-menu-toggle>
 
           <ion-menu-toggle *ngIf="authService.isAdmin" autoHide="false">
-            <ion-item detail routerLink="products">
-              <ion-icon
-                slot="start"
-                name="storefront-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail routerLink="products">
+              <ion-icon slot="start" name="storefront-outline"></ion-icon>
               Productos</ion-item
             >
           </ion-menu-toggle>
 
           <ion-menu-toggle *ngIf="authService.isAdmin" autoHide="false">
-            <ion-item detail routerLink="dealers">
-              <ion-icon
-                slot="start"
-                name="walk-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail routerLink="dealers">
+              <ion-icon slot="start" name="walk-outline"></ion-icon>
               Deliveries</ion-item
             >
           </ion-menu-toggle>
 
           <ion-menu-toggle *ngIf="authService.isAdmin" autoHide="false">
-            <ion-item detail routerLink="promotions">
-              <ion-icon
-                slot="start"
-                name="diamond-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail routerLink="promotions">
+              <ion-icon slot="start" name="diamond-outline"></ion-icon>
               Promociones
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item detail routerLink="/orders/list" *ngIf="currentUser">
-              <ion-icon
-                slot="start"
-                name="bicycle-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item
+              lines="none"
+              detail
+              routerLink="/orders/list"
+              *ngIf="currentUser"
+            >
+              <ion-icon slot="start" name="bicycle-outline"></ion-icon>
               Pedidos</ion-item
             >
           </ion-menu-toggle>
@@ -80,12 +61,8 @@
             *ngIf="authService.isLogged"
             autoHide="false"
           >
-            <ion-item detail (click)="logout()">
-              <ion-icon
-                slot="start"
-                name="log-out-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail (click)="logout()">
+              <ion-icon slot="start" name="log-out-outline"></ion-icon>
               Cerrar sesion
             </ion-item>
           </ion-menu-toggle>
@@ -95,12 +72,8 @@
             *ngIf="!authService.isLogged"
             autoHide="false"
           >
-            <ion-item detail routerLink="/auth">
-              <ion-icon
-                slot="start"
-                name="log-out-outline"
-                color="primary"
-              ></ion-icon>
+            <ion-item lines="none" detail routerLink="/auth">
+              <ion-icon slot="start" name="log-out-outline"></ion-icon>
               Login
             </ion-item>
           </ion-menu-toggle>
