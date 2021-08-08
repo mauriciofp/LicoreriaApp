@@ -12,7 +12,7 @@
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
-        <h1>Lista de productos</h1>
+        <h1 class="subtitle">Lista de productos</h1>
         <ion-list>
           <ion-grid>
             <ion-row>
@@ -23,13 +23,9 @@
                       <img [src]="product.images[0].url" />
                     </ion-avatar>
                     <ion-label class="ion-text-wrap">
-                      <ion-text color="primary">
-                        <h3>{{ product.name }}</h3>
-                      </ion-text>
+                      <p>{{ product.name }}</p>
                       <p>{{ product.description }}</p>
-                      <ion-text color="secondary">
-                        <p>{{ product.price }}</p>
-                      </ion-text>
+                      <p>{{ product.price | currency: "Bs. " }}</p>
                     </ion-label>
                   </ion-item>
 
