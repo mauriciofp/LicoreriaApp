@@ -7,12 +7,12 @@
     ></ion-img>
   </div>
   <ion-card-header>
-    <ion-card-title>{{ promotion.name }}</ion-card-title>
-    <ion-card-subtitle
+    <ion-card-title class="item_title">{{ promotion.name }}</ion-card-title>
+    <ion-card-subtitle class="item_price"
       ><sup>Bs.</sup>{{ promotion.price | number: "1.2" }}</ion-card-subtitle
     >
   </ion-card-header>
-  <ion-card-content>
+  <ion-card-content class="item_description">
     {{ promotion.description }}
   </ion-card-content>
 </ion-card>

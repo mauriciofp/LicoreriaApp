@@ -33,8 +33,7 @@ export const categories = [
   'VINO',
   'VODKA',
   'WHISKEY',
-  'GASEOSA',
-  'OTRO',
+  'SIN-ALCOHOL',
 ];
 
 export const units = ['UNIDAD', 'CAJA', 'LIBRA'];

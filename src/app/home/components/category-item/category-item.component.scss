@@ -12,20 +12,15 @@
   }
 
   .image-card {
-    height: 100px;
-    width: 130px;
-    // background-color: #f3f3f3;
+    height: 120px;
+    width: 150px;
     padding: 0.8rem;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     margin-bottom: 0.5rem;
 
     ion-img {
       opacity: 0.8;
     }
-  }
-
-  p {
-    color: #c7c7c7;
   }
 }
 

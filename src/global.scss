@@ -42,6 +42,44 @@
   color: #2c344b;
 }
 
-ion-icon {
-  color: #2c344b !important;
+ion-toolbar {
+  ion-back-button {
+    --color: #2c344b;
+  }
+  ion-icon {
+    color: #2c344b;
+    font-size: 16px;
+  }
+
+  ion-menu-button {
+    --color: #2c344b;
+  }
+}
+
+.item_title {
+  color: #8c949c;
+  font-size: 1.1rem;
+}
+
+.item_description {
+  color: #a4a7b5;
+  font-size: 1.1rem;
+}
+
+.item_price {
+  color: #2c344b;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.item_background {
+  background-color: #f3f3fb;
+}
+
+.item_title--size-2 {
+  font-size: 2rem;
+}
+
+ion-badge {
+  --background: #2c344b;
 }
