@@ -29,7 +29,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.productsSubs = this.route.params
       .pipe(
-        tap(({ category }) => (this.category = category)),
+        tap(({ category }) => {
+          this.category = category;
+          this.category = `${this.category[0]}${this.category
+            .substring(1)
+            .toLowerCase()}`;
+        }),
         switchMap(({ category }) =>
           this.productService.getProductsByCategory(category)
         )
