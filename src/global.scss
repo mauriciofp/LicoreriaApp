@@ -55,6 +55,13 @@
   --padding-top: 0px;
 }
 
+.image_container {
+  height: 300px;
+  ion-img {
+    height: 280px;
+  }
+}
+
 ion-button {
   --border-radius: 9px;
   --box-shadow: none;
