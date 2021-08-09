@@ -1,44 +1,55 @@
-<ion-content>
-  <div class="login-section ion-padding">
-    <div class="heading ion-padding">
-      <h1>Bienvenido !!!</h1>
-      <p>Ingresar para continuar</p>
-    </div>
+<ion-content class="ion-padding">
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <div class="page_contain">
+          <div class="header">
+            <ion-text>
+              <h1>Bienvenido.</h1>
+              <p>Comience iniciando sesion con <br />su cuenta.</p>
+            </ion-text>
+          </div>
 
-    <form class="login-form ion-padding" [formGroup]="loginForm">
-      <div class="form-input">
-        <ion-icon name="mail-outline"></ion-icon>
-        <ion-item>
-          <ion-label position="floating">Correo</ion-label>
-          <ion-input type="email" formControlName="email"></ion-input>
-        </ion-item>
-      </div>
-      <div class="form-input">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-      </div>
-    </form>
-
-    <div class="action-buttons">
-      <ion-button class="login-button" (click)="login()" *ngIf="!isLoading">
-        Ingresar
-      </ion-button>
-      <ion-button class="login-button" disabled *ngIf="isLoading">
-        <ion-spinner name="bubbles"></ion-spinner>
-        Ingresando ...
-      </ion-button>
-      <!-- <p>Forgot password ?</p> -->
-      <ion-button class="signup-button" fill="outline" routerLink="../register">
-        Registrate
-      </ion-button>
-
-      <ion-button class="google-button" fill="outline" (click)="googleLogin()">
-        <ion-icon slot="start" name="logo-google"></ion-icon>
-        Ingresa con Google
-      </ion-button>
-    </div>
-  </div>
+          <div class="form_container">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <ion-item>
+                <ion-icon slot="start" name="mail-outline"></ion-icon>
+                <ion-label position="floating">Correo</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item class="last_item">
+                <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input
+                  type="password"
+                  formControlName="password"
+                ></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" *ngIf="!isLoading">
+                Ingresa
+              </ion-button>
+              <ion-button
+                type="button"
+                expand="block"
+                *ngIf="isLoading"
+                disabled
+              >
+                Ingresando...
+              </ion-button>
+            </form>
+            <div class="buttons_container">
+              <ion-button fill="outline" expand="block" (click)="googleLogin()">
+                <img src="../../assets/google.png" />
+                <ion-label>Conectar con Google</ion-label>
+              </ion-button>
+              <p class="text_login_register">
+                ¿No tienes Cuenta?
+                <a routerLink="../register">Registrate ahora</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

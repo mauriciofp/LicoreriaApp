@@ -1,100 +1,59 @@
-ion-content {
-  --background: linear-gradient(70deg, black, #28536b);
-}
+.page_contain {
+  padding-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 
-.login-section {
-  height: calc(100% + 15rem);
-  width: 100%;
-  max-width: 500px;
-  background: #fff;
-  right: 0;
-  left: 0;
-  top: 10rem;
-  position: absolute;
-  margin: auto;
-  border-top-left-radius: 46px;
-  border-top-right-radius: 46px;
-
-  .heading {
-    margin-top: 20px;
-    .title {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      ion-icon {
-        font-size: 2.5rem;
-      }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ion-icon {
+      font-size: 3rem;
+    }
+    ion-text {
       h1 {
-        font-size: 1.6rem;
-        font-weight: bolder;
+        font-size: 42px;
       }
-    }
-
-    p {
-      margin-top: 20px;
-      font-size: 1rem;
-      color: #7b7b7b;
-    }
-  }
-
-  .login-form {
-    .form-input {
-      position: relative;
-      margin-bottom: 10px;
-      ion-item::part(native) {
-        padding-left: 0;
-      }
-      ion-icon {
-        position: absolute;
-        top: 37px;
-        z-index: 2;
-        font-size: 1.2rem;
-        left: 5px;
-      }
-      ion-label {
-        position: absolute;
-        margin-left: 35px;
-        font-weight: bolder;
-        font-size: 0.8rem;
-        top: 3px;
-      }
-
-      ion-input {
-        font-size: 0.9rem;
-        --padding-start: 36px;
-        --padding-top: 36px;
-        color: #7b7b7b;
+      p {
+        font-size: 14px;
+        color: #8c949c;
       }
     }
   }
 
-  .action-buttons {
-    text-align: center;
-
-    .login-button {
-      --background: #28536b;
-      width: 100%;
-      font-weight: bold;
+  .form_container {
+    bottom: 16px;
+    margin-bottom: 2rem;
+    .last_item {
+      margin-bottom: 2rem;
     }
-    p {
-      margin-top: 15px;
-      font-size: 0.8rem;
-      color: #7b7b7b;
-    }
+    .buttons_container {
+      display: flex;
+      flex-direction: column;
+      ion-button {
+        width: 100%;
+      }
 
-    .signup-button {
-      --border-color: #b4b4b4;
-      --color: #000000;
-      width: 100%;
-      font-weight: bold;
-      margin-top: 30px;
+      img {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+      }
     }
 
-    .google-button {
-      margin-top: 1rem;
-      --background: #4285f4;
-      --color: white;
+    .text_login_register {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 12px;
+      color: #8c949c;
+      a {
+        color: #2c344b;
+        font-weight: 400;
+        margin-left: 5px;
+        font-weight: bold;
+      }
     }
   }
 }
