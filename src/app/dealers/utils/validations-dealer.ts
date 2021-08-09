@@ -1,8 +1,30 @@
-import { AbstractControl } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidator,
+  ValidationErrors,
+} from '@angular/forms';
 import { DealerService } from 'src/app/services/dealer.service';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+@Injectable({
+  providedIn: 'root',
+})
+export class ValidationsDealer implements AsyncValidator {
+  constructor(private dealerService: DealerService) {}
 
-export class ValidationsDealer {
+  validate(control: AbstractControl): Observable<ValidationErrors | null> {
+    const email = control.value;
+    const dealer = this.dealerService.dealer;
+    if (dealer && dealer?.email === email) {
+      return of(null);
+    }
+    return this.dealerService.existEmail(email).pipe(
+      map((exists) => (exists ? null : { unique: true })),
+      catchError((err) => of({ unique: true }))
+    );
+  }
+
   static isUniqueName(ds: DealerService, discard?: string) {
     return (control: AbstractControl) => {
       const value = control.value;

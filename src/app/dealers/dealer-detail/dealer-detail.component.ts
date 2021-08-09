@@ -14,27 +14,25 @@ import { DealerService } from 'src/app/services/dealer.service';
   styleUrls: ['./dealer-detail.component.scss'],
 })
 export class DealerDetailComponent implements OnInit {
-
-  dealer: Dealer = new Dealer('', '', '');
+  dealer: Dealer;
   dealerId: string;
 
+  imgLoading = true;
   constructor(
     private ds: DealerService,
     private activatedRoute: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private alertController: AlertController,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.
-      subscribe(data => {
-        this.dealerId = data.id;
-
-        this.ds.getDealer(this.dealerId).subscribe(elm => {
-          this.dealer = elm;
-        });
-      });
+    this.activatedRoute.params
+      .pipe(
+        tap(({ id }) => (this.dealer = id)),
+        switchMap(({ id }) => this.ds.getDealer(id))
+      )
+      .subscribe((data) => (this.dealer = data));
   }
 
   async presentActionSheet() {
@@ -53,29 +51,37 @@ export class DealerDetailComponent implements OnInit {
                 {
                   text: 'Cancelar',
                   role: 'cancel',
-                  cssClass: 'secondary'
+                  cssClass: 'secondary',
                 },
                 {
                   text: 'Si Eliminar',
                   handler: () => {
-                    this.ds.deleteDealer(this.dealerId, this.dealer.urlImage)
-                      .then(data => {console.log('deleted', data);});
-                      this.router.navigate(['dealers/list']);
-                  }
-                }
-              ]
+                    this.ds
+                      .deleteDealer(this.dealerId, this.dealer.urlImage)
+                      .then((data) => {
+                        console.log('deleted', data);
+                      });
+                    this.router.navigate(['dealers/list']);
+                  },
+                },
+              ],
             });
             await alert.present();
-          }
+          },
         },
         {
           text: 'Editar',
           icon: 'create-outline',
           handler: () => {
             this.router.navigate(['dealers/edit', this.dealerId]);
-          }
-        }
-      ]
+          },
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+        },
+      ],
     });
     await actionSheet.present();
   }

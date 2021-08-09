@@ -1,130 +1,21 @@
 <ion-content>
-  <ion-toolbar>
-    <ion-buttons slot="start" mode="ios">
-      <ion-back-button defaultHref="dealers" text=""></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="end"> </ion-buttons>
-  </ion-toolbar>
-  <h1 class="subtitle">Editar dealer</h1>
-  <div class="content">
-    <div>
-      <img
-        class="img-dealer"
-        *ngIf="!takedPhoto"
-        [src]="(dealer | async)?.urlImage"
-      />
-      <img class="img-dealer" *ngIf="takedPhoto" [src]="newUrlPhoto" />
-
-      <!-- <ion-button (click)="loadImage()">Cambiar</ion-button> -->
-
-      <div class="buttons_form_container">
-        <ion-button shape="round" (click)="loadImage()">
-          <ion-icon slot="start" name="camera"></ion-icon>
-          <ion-label>Camara</ion-label>
-        </ion-button>
-        <ion-button shape="round" fill="outline">
-          <ion-icon slot="start" name="image"></ion-icon>
-          <ion-label>Galeria</ion-label>
-        </ion-button>
-      </div>
-
-      <form [formGroup]="form">
-        <ion-item>
-          <ion-label color="primary" position="floating">Nombre</ion-label>
-          <ion-input
-            type="text"
-            placeholder="Nombre"
-            formControlName="name"
-          ></ion-input>
-        </ion-item>
-        <div
-          class="err-msg"
-          *ngIf="name.invalid && (name.dirty || name.touched)"
-        >
-          <ion-text *ngIf="name.hasError('required')" color="danger">
-            <p>El campo es requerido</p>
-          </ion-text>
-          <ion-text *ngIf="name.hasError('notUnique')" color="danger">
-            <p>Ya existe un Distribuidor con el mismo Nombre</p>
-          </ion-text>
-        </div>
-        <ion-item>
-          <ion-label color="primary" position="floating">Empresa</ion-label>
-          <ion-input
-            type="text"
-            placeholder="Empresa"
-            formControlName="company"
-          ></ion-input>
-        </ion-item>
-        <div
-          class="err-msg"
-          *ngIf="company.invalid && (company.dirty || company.touched)"
-        >
-          <ion-text *ngIf="company.hasError('required')" color="danger">
-            <p>El campo es requerido</p>
-          </ion-text>
-        </div>
-
-        <ion-item>
-          <ion-label color="primary" position="floating">Email</ion-label>
-          <ion-input
-            type="text"
-            placeholder="Email"
-            formControlName="email"
-            [disabled]="true"
-          ></ion-input>
-        </ion-item>
-        <div
-          class="err-msg"
-          *ngIf="email.invalid && (email.dirty || email.touched)"
-        >
-          <ion-text *ngIf="email.hasError('required')" color="danger">
-            <p>El campo es requerido</p>
-          </ion-text>
-          <ion-text *ngIf="email.hasError('email')" color="danger">
-            <p>Ingrese un email valido</p>
-          </ion-text>
-          <ion-text *ngIf="email.hasError('notUnique')" color="danger">
-            <p>Ya existe un dealer con el email</p>
-          </ion-text>
-          <ion-text *ngIf="email.hasError('noUser')" color="danger">
-            <p>No existe email</p>
-          </ion-text>
-        </div>
-
-        <div formArrayName="phones">
-          <ng-container *ngFor="let phone of phones.controls; let i = index">
-            <div class="num-container">
-              <ion-item>
-                <ion-label>Numero</ion-label>
-                <ion-input
-                  placeholder="numero"
-                  type="number"
-                  [formControlName]="i"
-                ></ion-input>
-              </ion-item>
-              <ion-button (click)="removePhone(i)" *ngIf="i !== 0">
-                <ion-icon name="close-circle-outline" size="large"></ion-icon>
-              </ion-button>
-            </div>
-          </ng-container>
-
-          <ion-button (click)="addPhone()" [disabled]="phones.invalid">
-            Agregar Numero
-          </ion-button>
-        </div>
-        <br />
-        <div class="buttons_form_container">
-          <ion-button
-            color="primary"
-            (click)="save()"
-            routerLink="../../list"
-            [disabled]="form.invalid"
-            >Guardar
-          </ion-button>
-          <ion-button fill="outline">Cancelar</ion-button>
-        </div>
-      </form>
-    </div>
-  </div>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="dealers" text=""></ion-back-button>
+          </ion-buttons>
+          <ion-buttons slot="end"> </ion-buttons>
+        </ion-toolbar>
+        <h1 class="subtitle">Editar dealer</h1>
+        <ng-container *ngIf="dealer">
+          <app-dealer-form
+            [dealer]="dealer"
+            [dealerId]="dealerId"
+          ></app-dealer-form>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

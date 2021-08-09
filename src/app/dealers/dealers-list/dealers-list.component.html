@@ -29,7 +29,7 @@
               >
                 <ion-item-sliding>
                   <ion-item routerLink="../{{ dealer.id }}">
-                    <ion-avatar slot="start">
+                    <ion-avatar slot="start" *ngIf="dealer.urlImage">
                       <img [src]="dealer.urlImage" />
                     </ion-avatar>
                     <ion-label class="ion-text-wrap">

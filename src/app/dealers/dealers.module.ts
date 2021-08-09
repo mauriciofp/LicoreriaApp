@@ -10,6 +10,8 @@ import { DealerDetailComponent } from './dealer-detail/dealer-detail.component';
 import { DealerEditComponent } from './dealer-edit/dealer-edit.component';
 import { DealersComponent } from './dealers.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { DealerFormComponent } from './components/dealer-form/dealer-form.component';
+import { DealerImageComponent } from './components/dealer-image/dealer-image.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { PipesModule } from '../pipes/pipes.module';
     DealersListComponent,
     DealerDetailComponent,
     DealerEditComponent,
-    DealersComponent
+    DealersComponent,
+    DealerFormComponent,
+    DealerImageComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +29,7 @@ import { PipesModule } from '../pipes/pipes.module';
     FormsModule,
     ReactiveFormsModule,
     DealersRoutingModule,
-    PipesModule
+    PipesModule,
   ],
 })
 export class DealersModule {}
