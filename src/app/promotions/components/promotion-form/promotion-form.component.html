@@ -45,37 +45,40 @@
       <ion-toggle formControlName="available"></ion-toggle>
     </ion-item>
 
-    <div class="buttons_form_container">
-      <ion-button
-        *ngIf="!isLoading"
-        type="submit"
-        expand="block"
-        fill="solid"
-        shape="round"
-      >
-        Guardar
-      </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button
+            *ngIf="!isLoading"
+            type="submit"
+            expand="block"
+            fill="solid"
+          >
+            Guardar
+          </ion-button>
 
-      <ion-button
-        *ngIf="isLoading"
-        type="button"
-        fill="solid"
-        shape="round"
-        disabled
-      >
-        <ion-spinner name="bubbles"></ion-spinner>
-        Guardando ...
-      </ion-button>
-
-      <ion-button
-        (click)="cancel()"
-        type="button"
-        fill="solid"
-        color="secondary"
-        shape="round"
-      >
-        Cancelar
-      </ion-button>
-    </div>
+          <ion-button
+            *ngIf="isLoading"
+            type="button"
+            fill="solid"
+            expand="block"
+            disabled
+          >
+            <ion-spinner name="bubbles"></ion-spinner>
+            Guardando ...
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button
+            (click)="cancel()"
+            type="button"
+            fill="outline"
+            expand="block"
+          >
+            Cancelar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </div>
