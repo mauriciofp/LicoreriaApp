@@ -13,7 +13,7 @@
           </ion-buttons>
         </ion-toolbar>
 
-        <h1>Lista de promociones</h1>
+        <h1 class="subtitle">Lista de promociones</h1>
 
         <ion-list>
           <ion-grid>
@@ -29,13 +29,9 @@
                       <img [src]="promotion.image" />
                     </ion-avatar>
                     <ion-label class="ion-text-wrap">
-                      <ion-text color="primary">
-                        <h3>{{ promotion.name }}</h3>
-                      </ion-text>
+                      <p>{{ promotion.name }}</p>
                       <p>{{ promotion.description }}</p>
-                      <ion-text color="secondary">
-                        <p>{{ promotion.price | currency: "Bs. " }}</p>
-                      </ion-text>
+                      <p>{{ promotion.price | number: "1.2" }} Bs.</p>
                     </ion-label>
                   </ion-item>
                   <ion-item-options side="end">
