@@ -1,21 +1,14 @@
 <ion-list>
-  <ion-grid fixed>
+  <ion-grid>
     <ion-row>
       <ion-col *ngFor="let order of orders" size="12" size-md="6">
         <ion-item detail routerLink="../{{ order.id }}">
           <ion-label class="ion-text-wrap">
-            <ion-text color="primary">
-              <h3>{{ order.user.name }}</h3>
-            </ion-text>
-            <ion-text color="secondary">
-              <p>{{ order.total | currency: "Bs. " }}</p>
-            </ion-text>
-            <ion-text color="tertiary">
-              <p>{{ order.createdAt | date: "medium" }}</p>
-            </ion-text>
-
+            <p>{{ order.user.name }}</p>
+            <p>{{ order.total | number: "1.2" }} Bs.</p>
+            <p>{{ order.createdAt | date: "medium" }}</p>
             <ion-badge [color]="getColor(order.state)" mode="md">
-              {{ order.state }}
+              {{ getName(order.state) }}
             </ion-badge>
           </ion-label>
         </ion-item>

@@ -22,4 +22,14 @@ export class OrderItemListComponent implements OnInit {
       return 'warning';
     }
   }
+
+  getName(state: OrderState) {
+    if (state === OrderState.new) {
+      return 'Nuevo';
+    } else if (state === OrderState.progress) {
+      return 'En progreso';
+    } else {
+      return 'Finalizado';
+    }
+  }
 }
