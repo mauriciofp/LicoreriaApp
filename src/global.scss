@@ -39,11 +39,34 @@
   font-size: 1.5rem;
   margin-bottom: 0.8rem;
   margin-left: 1rem;
-  color: #2c344b;
+}
+
+.delete_image_button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  opacity: 0.5;
+  --border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  --padding-bottom: 0px;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  --padding-top: 0px;
+}
+
+ion-button {
+  --border-radius: 9px;
+  --box-shadow: none;
+  text-transform: initial;
+  font-size: 1rem;
+  --background-activated: #8c8c9c;
 }
 
 ion-toggle {
   --background-checked: #2c344b;
+  --handle-background: #f3f3fb;
+  --handle-background-checked: #f3f3fb;
 }
 
 ion-toolbar {
