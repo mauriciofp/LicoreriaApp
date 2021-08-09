@@ -1,45 +1,44 @@
 <ion-content *ngIf="promotion">
-  <ion-toolbar>
-    <ion-buttons slot="start" mode="ios">
-      <ion-back-button
-        defaultHref="/home"
-        color="light"
-        text=""
-      ></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="end" routerLink="/cart">
-      <ion-icon slot="end" name="cart-outline" color="light"></ion-icon>
-      <ion-badge color="light" mode="md" *ngIf="cant">
-        {{ cant }}
-      </ion-badge>
-    </ion-buttons>
-  </ion-toolbar>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="/home" text=""></ion-back-button>
+          </ion-buttons>
+          <ion-buttons slot="end" routerLink="/cart">
+            <ion-icon slot="end" name="cart-outline"></ion-icon>
+            <ion-badge mode="md" *ngIf="cant">
+              {{ cant }}
+            </ion-badge>
+          </ion-buttons>
+        </ion-toolbar>
+        <div class="product_container">
+          <div class="product_images">
+            <div class="image_container boder_radius">
+              <div class="box_loading" *ngIf="imgLoading">
+                <ion-spinner name="circles"></ion-spinner>
+              </div>
+              <ion-img
+                [src]="promotion.image"
+                (ionImgDidLoad)="imgLoading = false"
+              ></ion-img>
+            </div>
+          </div>
 
-  <div class="card">
-    <div class="image">
-      <ion-img src="assets/loading.gif" *ngIf="imgLoading"></ion-img>
-      <ion-img
-        [src]="promotion.image"
-        (ionImgDidLoad)="imgLoading = false"
-      ></ion-img>
-    </div>
+          <div class="text_container">
+            <p>{{ promotion.name }}</p>
+            <p>{{ promotion.price | number: "1.2" }} Bs.</p>
+            <p>{{ promotion.description }}</p>
+          </div>
 
-    <div class="card-content">
-      <div class="card-title">
-        <h1 class="ion-no-margin">{{ promotion.name }}</h1>
-        <p class="ion-no-margin">
-          <sup>Bs. </sup> {{ promotion.price | number: "1.2" }}
-        </p>
-      </div>
-    </div>
-
-    <div class="about">
-      <h1>Descripcion</h1>
-      <p>{{ promotion.description }}</p>
-    </div>
-
-    <ion-button (click)="addToCart()" expand="block">
-      Agregar al carrito
-    </ion-button>
-  </div>
+          <div class="buttons_container">
+            <ion-button (click)="addToCart()" expand="block">
+              Agregar al carrito
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
