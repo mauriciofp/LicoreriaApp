@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { UtilsService } from 'src/app/utils/utils.service';
 import { Dealer } from '../../models/dealer';
 import { DealerService } from '../../services/dealer.service';
 
@@ -19,8 +20,8 @@ export class DealersListComponent implements OnInit {
   constructor(
     private ds: DealerService,
     private alertController: AlertController,
-    private actionSheetController: ActionSheetController,
-    private router: Router
+    private router: Router,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class DealersListComponent implements OnInit {
     });
   }
 
-  async remove(id: string, urlImage: string) {
+  async remove(id: string, email: string, urlImage: string) {
     const alert = await this.alertController.create({
       header: 'Cuidado',
       message: 'Esta seguro de eliminar este proveedor?',
@@ -43,10 +44,14 @@ export class DealersListComponent implements OnInit {
         {
           text: 'Si Eliminar',
           handler: () => {
-            this.ds.deleteDealer(id, urlImage).then((data) => {
-              console.log('deleted', data);
+            this.ds.deleteDealer(id, email, urlImage).then(() => {
+              this.router.navigate(['dealers/list']).then(async () => {
+                const toast = await this.utilService.createToast(
+                  'Dealer eliminado...'
+                );
+                toast.present();
+              });
             });
-            this.router.navigate(['dealers/list']);
           },
         },
       ],

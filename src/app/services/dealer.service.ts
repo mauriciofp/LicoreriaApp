@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { CameraPhoto } from '@capacitor/core';
 
 import { Observable, of } from 'rxjs';
 import { catchError, finalize, map, take, tap } from 'rxjs/operators';
 
 import { Dealer } from '../models/dealer';
-import { User } from '../models/user.model';
+import { User, UserRole } from '../models/user.model';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -36,7 +35,6 @@ export class DealerService {
       .list(this.dealerRoot)
       .push({ email, name, company, phones })
       .then((ref) => {
-        console.log('llegue');
         const filePath = this.generateFileName();
         const fileRef = this.storage.ref(filePath);
         const task = this.storage.upload(filePath, image);
@@ -52,18 +50,26 @@ export class DealerService {
             })
           )
           .subscribe();
+        this.db
+          .list(`users`, (ref) => ref.orderByChild('email').equalTo(email))
+          .snapshotChanges()
+          .pipe(
+            map((changes) => {
+              const uid = changes[0].payload.key;
+              this.db
+                .object(`users/${uid}`)
+                .update({ role: UserRole.dealer, dealerId: ref.key });
+            }),
+            take(1)
+          )
+          .subscribe();
       });
   }
 
-  edit(
-    id: string,
-    { email, name, company, phones },
-    urlImage: string,
-    image?: Blob
-  ) {
+  edit(id: string, { name, company, phones }, urlImage: string, image?: Blob) {
     return this.db
       .object(`${this.dealerRoot}/${id}`)
-      .update({ email, name, company, phones })
+      .update({ name, company, phones })
       .then(() => {
         if (image) {
           const filePath = this.generateFileName();
@@ -181,9 +187,22 @@ export class DealerService {
       );
   }
 
-  deleteDealer(id: string, urlImage) {
-    this.storage.refFromURL(urlImage).delete();
-    return this.db.list('dealers/').remove(id);
+  deleteDealer(id: string, email: string, urlImage: string) {
+    this.storage.refFromURL(urlImage).delete().subscribe();
+    this.db
+      .list('users', (ref) => ref.orderByChild('email').equalTo(email))
+      .snapshotChanges()
+      .pipe(
+        map((data) => {
+          const uid = data[0].payload.key;
+          this.db
+            .object(`users/${uid}`)
+            .update({ role: UserRole.user, dealerId: null });
+        })
+      )
+      .subscribe();
+
+    return this.db.object(`${this.dealerRoot}/${id}`).remove();
   }
 
   private generateFileName(): string {

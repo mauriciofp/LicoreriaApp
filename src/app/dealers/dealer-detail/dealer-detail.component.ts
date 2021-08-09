@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { Dealer } from 'src/app/models/dealer';
 import { DealerService } from 'src/app/services/dealer.service';
+import { UtilsService } from 'src/app/utils/utils.service';
 
 @Component({
   selector: 'app-dealer-detail',
@@ -23,13 +24,14 @@ export class DealerDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit() {
     this.activatedRoute.params
       .pipe(
-        tap(({ id }) => (this.dealer = id)),
+        tap(({ id }) => (this.dealerId = id)),
         switchMap(({ id }) => this.ds.getDealer(id))
       )
       .subscribe((data) => (this.dealer = data));
@@ -54,14 +56,24 @@ export class DealerDetailComponent implements OnInit {
                   cssClass: 'secondary',
                 },
                 {
-                  text: 'Si Eliminar',
+                  text: 'Si, Eliminar',
                   handler: () => {
                     this.ds
-                      .deleteDealer(this.dealerId, this.dealer.urlImage)
-                      .then((data) => {
-                        console.log('deleted', data);
+                      .deleteDealer(
+                        this.dealerId,
+                        this.dealer.email,
+                        this.dealer.urlImage
+                      )
+                      .then(() => {
+                        this.router
+                          .navigate(['dealers/list'])
+                          .then(async () => {
+                            const toast = await this.utilService.createToast(
+                              'Dealer eliminado...'
+                            );
+                            toast.present();
+                          });
                       });
-                    this.router.navigate(['dealers/list']);
                   },
                 },
               ],

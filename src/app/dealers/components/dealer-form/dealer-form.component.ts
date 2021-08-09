@@ -140,7 +140,10 @@ export class DealerFormComponent implements OnInit {
       name: [this.dealer ? this.dealer.name : '', [Validators.required]],
       company: [this.dealer ? this.dealer.company : '', [Validators.required]],
       email: [
-        this.dealer ? this.dealer.email : '',
+        {
+          value: this.dealer ? this.dealer.email : '',
+          disabled: this.isEditing(),
+        },
         [Validators.required, Validators.pattern(this.emailPattern)],
         [this.validationsDealer],
       ],
@@ -169,5 +172,9 @@ export class DealerFormComponent implements OnInit {
       p,
       [Validators.required, Validators.pattern(this.phonePattern)],
     ]);
+  }
+
+  private isEditing() {
+    return this.dealer !== undefined;
   }
 }
