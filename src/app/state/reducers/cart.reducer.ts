@@ -15,22 +15,22 @@ export interface CartState {
 }
 
 export const initialCartState: CartState = {
-  products: [
-    {
-      id: '-Mg_sdHy_ZqNWLZjw3kO',
-      cant: 1,
-      images: [
-        {
-          id: '-Mg_se4WWLeFz7c8aHSc',
-          url: 'https://firebasestorage.googleapis.com/v0/b/storeapp-9941c.appspot.com/o/products%2F1628428214800_1628428214800-no-name?alt=media&token=d19423cb-33ff-4633-abbf-211db495c4ef',
-        },
-      ],
-      name: 'Cerveza Rinkuskiai',
-      price: 10,
-      subtotal: 10,
-    },
-  ],
-  // products: [],
+  // products: [
+  //   {
+  //     id: '-Mg_sdHy_ZqNWLZjw3kO',
+  //     cant: 1,
+  //     images: [
+  //       {
+  //         id: '-Mg_se4WWLeFz7c8aHSc',
+  //         url: 'https://firebasestorage.googleapis.com/v0/b/storeapp-9941c.appspot.com/o/products%2F1628428214800_1628428214800-no-name?alt=media&token=d19423cb-33ff-4633-abbf-211db495c4ef',
+  //       },
+  //     ],
+  //     name: 'Cerveza Rinkuskiai',
+  //     price: 10,
+  //     subtotal: 10,
+  //   },
+  // ],
+  products: [],
   total: 10,
   cant: 1,
 };
