@@ -11,7 +11,6 @@ import { DealerService } from '../../services/dealer.service';
   styleUrls: ['./dealers-list.component.scss'],
 })
 export class DealersListComponent implements OnInit {
-  // dealers: Observable<any>;
   dealers: any[];
   dealersData: Dealer[];
 
@@ -26,11 +25,9 @@ export class DealersListComponent implements OnInit {
 
   ngOnInit() {
     this.dealers = [];
-    this.ds.getAll().
-      subscribe(data => {
-        this.dealers = data;
-        console.log(this.dealers);
-      });
+    this.ds.getAll().subscribe((data) => {
+      this.dealers = data;
+    });
   }
 
   async remove(id: string, urlImage: string) {
@@ -41,17 +38,18 @@ export class DealersListComponent implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary'
+          cssClass: 'secondary',
         },
         {
           text: 'Si Eliminar',
           handler: () => {
-            this.ds.deleteDealer(id, urlImage)
-              .then(data => {console.log('deleted', data);});
-              this.router.navigate(['dealers/list']);
-          }
-        }
-      ]
+            this.ds.deleteDealer(id, urlImage).then((data) => {
+              console.log('deleted', data);
+            });
+            this.router.navigate(['dealers/list']);
+          },
+        },
+      ],
     });
     await alert.present();
   }

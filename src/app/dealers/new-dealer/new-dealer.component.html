@@ -1,28 +1,28 @@
-<ion-header>
+<ion-content>
   <ion-toolbar>
-    <ion-title>Distribuidor</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="dealers"></ion-back-button>
+    <ion-buttons slot="start" mode="ios">
+      <ion-back-button defaultHref="dealers" text=""></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <div class="content">
     <div class="all-row">
       <ion-text color="primary">
-        <h3>Nuevo Delivery</h3>
+        <h3 class="subtitle">Nuevo Delivery</h3>
       </ion-text>
       <!-- <div class="img-container"> -->
-        <img class="img-dealer" [src]="profileURL | async" *ngIf="!dealerUrlImage"/>
-        <img class="img-dealer" [src]="dealerUrlImage" *ngIf="dealerUrlImage"/>
+      <img
+        class="img-dealer"
+        [src]="profileURL | async"
+        *ngIf="!dealerUrlImage"
+      />
+      <img class="img-dealer" [src]="dealerUrlImage" *ngIf="dealerUrlImage" />
       <!-- </div> -->
       <div class="buttons_form_container">
         <ion-button shape="round" (click)="takePicture()">
           <ion-icon slot="start" name="camera"></ion-icon>
           <ion-label>Camara</ion-label>
         </ion-button>
-        <ion-button shape="round" color="tertiary">
+        <ion-button fill="outline">
           <ion-icon slot="start" name="image"></ion-icon>
           <ion-label>Galeria</ion-label>
         </ion-button>
@@ -30,9 +30,16 @@
       <form [formGroup]="form">
         <ion-item>
           <ion-label color="primary" position="floating">Nombre</ion-label>
-          <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+          <ion-input
+            type="text"
+            placeholder="Nombre"
+            formControlName="name"
+          ></ion-input>
         </ion-item>
-        <div class="err-msg" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div
+          class="err-msg"
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+        >
           <ion-text *ngIf="name.hasError('required')" color="danger">
             <p>El campo es requerido</p>
           </ion-text>
@@ -42,9 +49,16 @@
         </div>
         <ion-item>
           <ion-label color="primary" position="floating">Empresa</ion-label>
-          <ion-input type="text" placeholder="Empresa" formControlName="company"></ion-input>
+          <ion-input
+            type="text"
+            placeholder="Empresa"
+            formControlName="company"
+          ></ion-input>
         </ion-item>
-        <div class="err-msg" *ngIf="company.invalid && (company.dirty || company.touched)">
+        <div
+          class="err-msg"
+          *ngIf="company.invalid && (company.dirty || company.touched)"
+        >
           <ion-text *ngIf="company.hasError('required')" color="danger">
             <p>El campo es requerido</p>
           </ion-text>
@@ -52,9 +66,16 @@
 
         <ion-item>
           <ion-label color="primary" position="floating">Email</ion-label>
-          <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+          <ion-input
+            type="text"
+            placeholder="Email"
+            formControlName="email"
+          ></ion-input>
         </ion-item>
-        <div class="err-msg" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div
+          class="err-msg"
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+        >
           <ion-text *ngIf="email.hasError('required')" color="danger">
             <p>El campo es requerido</p>
           </ion-text>
@@ -76,33 +97,38 @@
             <div class="num-container">
               <ion-item>
                 <ion-label>Numero</ion-label>
-                <ion-input placeholder="numero" type="number" [formControlName]="i"></ion-input>
+                <ion-input
+                  placeholder="numero"
+                  type="number"
+                  [formControlName]="i"
+                ></ion-input>
               </ion-item>
               <ion-button (click)="removePhone(i)" *ngIf="i !== 0">
                 <ion-icon name="close-circle-outline" size="large"></ion-icon>
               </ion-button>
             </div>
-
           </ng-container>
 
           <ion-button (click)="addPhone()" [disabled]="phones.invalid">
             Agregar Numero
           </ion-button>
-
         </div>
         <br />
         <div class="buttons_form_container">
-          <ion-button color="primary" (click)="submitForm()" routerLink="../list" [disabled]="form.invalid">Guardar
+          <ion-button
+            (click)="submitForm()"
+            routerLink="../list"
+            [disabled]="form.invalid"
+            >Guardar
           </ion-button>
           <!-- <ion-button color="primary" (click)="submitForm()" [disabled]="form.invalid">Guardar
           </ion-button> -->
-          <ion-button color="primary" (click)=test()>Cancelar</ion-button>
+          <ion-button color="primary" (click)="test()" fill="outline"
+            >Cancelar</ion-button
+          >
         </div>
-
       </form>
       <!-- <p>{{form.value | json}}</p> -->
     </div>
-
   </div>
-
 </ion-content>
