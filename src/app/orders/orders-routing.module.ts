@@ -4,6 +4,7 @@ import { OrderNewGuard } from '../guards/order-new.guard';
 import { OrdersComponent } from './orders.component';
 import { OrderNewComponent } from './pages/order-new/order-new.component';
 import { OrderOptionsComponent } from './pages/order-options/order-options.component';
+import { OrderPageChatComponent } from './pages/order-page-chat/order-page-chat.component';
 import { OrderComponent } from './pages/order/order.component';
 import { OrderlistComponent } from './pages/orderlist/orderlist.component';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'list', component: OrderlistComponent },
       { path: ':id', component: OrderComponent },
       { path: 'options/:id', component: OrderOptionsComponent },
+      { path: 'chat/:id', component: OrderPageChatComponent },
       { path: '', redirectTo: 'list' },
     ],
   },

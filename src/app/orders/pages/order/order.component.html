@@ -6,7 +6,18 @@
           <ion-buttons slot="start" mode="ios">
             <ion-back-button defaultHref="orders" text=""></ion-back-button>
           </ion-buttons>
-          <ion-buttons slot="end" *ngIf="order && isNewOrProgress">
+
+          <ion-buttons slot="end" *ngIf="order">
+            <ion-button routerLink="../chat/{{ order.id }}">
+              <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
+              Chat
+            </ion-button>
+          </ion-buttons>
+
+          <ion-buttons
+            slot="end"
+            *ngIf="order && isNewOrProgress && authService.isAdmin"
+          >
             <ion-button routerLink="../options/{{ order.id }}">
               <ion-icon slot="start" name="options-outline"></ion-icon>
               Opciones

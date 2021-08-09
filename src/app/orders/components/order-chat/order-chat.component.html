@@ -1,4 +1,13 @@
 <div class="messages_container">
+  <ion-toolbar>
+    <ion-buttons slot="start" mode="ios">
+      <ion-back-button
+        defaultHref="/orders/{{ orderId }}"
+        text=""
+        *ngIf="orderId"
+      ></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
   <div class="loading_box" *ngIf="messages.length == 0">
     <ion-spinner name="bubbles"></ion-spinner>
   </div>
@@ -19,6 +28,7 @@
       placeholder="Escribe tu mensaje"
       [formControl]="newMessage"
       (keyup.enter)="sendMessage()"
+      #inputId
     ></ion-input>
     <ion-button shape="round" (click)="sendMessage()" [disabled]="isLoading">
       <ion-icon slot="icon-only" name="send-outline"></ion-icon>

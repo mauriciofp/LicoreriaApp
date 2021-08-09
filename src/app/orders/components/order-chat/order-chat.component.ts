@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { IonInput } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -27,6 +28,8 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   orderId: string;
 
   @ViewChild('messagesBox') private messagesBox: ElementRef;
+
+  @ViewChild('inputId', { static: false }) inputElement: IonInput;
 
   messages: Message[] = [];
 
@@ -62,6 +65,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+    this.inputElement.setFocus();
   }
 
   ngOnDestroy() {
