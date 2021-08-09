@@ -1,4 +1,4 @@
-<ion-content *ngIf="product">
+<!-- <ion-content *ngIf="product">
   <ion-toolbar>
     <ion-buttons slot="start" mode="ios">
       <ion-back-button
@@ -16,7 +16,6 @@
   </ion-toolbar>
   <div class="card">
     <div class="image">
-      <!-- <ion-img [src]="product.images[0].url"></ion-img> -->
       <ion-slides [options]="imgSlideOpts" pager="true" scrollbar="tr">
         <ion-slide *ngFor="let img of product.images">
           <ion-img [src]="img.url"></ion-img>
@@ -42,4 +41,53 @@
       Agregar al carrito
     </ion-button>
   </div>
+</ion-content> -->
+
+<ion-content *ngIf="product">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="8">
+        <ion-toolbar>
+          <ion-buttons slot="start" mode="ios">
+            <ion-back-button defaultHref="/home" text=""></ion-back-button>
+          </ion-buttons>
+          <ion-buttons slot="end" routerLink="/cart">
+            <ion-icon slot="end" name="cart-outline"></ion-icon>
+            <ion-badge mode="md" *ngIf="cant">
+              {{ cant }}
+            </ion-badge>
+          </ion-buttons>
+        </ion-toolbar>
+        <div class="product_container">
+          <div class="product_images">
+            <ion-slides mode="md" pager="md" scrollbar="md">
+              <ion-slide *ngFor="let img of product.images">
+                <div class="image_container">
+                  <div class="box_loading" *ngIf="imgLoading">
+                    <ion-spinner name="circular"></ion-spinner>
+                  </div>
+                  <ion-img
+                    [src]="img.url"
+                    (ionImgDidLoad)="imgLoading = false"
+                  ></ion-img>
+                </div>
+              </ion-slide>
+            </ion-slides>
+          </div>
+
+          <div class="text_container">
+            <p>{{ product.name }}</p>
+            <p>{{ product.price | number: "1.2" }} Bs.</p>
+            <p>{{ product.description }}</p>
+          </div>
+
+          <div class="buttons_container">
+            <ion-button (click)="addProductToCart()" expand="block">
+              Agregar al carrito
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

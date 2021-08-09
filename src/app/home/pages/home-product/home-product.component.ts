@@ -25,6 +25,8 @@ export class HomeProductComponent implements OnInit, OnDestroy {
   cant: number;
   cantSubs: Subscription;
 
+  imgLoading = true;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
