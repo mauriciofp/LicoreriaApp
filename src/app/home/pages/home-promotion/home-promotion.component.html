@@ -28,15 +28,15 @@
 
           <div class="text_container">
             <p>{{ promotion.name }}</p>
-            <p>{{ promotion.price | number: "1.2" }} Bs.</p>
             <p>{{ promotion.description }}</p>
+            <p>{{ promotion.price | number: "1.2" }} Bs.</p>
           </div>
+        </div>
 
-          <div class="buttons_container">
-            <ion-button (click)="addToCart()" expand="block">
-              Agregar al carrito
-            </ion-button>
-          </div>
+        <div class="buttons_container">
+          <ion-button (click)="addToCart()" expand="block">
+            Agregar al carrito
+          </ion-button>
         </div>
       </ion-col>
     </ion-row>

@@ -29,9 +29,12 @@
               >
                 <ion-item-sliding>
                   <ion-item routerLink="../{{ dealer.id }}">
-                    <ion-avatar slot="start" *ngIf="dealer.urlImage">
+                    <!-- <ion-avatar slot="start" *ngIf="dealer.urlImage">
                       <img [src]="dealer.urlImage" />
-                    </ion-avatar>
+                    </ion-avatar> -->
+                    <div class="img_avatar">
+                      <img [src]="dealer.urlImage" />
+                    </div>
                     <ion-label class="ion-text-wrap">
                       <p>Delivery: {{ dealer.name }}</p>
                       <p>Empresa: {{ dealer.company }}</p>

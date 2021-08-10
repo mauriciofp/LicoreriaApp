@@ -17,7 +17,7 @@
         </ion-toolbar>
         <div class="product_container">
           <div class="product_images">
-            <div class="image_container boder_radius">
+            <div>
               <div class="box_loading" *ngIf="imgLoading">
                 <ion-spinner name="circles"></ion-spinner>
               </div>
@@ -30,8 +30,8 @@
 
           <div class="text_container">
             <p>{{ promotion.name }}</p>
-            <p>{{ promotion.price | number: "1.2" }} Bs.</p>
             <p>{{ promotion.description }}</p>
+            <p>{{ promotion.price | number: "1.2" }} Bs.</p>
           </div>
         </div>
       </ion-col>

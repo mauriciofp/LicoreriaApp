@@ -45,14 +45,18 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  opacity: 0.5;
-  --border-radius: 50%;
+  --background: white;
   height: 3rem;
   width: 3rem;
+  --border-radius: 50%;
   --padding-bottom: 0px;
   --padding-end: 0px;
   --padding-start: 0px;
   --padding-top: 0px;
+  ion-icon {
+    color: #2c344b;
+    font-size: 2.5rem;
+  }
 }
 
 .image_container {
@@ -83,6 +87,7 @@ ion-toolbar {
   ion-icon {
     color: #2c344b;
     font-size: 16px;
+    font-weight: 600;
   }
 
   ion-menu-button {
@@ -116,4 +121,24 @@ ion-toolbar {
 
 ion-badge {
   --background: #2c344b;
+}
+
+.img_avatar {
+  margin-right: 0.5rem;
+  height: 40px;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  ion-img {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+  }
+  img {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+  }
 }

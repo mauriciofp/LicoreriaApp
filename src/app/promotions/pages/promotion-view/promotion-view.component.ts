@@ -42,7 +42,6 @@ export class PromotionViewComponent implements OnInit, OnDestroy {
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Esta Promocion',
       buttons: [
         {
           text: 'Eliminar',

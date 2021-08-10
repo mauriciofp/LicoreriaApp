@@ -19,9 +19,12 @@
               <ion-col size="12" size-md="6" *ngFor="let product of products">
                 <ion-item-sliding>
                   <ion-item routerLink="../{{ product.id }}" detail>
-                    <ion-avatar slot="start" *ngIf="product.images.length > 0">
+                    <!-- <ion-avatar slot="start" *ngIf="product.images.length > 0">
                       <img [src]="product.images[0].url" />
-                    </ion-avatar>
+                    </ion-avatar> -->
+                    <div class="img_avatar">
+                      <img [src]="product.images[0].url" />
+                    </div>
                     <ion-label class="ion-text-wrap">
                       <p>{{ product.name }}</p>
                       <p>{{ product.description }}</p>

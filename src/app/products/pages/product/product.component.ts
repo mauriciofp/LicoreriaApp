@@ -45,7 +45,6 @@ export class ProductComponent implements OnInit {
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Este producto',
       buttons: [
         {
           text: 'Eliminar',

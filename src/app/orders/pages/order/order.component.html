@@ -9,8 +9,7 @@
 
           <ion-buttons slot="end" *ngIf="order">
             <ion-button routerLink="../chat/{{ order.id }}">
-              <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
-              Chat
+              <ion-icon slot="icon-only" name="chatbubbles-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
 
@@ -19,11 +18,15 @@
             *ngIf="order && isNewOrProgress && authService.isAdmin"
           >
             <ion-button routerLink="../options/{{ order.id }}">
-              <ion-icon slot="start" name="options-outline"></ion-icon>
-              Opciones
+              <ion-icon
+                slot="icon-only"
+                name="notifications-outline"
+              ></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
+
+        <h1 class="subtitle">Detalle de la orden</h1>
 
         <app-order-map [location]="order.location"></app-order-map>
         <div class="description">
@@ -36,16 +39,16 @@
           <p>{{ order.total | currency: "Bs. " }}</p>
         </div>
 
-        <ion-button
-          (click)="setCompleted()"
-          color="danger"
-          *ngIf="authService.isAdmin && isNewOrProgress && !isLoading"
-          shape="round"
-          expand="block"
-        >
-          <ion-icon slot="start" name="trash-outline"></ion-icon>
-          Finalizar Pedido
-        </ion-button>
+        <div class="danger_custom">
+          <ion-button
+            (click)="setCompleted()"
+            *ngIf="authService.isAdmin && isNewOrProgress && !isLoading"
+            expand="block"
+          >
+            <ion-icon slot="start" name="trash-outline"></ion-icon>
+            Finalizar Pedido
+          </ion-button>
+        </div>
 
         <ion-button
           (click)="setNew()"

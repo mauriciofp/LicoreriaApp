@@ -77,15 +77,14 @@
 
           <div class="text_container">
             <p>{{ product.name }}</p>
-            <p>{{ product.price | number: "1.2" }} Bs.</p>
             <p>{{ product.description }}</p>
+            <p>{{ product.price | number: "1.2" }} Bs.</p>
           </div>
-
-          <div class="buttons_container">
-            <ion-button (click)="addProductToCart()" expand="block">
-              Agregar al carrito
-            </ion-button>
-          </div>
+        </div>
+        <div class="buttons_container">
+          <ion-button (click)="addProductToCart()" expand="block">
+            Agregar al carrito
+          </ion-button>
         </div>
       </ion-col>
     </ion-row>
