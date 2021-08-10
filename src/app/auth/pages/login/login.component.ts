@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.store.dispatch(stopLoading());
         this.loginForm.reset();
         this.router.navigate(['home']).then(async () => {
-          const toast = await this.utilService.createToast('Bienvendio');
+          const toast = await this.utilService.createToast('¡Bienvenido!');
           toast.present();
         });
       })
