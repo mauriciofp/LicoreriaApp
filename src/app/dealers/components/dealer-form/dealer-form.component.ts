@@ -28,6 +28,8 @@ export class DealerFormComponent implements OnInit {
   dealerForm: FormGroup;
   newPhone: FormControl;
 
+  isLoading = false;
+
   get phones() {
     return this.dealerForm.get('phones') as FormArray;
   }
@@ -57,6 +59,7 @@ export class DealerFormComponent implements OnInit {
       this.dealerForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
     const blobImage = await this.createBlobImage();
     const { image, ...rest } = this.dealerForm.value;
 
@@ -64,6 +67,7 @@ export class DealerFormComponent implements OnInit {
       this.dealerService
         .edit(this.dealerId, rest, this.dealer.urlImage, blobImage)
         .then(() => {
+          this.isLoading = false;
           this.router.navigate(['/dealers']).then(async () => {
             const toast = await this.utilService.createToast(
               'Dealer Actualizado!'
@@ -72,6 +76,7 @@ export class DealerFormComponent implements OnInit {
           });
         })
         .catch(async (err) => {
+          this.isLoading = false;
           const alert = await this.utilService.createAlert(err.message);
           alert.present();
         });
@@ -81,11 +86,13 @@ export class DealerFormComponent implements OnInit {
         .then(() => {
           this.router.navigate(['/dealers']).then(async () => {
             this.dealerForm.reset();
+            this.isLoading = false;
             const toast = await this.utilService.createToast('Dealer creado!');
             toast.present();
           });
         })
         .catch(async (err) => {
+          this.isLoading = false;
           const alert = await this.utilService.createAlert(err.message);
           alert.present();
         });
