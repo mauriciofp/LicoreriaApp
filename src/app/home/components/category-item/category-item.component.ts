@@ -12,6 +12,6 @@ export class CategoryItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.img = `assets/categories/${this.category.toLocaleLowerCase()}.png`;
+    this.img = `assets/categories/${this.category.toLocaleLowerCase()}.jpg`;
   }
 }

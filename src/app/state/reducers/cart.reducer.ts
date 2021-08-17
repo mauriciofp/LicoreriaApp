@@ -31,8 +31,8 @@ export const initialCartState: CartState = {
   //   },
   // ],
   products: [],
-  total: 10,
-  cant: 1,
+  total: 0,
+  cant: 0,
 };
 
 const _cartReducer = createReducer(
