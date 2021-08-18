@@ -66,14 +66,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.store.dispatch(stopLoading());
         this.registerForm.reset();
         this.router.navigate(['home']).then(async () => {
-          const toast = await this.utilService.createToast('Bienvenido');
+          const toast = await this.utilService.createToast('¡Bienvenido!');
           toast.present();
         });
       })
       .catch(async (err) => {
         this.registerForm.get('password').reset();
         this.store.dispatch(stopLoading());
-        const alert = await this.utilService.createAlert(err.message);
+        const alert = await this.utilService.createAlert(
+          'Correo electronico ya registrado!'
+        );
         alert.present();
       });
   }

@@ -70,7 +70,7 @@ export class OrderService {
   }
 
   createOrder(
-    { street1, street2, street3, description },
+    { street1, street2, street3, description, phone },
     { lng, lat },
     products: ProductCart[],
     total: number,
@@ -86,6 +86,7 @@ export class OrderService {
         street2,
         street3,
         description,
+        phone,
         location: { lng, lat },
         products,
         total,

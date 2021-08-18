@@ -9,6 +9,7 @@ export interface Order {
   street2: string;
   street3: string;
   total: number;
+  phone: string;
   user: User;
   userId: string;
   state: OrderState;

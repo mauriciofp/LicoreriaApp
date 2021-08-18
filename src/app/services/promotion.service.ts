@@ -85,6 +85,18 @@ export class PromotionService {
       );
   }
 
+  getAll() {
+    return this.db
+      .list(this.promotionRoot)
+      .snapshotChanges()
+      .pipe(
+        map((res: any[]) =>
+          res.map((r) => ({ id: r.key, ...r.payload.val() }))
+        ),
+        map((res: any[]) => res.map((r) => Promotion.fromFirebase(r)))
+      );
+  }
+
   getOne(id: string) {
     return this.db
       .object(`${this.promotionRoot}/${id}`)

@@ -20,6 +20,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
   cant: number;
   cantSubs: Subscription;
 
+  searchText = '';
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,

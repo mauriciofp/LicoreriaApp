@@ -20,3 +20,12 @@
   font-size: 1.3rem;
   font-weight: 700;
 }
+
+.total {
+  display: flex;
+  justify-content: space-around;
+  p {
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+}

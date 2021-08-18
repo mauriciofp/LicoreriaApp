@@ -14,7 +14,14 @@
           </ion-buttons>
         </ion-toolbar>
         <h2 class="subtitle">Categoria: {{ category }}</h2>
-        <app-item-list [products]="products"></app-item-list>
+        <ion-searchbar
+          placeholder="Buscar..."
+          showCancelButton="never"
+          [(ngModel)]="searchText"
+        ></ion-searchbar>
+        <app-item-list
+          [products]="products | filterCategories: searchText"
+        ></app-item-list>
       </ion-col>
     </ion-row>
   </ion-grid>

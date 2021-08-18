@@ -22,7 +22,7 @@ export class PromotionListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.promotionSubs = this.promotionService
-      .getAvailable()
+      .getAll()
       .subscribe((promotions) => (this.promotions = promotions));
   }
 

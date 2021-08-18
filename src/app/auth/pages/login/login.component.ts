@@ -67,7 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       .catch(async (err) => {
         this.loginForm.get('password').reset();
         this.store.dispatch(stopLoading());
-        const alert = await this.utilService.createAlert(err.message);
+        const alert = await this.utilService.createAlert(
+          'Credenciales incorrectas'
+        );
         alert.present();
       });
   }
@@ -79,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         // this.store.dispatch(stopLoading());
         this.loginForm.reset();
         this.router.navigate(['home']).then(async () => {
-          const toast = await this.utilService.createToast('Bienvendio');
+          const toast = await this.utilService.createToast('¡Bienvenido!');
           toast.present();
         });
       })

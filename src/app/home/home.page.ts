@@ -17,10 +17,6 @@ import { Promotion } from '../models/promotion';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit, OnDestroy {
-  productsSlideOpts = {
-    slidesPerView: 2.1,
-  };
-
   categoriesSlideOpts = {
     slidesPerView: 2.3,
     spaceBetween: 8,
@@ -63,6 +59,7 @@ export class HomePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.shuffle(this.categories);
     this.productsSubs = this.productService
       .getProductForHome()
       .subscribe((res) => (this.products = res));
@@ -80,5 +77,19 @@ export class HomePage implements OnInit, OnDestroy {
     this.cartSubs?.unsubscribe();
     this.productsSubs?.unsubscribe();
     this.promotionsSubs?.unsubscribe();
+  }
+
+  private shuffle(array: any[]) {
+    let currentIndex = array.length;
+
+    while (currentIndex != 0) {
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
   }
 }

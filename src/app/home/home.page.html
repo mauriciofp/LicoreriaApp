@@ -19,17 +19,9 @@
           </ion-buttons>
         </ion-toolbar>
 
-        <div>
+        <div *ngIf="promotions.length">
           <h2 class="subtitle">Promociones</h2>
-          <div class="loading-promotion-box" *ngIf="promotions.length === 0">
-            <ion-spinner name="crescent"></ion-spinner>
-          </div>
-          <ion-slides
-            mode="md"
-            pager="md"
-            [options]="promotionsSlideOpts"
-            *ngIf="promotions.length"
-          >
+          <ion-slides mode="md" pager="md" [options]="promotionsSlideOpts">
             <ion-slide *ngFor="let promotion of promotions">
               <app-promotion-item [promotion]="promotion"></app-promotion-item>
             </ion-slide>
